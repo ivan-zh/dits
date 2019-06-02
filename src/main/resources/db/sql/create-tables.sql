@@ -1,91 +1,90 @@
-
-create table role
+create table `role`
 (
-    roleid int not null,
-    user   binary,
-    tutor  binary,
-    admin  binary,
-    primary key (roleid)
+    `roleid` int not null,
+    `user`   binary,
+    `tutor`  binary,
+    `admin`  binary,
+    primary key (`roleid`)
 );
 
-create table user
+create table `user`
 (
-    userid    int not null auto_increment,
-    firstName varchar(255),
-    lastName  varchar(255),
-    login     varchar(255),
-    password  int,
-    roleid    int not null,
-    primary key (userid),
-    foreign key (roleid) REFERENCES role (roleid)
-
-);
-
-create table topic
-(
-    topicid     int not null auto_increment,
-    description varchar(231),
-    name        varchar(231),
-    primary key (topicid)
-);
-
-create table test
-(
-    testid      int not null auto_increment,
-    name        varchar(231),
-    description varchar(231),
-    topicid     int not null,
-    primary key (testid),
-    foreign key (topicid) references topic (topicid)
-);
-
-create table question
-(
-    questionid  int not null auto_increment,
-    description varchar(231),
-    testid      int not null,
-    primary key (questionid),
-    foreign key (testid) references test (testid)
+    `userid`    int not null auto_increment,
+    `firstName` varchar(255),
+    `lastName`  varchar(255),
+    `login`     varchar(255),
+    `password`  int,
+    `roleid`    int not null,
+    primary key (`userid`),
+    foreign key (`roleid`) REFERENCES `role` (`roleid`)
 
 );
 
-create table answer
+create table `topic`
 (
-    answerid int not null auto_increment,
-    description varchar(231),
-    correct     boolean,
-    questionid  int,
-    primary key (answerid),
-    foreign key (questionid) references question (questionid)
+    `topicid`     int not null auto_increment,
+    `description` varchar(231),
+    `name`        varchar(231),
+    primary key (`topicid`)
+);
+
+create table `test`
+(
+    `testid`      int not null auto_increment,
+    `name`        varchar(231),
+    `description` varchar(231),
+    `topicid`     int not null,
+    primary key (`testid`),
+    foreign key (`topicid`) references `topic` (`topicid`)
+);
+
+create table `question`
+(
+    `questionid`  int not null auto_increment,
+    `description` varchar(231),
+    `testid`      int not null,
+    primary key (`questionid`),
+    foreign key (`testid`) references test (`testid`)
+
+);
+
+create table `answer`
+(
+    `answerid`    int not null auto_increment,
+    `description` varchar(231),
+    `correct`     boolean,
+    `questionid`  int,
+    primary key (`answerid`),
+    foreign key (`questionid`) references `question` (`questionid`)
 );
 
 
-create table statistic
+create table `statistic`
 (
-    statisticid int not null auto_increment,
-    `date`      date,
-    correct     boolean,
-    questionid  int,
-    userid      int,
-    primary key (statisticid),
-    foreign key (questionid) references question (questionid),
-    foreign key (userid) references user (userid)
+    `statisticid` int not null auto_increment,
+    `date`        date,
+    `correct`     boolean,
+    `questionid`  int,
+    `userid`      int,
+    primary key (`statisticid`),
+    foreign key (`questionid`) references `question` (`questionid`),
+    foreign key (`userid`) references `user` (`userid`)
 );
 
-create table literature
+create table `literature`
 (
-    literatureid int not null auto_increment,
-    description  varchar(231),
-    questionid   int,
-    primary key (literatureid),
-    foreign key (questionid) references question (questionid)
+    `literatureid` int not null auto_increment,
+    `description`  varchar(231),
+    `questionid`   int,
+    primary key (`literatureid`),
+    foreign key (`questionid`) references `question` (`questionid`)
 );
 
-create table link
+create table `link`
 (
-    linkid int not null auto_increment,
-    link varchar(231),
-    literatureid int,
-    primary key (linkid),
-    foreign key (literatureid) references literature(literatureid)
+    `linkid`       int not null auto_increment,
+    `link`         varchar(231),
+    `literatureid` int,
+    primary key (`linkid`),
+    foreign key (`literatureid`) references `literature` (`literatureid`)
 );

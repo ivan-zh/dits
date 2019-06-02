@@ -1,2 +1,2 @@
-CREATE database ditsdb;
-use ditsdb;
+CREATE database `ditsdb`;
+use `ditsdb`;
