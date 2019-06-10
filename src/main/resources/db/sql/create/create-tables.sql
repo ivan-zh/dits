@@ -1,9 +1,9 @@
 create table `role`
 (
-    `roleid` int not null,
-    `user`   binary,
-    `tutor`  binary,
-    `admin`  binary,
+    `roleid` int not null auto_increment,
+    `user`   binary(255),
+    `tutor`  binary(255),
+    `admin`  binary(255),
     primary key (`roleid`)
 );
 
