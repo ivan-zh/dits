@@ -8,10 +8,10 @@ values ('1');
 
 
 -- Table `user`
-insert into user (`firstName`, `lastName`, `login`, `password`, `roleid`)
+insert into user (`firstname`, `lastname`, `login`, `password`, `roleid`)
 VALUES ('Ivan', 'Zhukouski', 'admin', 1, 1);
 
-insert into user (`firstName`, `lastName`, `login`, `password`, `roleid`)
+insert into user (`firstname`, `lastname`, `login`, `password`, `roleid`)
 VALUES ('Alexey', 'Katomakhin', 'alex', 1, 2);
 
 

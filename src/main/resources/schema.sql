@@ -10,8 +10,8 @@ create table `role`
 create table `user`
 (
     `userid`    int not null auto_increment,
-    `firstName` varchar(255),
-    `lastName`  varchar(255),
+    `firstname` varchar(255),
+    `lastname`  varchar(255),
     `login`     varchar(255),
     `password`  int,
     `roleid`    int not null,
