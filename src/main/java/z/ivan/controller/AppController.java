@@ -26,8 +26,21 @@ public class AppController {
 
     @GetMapping(value = "/")
     public String root(Model model) {
-        model.addAttribute("login", "admin_R");
+        model.addAttribute("loginname", "admin");
         return "main";
+    }
+
+    @PostMapping(value = "/login")
+    public String loginController
+            (
+                    @RequestParam("loginname") String loginName,
+                    @RequestParam("password") String password,
+                    ModelMap modelMap
+            ) {
+        User user = userDao.getByLogin(loginName);
+        String greetName = user.getFirstName().concat(" ").concat(user.getLastName());
+        modelMap.addAttribute("greetname", greetName);
+        return "requests";
     }
 
     @GetMapping(value = "/requests")

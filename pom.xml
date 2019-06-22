@@ -102,14 +102,6 @@
                     <warSourceDirectory>${project.build.directory}/${project.build.finalName}</warSourceDirectory>
                 </configuration>
             </plugin>
-            <!--            <plugin>-->
-            <!--                <groupId>org.apache.maven.plugins</groupId>-->
-            <!--                <artifactId>maven-war-plugin</artifactId>-->
-            <!--                <version>3.2.2</version>-->
-            <!--                <configuration>-->
-
-            <!--                </configuration>-->
-            <!--            </plugin>-->
         </plugins>
     </build>
 

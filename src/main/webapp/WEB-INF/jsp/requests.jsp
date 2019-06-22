@@ -8,6 +8,9 @@
 
 <body>
 
+<h3>Hello, ${greetname}!</h3>
+<br>
+
 <h3>Get user by id</h3>
 <form method = "get" action = "/findbyid" >
     <input name="id" type="text" />

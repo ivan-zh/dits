@@ -11,7 +11,7 @@
         <td><img src="../../resources/images/human1.png"></td>
         <td>
             <form action="login" method="post">
-                <b>Login:</b> <input name="login" value=${login} type="text">
+                <b>Login:</b> <input name="loginname" value=${loginname} type="text">
                 <br>
                 <b>Pass: </b> <input name="password" value="" type="password">
                 <br>
