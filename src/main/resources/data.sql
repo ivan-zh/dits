@@ -1,11 +1,7 @@
 -- Table `role`
-insert into role (`admin`)
-values ('1');
-insert into role (`tutor`)
-values ('1');
-insert into role (`user`)
-values ('1');
-
+insert into role (`admin`) values (1);
+insert into role (`tutor`) values (1);
+insert into role (`user`) values (1);
 
 -- Table `user`
 insert into user (`firstname`, `lastname`, `login`, `password`, `roleid`)
