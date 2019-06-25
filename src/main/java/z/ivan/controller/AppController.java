@@ -27,7 +27,7 @@ public class AppController {
     @GetMapping(value = "/")
     public String root(Model model) {
         model.addAttribute("loginname", "admin");
-        return "main";
+        return "loginpage";
     }
 
     @PostMapping(value = "/login")
@@ -40,7 +40,12 @@ public class AppController {
         User user = userDao.getByLogin(loginName);
         String greetName = user.getFirstName().concat(" ").concat(user.getLastName());
         modelMap.addAttribute("greetname", greetName);
-        return "requests";
+
+        if (user.getRoleId() == 1) {
+            return "adminUI/admin_main";
+        } else {
+            return "requests";
+        }
     }
 
     @GetMapping(value = "/requests")
