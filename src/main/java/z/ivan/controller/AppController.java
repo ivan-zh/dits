@@ -4,8 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import z.ivan.dao.TopicDao;
 import z.ivan.dao.UserDao;
+import z.ivan.model.Topic;
 import z.ivan.model.User;
 
 import java.util.Arrays;
@@ -17,12 +21,16 @@ public class AppController {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private TopicDao topicDao;
+
+
     public AppController() {
     }
 
-    public AppController(UserDao userDao) {
-        this.userDao = userDao;
-    }
+//    public AppController(UserDao userDao) {
+//        this.userDao = userDao;
+//    }
 
     @GetMapping(value = "/")
     public String root(Model model) {
@@ -38,10 +46,10 @@ public class AppController {
                     ModelMap modelMap
             ) {
         User user = userDao.getByLogin(loginName);
-        String greetName = user.getFirstName().concat(" ").concat(user.getLastName());
-        modelMap.addAttribute("greetname", greetName);
 
         if (user.getRoleId() == 1) {
+            String greetName = user.getFirstName().concat(" ").concat(user.getLastName());
+            modelMap.addAttribute("greetname", greetName);
             return "adminUI/admin_main";
         } else {
             return "requests";
@@ -53,8 +61,8 @@ public class AppController {
         return "requests";
     }
 
-    @GetMapping(value = "/findbyid")
-    public String findById(@RequestParam("id") Long id, ModelMap modelMap) {
+    @GetMapping(value = "/finduserbyid")
+    public String findUserById(@RequestParam("id") Long id, ModelMap modelMap) {
         User user = userDao.getById(id);
         System.out.println(user);
         modelMap.addAttribute("users", Arrays.asList(user));
@@ -68,5 +76,19 @@ public class AppController {
         return "allusers";
     }
 
+    @GetMapping(value = "/findtopicbyid")
+    public String findTopicById(@RequestParam("id") Long id, ModelMap modelMap) {
+        Topic topic = topicDao.getById(id);
+        System.out.println(topic);
+        modelMap.addAttribute("topics", Arrays.asList(topic));
+        return "alltopics";
+    }
+
+    @GetMapping(value = "/alltopics")
+    public String allTopics(Model model) {
+        List<Topic> topics = topicDao.getAll();
+        model.addAttribute("topics", topics);
+        return "alltopics";
+    }
 
 }

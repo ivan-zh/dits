@@ -7,23 +7,25 @@
 </head>
 
 <body>
-
-<h3>Hello, ${greetname}!</h3>
-<br>
-
-<h3>Get user by id</h3>
-<form method = "get" action = "/findbyid" >
+<p>Hello, ${greetname}!</p>
+Get user by id
+<form method = "get" action = "/finduserbyid" >
     <input name="id" type="text" />
     <input type="submit" value="Get" />
 </form>
-
-<br>
-
-<h3>Get all users</h3>
-<form method = "get" action = "/allusers" >
+Get topic by id
+<form method = "get" action = "/findtopicbyid" >
+    <input name="id" type="text" />
     <input type="submit" value="Get" />
 </form>
-
+Get all users
+<form method = "get" action = "/allusers" >
+    <input type="submit" value="Get all users" />
+</form>
+Get all topics
+<form method = "get" action = "/alltopics" >
+    <input type="submit" value="Get all topics" />
+</form>
 
 </body>
 </html>

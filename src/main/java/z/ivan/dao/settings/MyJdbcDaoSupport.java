@@ -1,4 +1,4 @@
-package z.ivan.dao;
+package z.ivan.dao.settings;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
