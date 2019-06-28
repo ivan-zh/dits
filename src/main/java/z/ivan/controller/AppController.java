@@ -7,8 +7,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import z.ivan.dao.RoleDao;
 import z.ivan.dao.TopicDao;
 import z.ivan.dao.UserDao;
+import z.ivan.model.Role;
 import z.ivan.model.Topic;
 import z.ivan.model.User;
 
@@ -24,6 +26,8 @@ public class AppController {
     @Autowired
     private TopicDao topicDao;
 
+    @Autowired
+    private RoleDao roleDao;
 
     public AppController() {
     }
@@ -90,5 +94,21 @@ public class AppController {
         model.addAttribute("topics", topics);
         return "alltopics";
     }
+
+    @GetMapping(value = "/findrolebyid")
+    public String findRoleById(@RequestParam("id") Long id, ModelMap modelMap) {
+        Role role = roleDao.getById(id);
+        System.out.println(role);
+        modelMap.addAttribute("roles", Arrays.asList(role));
+        return "allroles";
+    }
+
+    @GetMapping(value = "/allroles")
+    public String allRoles(Model model) {
+        List<Role> roles = roleDao.getAll();
+        model.addAttribute("roles", roles);
+        return "allroles";
+    }
+
 
 }
