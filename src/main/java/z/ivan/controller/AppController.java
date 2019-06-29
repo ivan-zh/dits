@@ -60,6 +60,8 @@ public class AppController {
             String greetName = user.getFirstName().concat(" ").concat(user.getLastName());
             modelMap.addAttribute("greetname", greetName);
             return "adminUI/admin_main";
+        } else if (user.getRoleId() == 2) {
+            return "tutorUI/tutor_main";
         } else {
             return "requests";
         }
