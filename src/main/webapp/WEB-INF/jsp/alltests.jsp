@@ -3,24 +3,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Roles</title>
+    <title>Tests</title>
 </head>
 <body>
 
 <table border="1">
-    <caption>Roles</caption>
+    <caption>Tests</caption>
     <tr>
-        <th>roleId</th>
-        <th>admin</th>
-        <th>tutor</th>
-        <th>user</th>
+        <th>testId</th>
+        <th>name</th>
+        <th>description</th>
+        <th>topicId</th>
     </tr>
-    <c:forEach var="t" items="${roles}">
+    <c:forEach var="t" items="${tests}">
         <tr>
-            <td>${t.roleId}</td>
-            <td>${t.admin}</td>
-            <td>${t.tutor}</td>
-            <td>${t.user}</td>
+            <td>${t.testId}</td>
+            <td>${t.name}</td>
+            <td>${t.description}</td>
+            <td>${t.topicId}</td>
         </tr>
     </c:forEach>
 </table>

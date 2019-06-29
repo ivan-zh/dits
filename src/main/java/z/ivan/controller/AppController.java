@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import z.ivan.dao.RoleDao;
+import z.ivan.dao.TestDao;
 import z.ivan.dao.TopicDao;
 import z.ivan.dao.UserDao;
 import z.ivan.model.Role;
+import z.ivan.model.Test;
 import z.ivan.model.Topic;
 import z.ivan.model.User;
 
@@ -28,6 +30,9 @@ public class AppController {
 
     @Autowired
     private RoleDao roleDao;
+
+    @Autowired
+    private TestDao testDao;
 
     public AppController() {
     }
@@ -68,7 +73,6 @@ public class AppController {
     @GetMapping(value = "/finduserbyid")
     public String findUserById(@RequestParam("id") Long id, ModelMap modelMap) {
         User user = userDao.getById(id);
-        System.out.println(user);
         modelMap.addAttribute("users", Arrays.asList(user));
         return "allusers";
     }
@@ -83,7 +87,6 @@ public class AppController {
     @GetMapping(value = "/findtopicbyid")
     public String findTopicById(@RequestParam("id") Long id, ModelMap modelMap) {
         Topic topic = topicDao.getById(id);
-        System.out.println(topic);
         modelMap.addAttribute("topics", Arrays.asList(topic));
         return "alltopics";
     }
@@ -98,7 +101,6 @@ public class AppController {
     @GetMapping(value = "/findrolebyid")
     public String findRoleById(@RequestParam("id") Long id, ModelMap modelMap) {
         Role role = roleDao.getById(id);
-        System.out.println(role);
         modelMap.addAttribute("roles", Arrays.asList(role));
         return "allroles";
     }
@@ -110,5 +112,24 @@ public class AppController {
         return "allroles";
     }
 
+    @GetMapping(value = "/findtestbyid")
+    public String findTestById(@RequestParam("id") Long id, ModelMap modelMap) {
+        Test test = testDao.getById(id);
+        modelMap.addAttribute("tests", Arrays.asList(test));
+        return "alltests";
+    }
 
+    @GetMapping(value = "/findtestbytopicname")
+    public String findTestByTopicName(@RequestParam("topicname") String topicName, ModelMap modelMap) {
+        List<Test> tests = testDao.getByTopicName(topicName);
+        modelMap.addAttribute("tests", tests);
+        return "alltests";
+    }
+
+    @GetMapping(value = "/alltests")
+    public String allTests(Model model) {
+        List<Test> tests = testDao.getAll();
+        model.addAttribute("tests", tests);
+        return "alltests";
+    }
 }
