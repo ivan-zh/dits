@@ -21,6 +21,7 @@ public class StatisticsDao extends MyJdbcDaoSupport {
     private static final String AVG = "avg";
     private static final String SQL_GET_TEST_STATISTICS = "call ditsdb.test_statistics";
     private static final String SQL_GET_QUESTION_STATISTICS = "call ditsdb.question_statistics";
+    private static final String SQL_GET_USER_STATISTICS = "call ditsdb.user_statistics";
     private static final String FIRST_NAME = "firstname";
     private static final String LAST_NAME = "lastname";
 
@@ -51,7 +52,7 @@ public class StatisticsDao extends MyJdbcDaoSupport {
     public List<UserStatistics> getUserStatistics() {
         List<UserStatistics> userStatistics;
         try {
-            userStatistics = this.getJdbcTemplate().query(SQL_GET_QUESTION_STATISTICS, this::userStatisticsMapRow);
+            userStatistics = this.getJdbcTemplate().query(SQL_GET_USER_STATISTICS, this::userStatisticsMapRow);
         } catch (NullPointerException | DataAccessException e) {
             userStatistics = new ArrayList<>();
         }
@@ -62,7 +63,7 @@ public class StatisticsDao extends MyJdbcDaoSupport {
         UserStatistics userStatistics = new UserStatistics();
         try {
             userStatistics.setFirstName(resultSet.getString(FIRST_NAME));
-            userStatistics.setFirstName(resultSet.getString(LAST_NAME));
+            userStatistics.setLastName(resultSet.getString(LAST_NAME));
             userStatistics.setName(resultSet.getString(NAME));
             userStatistics.setCount(resultSet.getInt(COUNT));
             userStatistics.setAvg(resultSet.getFloat(AVG));
