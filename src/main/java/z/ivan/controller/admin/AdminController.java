@@ -1,4 +1,4 @@
-package z.ivan.controller;
+package z.ivan.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

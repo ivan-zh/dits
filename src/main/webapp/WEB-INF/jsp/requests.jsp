@@ -56,7 +56,29 @@ Get test by topic name
 
 Get all tests
 <form method = "get" action = "/alltests" >
-    <input type="submit" value="Get all test" />
+    <input type="submit" value="Get all tests" />
+</form>
+<hr>
+Get question by id
+<form method = "get" action = "/findquestionbyid" >
+    <input name="id" type="text" />
+    <input type="submit" value="Get" />
+</form>
+
+Get all questions
+<form method = "get" action = "/allquestions" >
+    <input type="submit" value="Get all questions" />
+</form>
+<hr>
+Get literature by id
+<form method = "get" action = "/findliteraturebyid" >
+    <input name="id" type="text" />
+    <input type="submit" value="Get" />
+</form>
+
+Get all literatures
+<form method = "get" action = "/allliteratures" >
+    <input type="submit" value="Get all literatures" />
 </form>
 
 </body>
