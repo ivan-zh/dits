@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import z.ivan.dao.LiteratureDao;
 import z.ivan.dao.settings.MyJdbcDaoSupport;
 import z.ivan.model.Literature;
-import z.ivan.model.Question;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -4,6 +4,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import z.ivan.dao.UserDao;
 import z.ivan.dao.settings.MyJdbcDaoSupport;
+import z.ivan.model.Role;
 import z.ivan.model.User;
 
 import java.sql.ResultSet;
@@ -23,6 +24,8 @@ public class UserDaoImpl extends MyJdbcDaoSupport implements UserDao {
     private static final String SQL_GET_ALL = "SELECT * FROM ditsdb.user";
     private static final String SQL_GET_BY_USERID = "SELECT * FROM ditsdb.user WHERE " + USERID + " = ?";
     private static final String SQL_GET_BY_LOGIN = "SELECT * FROM ditsdb.user WHERE " + LOGIN + " = ?";
+    private static final String SQL_INSERT =
+            "INSERT INTO ditsdb.user (`firstname`, `lastname`, `login`, `password`, `roleid`) VALUES (?, ?, ?, ?, ?)";
 
     public UserDaoImpl() {
     }
@@ -55,6 +58,22 @@ public class UserDaoImpl extends MyJdbcDaoSupport implements UserDao {
             user = new User();
         }
         return user;
+    }
+
+    @Override
+    public void add(String firstName, String lastName, String login, String password, String roleName) {
+        int intPass = Integer.parseInt(password);
+
+        int roleId;
+        if ("admin".equalsIgnoreCase(roleName)) {
+            roleId = 1;
+        } else if ("tutor".equalsIgnoreCase(roleName)) {
+            roleId = 2;
+        } else {
+            roleId = 3;
+        }
+
+        this.getJdbcTemplate().update(SQL_INSERT, firstName, lastName, login, intPass, roleId);
     }
 
     private User mapRow(ResultSet resultSet, int i) {

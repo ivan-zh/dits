@@ -1,5 +1,7 @@
 package z.ivan.model;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class Role {
@@ -10,6 +12,10 @@ public class Role {
     private int admin;
 
     public Role() {
+    }
+
+    public static List<String> getRolesNames() {
+        return Arrays.asList("Admin", "Tutor", "User");
     }
 
     public Long getRoleId() {

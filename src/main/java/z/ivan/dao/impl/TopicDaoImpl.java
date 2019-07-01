@@ -21,7 +21,8 @@ public class TopicDaoImpl extends MyJdbcDaoSupport implements TopicDao {
     private static final String SQL_GET_ALL = "SELECT * FROM ditsdb.topic";
     private static final String SQL_GET_BY_TOPICID = "SELECT * FROM ditsdb.topic WHERE " + TOPICID + " = ?";
     private static final String SQL_GET_BY_NAME = "SELECT * FROM ditsdb.topic WHERE " + NAME + " = ?";
-
+    private static final String SQL_INSERT =
+    "INSERT INTO ditsdb.topic(description, name) VALUES (?, ?)";
 
     public TopicDaoImpl() {
     }
@@ -57,6 +58,11 @@ public class TopicDaoImpl extends MyJdbcDaoSupport implements TopicDao {
             topic = new Topic();
         }
         return topic;
+    }
+
+    @Override
+    public void add(String description, String name) {
+        this.getJdbcTemplate().update(SQL_INSERT, description, name);
     }
 
     private Topic mapRow(ResultSet resultSet, int i) {

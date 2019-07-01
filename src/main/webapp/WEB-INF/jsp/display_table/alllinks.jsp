@@ -3,22 +3,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Литература</title>
+    <title>Ссылки</title>
 </head>
 <body>
 
 <table border="1">
-    <caption>Литература</caption>
+    <caption>Ссылки</caption>
     <tr>
+        <th>linkId</th>
+        <th>link</th>
         <th>literatureId</th>
-        <th>description</th>
-        <th>questionId</th>
     </tr>
-    <c:forEach var="t" items="${literature}">
+    <c:forEach var="t" items="${links}">
         <tr>
+            <td>${t.linkId}</td>
+            <td>${t.link}</td>
             <td>${t.literatureId}</td>
-            <td>${t.description}</td>
-            <td>${t.questionId}</td>
         </tr>
     </c:forEach>
 </table>

@@ -11,4 +11,6 @@ public interface TopicDao {
     Topic getById(Long id);
 
     Topic getByName(String name);
+
+    void add(String description, String name);
 }

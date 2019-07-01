@@ -9,13 +9,16 @@
     <tbody>
     <tr>
         <td rowspan="3"><img width="50%" height="50%" src="../../../resources/images/human1.png"></td>
-        <td><a href="create_test">Создать тест</a></td>
+        <td><a href="create_topic">Создать тест (topic)</a></td>
     </tr>
     <tr>
         <td><a href="create_user">Создать пользователя</a></td>
     </tr>
     <tr>
         <td><a href="statistics">Статистика</a></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align: center;"><a href="requests">Просмотр всей БД</a></td>
     </tr>
     </tbody>
 </table>
