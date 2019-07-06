@@ -2,9 +2,9 @@ package z.ivan.dao;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
+import z.ivan.dao.impl.constants.TablesAndColumns;
 import z.ivan.dao.settings.MyJdbcDaoSupport;
 import z.ivan.model.QuestionStatistics;
-import z.ivan.model.Role;
 import z.ivan.model.TestStatistics;
 import z.ivan.model.UserStatistics;
 
@@ -16,14 +16,9 @@ import java.util.List;
 @Repository
 public class StatisticsDao extends MyJdbcDaoSupport {
 
-    private static final String NAME = "name";
-    private static final String COUNT = "count";
-    private static final String AVG = "avg";
     private static final String SQL_GET_TEST_STATISTICS = "call ditsdb.test_statistics";
     private static final String SQL_GET_QUESTION_STATISTICS = "call ditsdb.question_statistics";
     private static final String SQL_GET_USER_STATISTICS = "call ditsdb.user_statistics";
-    private static final String FIRST_NAME = "firstname";
-    private static final String LAST_NAME = "lastname";
 
     public StatisticsDao() {
     }
@@ -62,11 +57,11 @@ public class StatisticsDao extends MyJdbcDaoSupport {
     private UserStatistics userStatisticsMapRow(ResultSet resultSet, int i) {
         UserStatistics userStatistics = new UserStatistics();
         try {
-            userStatistics.setFirstName(resultSet.getString(FIRST_NAME));
-            userStatistics.setLastName(resultSet.getString(LAST_NAME));
-            userStatistics.setName(resultSet.getString(NAME));
-            userStatistics.setCount(resultSet.getInt(COUNT));
-            userStatistics.setAvg(resultSet.getFloat(AVG));
+            userStatistics.setFirstName(resultSet.getString(TablesAndColumns.FIRST_NAME));
+            userStatistics.setLastName(resultSet.getString(TablesAndColumns.LAST_NAME));
+            userStatistics.setName(resultSet.getString(TablesAndColumns.NAME));
+            userStatistics.setCount(resultSet.getInt(TablesAndColumns.COUNT));
+            userStatistics.setAvg(resultSet.getFloat(TablesAndColumns.AVG));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,9 +71,9 @@ public class StatisticsDao extends MyJdbcDaoSupport {
     private QuestionStatistics questionStatisticsMapRow(ResultSet resultSet, int i) {
         QuestionStatistics questionStatistics = new QuestionStatistics();
         try {
-            questionStatistics.setName(resultSet.getString(NAME));
-            questionStatistics.setCount(resultSet.getInt(COUNT));
-            questionStatistics.setAvg(resultSet.getFloat(AVG));
+            questionStatistics.setName(resultSet.getString(TablesAndColumns.NAME));
+            questionStatistics.setCount(resultSet.getInt(TablesAndColumns.COUNT));
+            questionStatistics.setAvg(resultSet.getFloat(TablesAndColumns.AVG));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -88,9 +83,9 @@ public class StatisticsDao extends MyJdbcDaoSupport {
     private TestStatistics mapRow(ResultSet resultSet, int i) {
         TestStatistics testStatistics = new TestStatistics();
         try {
-            testStatistics.setName(resultSet.getString(NAME));
-            testStatistics.setCount(resultSet.getInt(COUNT));
-            testStatistics.setAvg(resultSet.getFloat(AVG));
+            testStatistics.setName(resultSet.getString(TablesAndColumns.NAME));
+            testStatistics.setCount(resultSet.getInt(TablesAndColumns.COUNT));
+            testStatistics.setAvg(resultSet.getFloat(TablesAndColumns.AVG));
         } catch (SQLException e) {
             e.printStackTrace();
         }

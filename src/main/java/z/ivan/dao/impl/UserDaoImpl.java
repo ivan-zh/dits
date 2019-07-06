@@ -3,8 +3,8 @@ package z.ivan.dao.impl;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import z.ivan.dao.UserDao;
+import z.ivan.dao.impl.constants.TablesAndColumns;
 import z.ivan.dao.settings.MyJdbcDaoSupport;
-import z.ivan.model.Role;
 import z.ivan.model.User;
 
 import java.sql.ResultSet;
@@ -14,16 +14,10 @@ import java.util.List;
 
 @Repository
 public class UserDaoImpl extends MyJdbcDaoSupport implements UserDao {
-    private static final String USERID = "userid";
-    private static final String FIRSTNAME = "firstname";
-    private static final String LASTNAME = "lastname";
-    private static final String LOGIN = "login";
-    private static final String PASSWORD = "password";
-    private static final String ROLEID = "roleId";
 
     private static final String SQL_GET_ALL = "SELECT * FROM ditsdb.user";
-    private static final String SQL_GET_BY_USERID = "SELECT * FROM ditsdb.user WHERE " + USERID + " = ?";
-    private static final String SQL_GET_BY_LOGIN = "SELECT * FROM ditsdb.user WHERE " + LOGIN + " = ?";
+    private static final String SQL_GET_BY_USERID = "SELECT * FROM ditsdb.user WHERE " + TablesAndColumns.USERID + " = ?";
+    private static final String SQL_GET_BY_LOGIN = "SELECT * FROM ditsdb.user WHERE " + TablesAndColumns.LOGIN + " = ?";
     private static final String SQL_INSERT =
             "INSERT INTO ditsdb.user (`firstname`, `lastname`, `login`, `password`, `roleid`) VALUES (?, ?, ?, ?, ?)";
 
@@ -61,8 +55,7 @@ public class UserDaoImpl extends MyJdbcDaoSupport implements UserDao {
     }
 
     @Override
-    public void add(String firstName, String lastName, String login, String password, String roleName) {
-        int intPass = Integer.parseInt(password);
+    public void add(String firstName, String lastName, String login, int pwdHash, String roleName) {
 
         int roleId;
         if ("admin".equalsIgnoreCase(roleName)) {
@@ -73,18 +66,18 @@ public class UserDaoImpl extends MyJdbcDaoSupport implements UserDao {
             roleId = 3;
         }
 
-        this.getJdbcTemplate().update(SQL_INSERT, firstName, lastName, login, intPass, roleId);
+        this.getJdbcTemplate().update(SQL_INSERT, firstName, lastName, login, pwdHash, roleId);
     }
 
     private User mapRow(ResultSet resultSet, int i) {
         User user = new User();
         try {
-            user.setUserId(resultSet.getLong(USERID));
-            user.setFirstName(resultSet.getString(FIRSTNAME));
-            user.setLastName(resultSet.getString(LASTNAME));
-            user.setLogin(resultSet.getString(LOGIN));
-            user.setPassword(resultSet.getInt(PASSWORD));
-            user.setRoleId(resultSet.getInt(ROLEID));
+            user.setUserId(resultSet.getLong(TablesAndColumns.USERID));
+            user.setFirstName(resultSet.getString(TablesAndColumns.FIRSTNAME));
+            user.setLastName(resultSet.getString(TablesAndColumns.LASTNAME));
+            user.setLogin(resultSet.getString(TablesAndColumns.LOGIN));
+            user.setPassword(resultSet.getInt(TablesAndColumns.PASSWORD));
+            user.setRoleId(resultSet.getInt(TablesAndColumns.ROLEID));
         } catch (SQLException e) {
         }
         return user;

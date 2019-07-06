@@ -11,4 +11,6 @@ public interface QuestionDao {
     Question getById(Long id);
 
     List<Question> getByTestId(Long testId);
+
+    Long add(Long test, String description);
 }

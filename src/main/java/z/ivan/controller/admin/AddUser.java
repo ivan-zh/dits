@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import z.ivan.dao.UserDao;
 
+import java.util.Objects;
+
 @Controller
 public class AddUser {
 
@@ -24,7 +26,10 @@ public class AddUser {
             @RequestParam("roleName") String roleName,
             ModelMap modelMap
     ) {
-        userDao.add(firstName, lastName, login, password, roleName);
+        int pwdHash = Objects.hashCode(password);
+        password = new String();
+
+        userDao.add(firstName, lastName, login, pwdHash, roleName);
         return "adminUI/admin_main";
     }
 }

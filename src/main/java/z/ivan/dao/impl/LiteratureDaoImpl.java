@@ -3,6 +3,7 @@ package z.ivan.dao.impl;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import z.ivan.dao.LiteratureDao;
+import z.ivan.dao.impl.constants.TablesAndColumns;
 import z.ivan.dao.settings.MyJdbcDaoSupport;
 import z.ivan.model.Literature;
 
@@ -14,13 +15,9 @@ import java.util.List;
 @Repository
 public class LiteratureDaoImpl extends MyJdbcDaoSupport implements LiteratureDao {
 
-    private static final String LITERATUREID = "literatureid";
-    private static final String DESCRIPTION = "description";
-    private static final String QUESTIONID = "questionid";
-
     private static final String SQL_GET_ALL = "SELECT * FROM ditsdb.literature";
-    private static final String SQL_GET_BY_LITERATUREID = "SELECT * FROM ditsdb.literature WHERE " + LITERATUREID + " = ?";
-    private static final String SQL_GET_BY_QUESTIONID = "SELECT * FROM ditsdb.literature WHERE " + QUESTIONID + " = ?";
+    private static final String SQL_GET_BY_LITERATUREID = "SELECT * FROM ditsdb.literature WHERE " + TablesAndColumns.LITERATUREID + " = ?";
+    private static final String SQL_GET_BY_QUESTIONID = "SELECT * FROM ditsdb.literature WHERE " + TablesAndColumns.QUESTIONID + " = ?";
 
     @Override
     public List<Literature> getAll() {
@@ -58,9 +55,9 @@ public class LiteratureDaoImpl extends MyJdbcDaoSupport implements LiteratureDao
     private Literature mapRow(ResultSet resultSet, int rowNum) {
         Literature literature = new Literature();
         try {
-            literature.setLiteratureId(resultSet.getLong(LITERATUREID));
-            literature.setDescription(resultSet.getString(DESCRIPTION));
-            literature.setQuestionId(resultSet.getLong(QUESTIONID));
+            literature.setLiteratureId(resultSet.getLong(TablesAndColumns.LITERATUREID));
+            literature.setDescription(resultSet.getString(TablesAndColumns.DESCRIPTION));
+            literature.setQuestionId(resultSet.getLong(TablesAndColumns.QUESTIONID));
         } catch (SQLException e) {
         }
         return literature;
