@@ -15,7 +15,7 @@ public class Role {
     }
 
     public static List<String> getRolesNames() {
-        return Arrays.asList("Admin", "Tutor", "User");
+        return Arrays.asList("Admin", "tutor", "User");
     }
 
     public Long getRoleId() {
