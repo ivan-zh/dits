@@ -13,4 +13,6 @@ public interface UserDao {
     User getByLogin(String loginname);
 
     void add(String firstName, String lastName, String login, int pwdHash, String roleName);
+
+    void edit(User user);
 }

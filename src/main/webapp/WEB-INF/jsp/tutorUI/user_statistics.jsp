@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Статистика по пользователям</title>
+    <link rel="stylesheet" href="/css/stat_table.css" type="text/css"/>
 </head>
 <body>
 <table>
@@ -28,5 +29,8 @@
         </tr>
     </c:forEach>
 </table>
+
+<button onclick="history.back();">Назад</button>
+
 </body>
 </html>

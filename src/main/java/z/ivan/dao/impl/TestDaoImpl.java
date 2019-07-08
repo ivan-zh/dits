@@ -60,14 +60,15 @@ public class TestDaoImpl extends MyJdbcDaoSupport implements TestDao {
     }
 
     @Override
-    public Long add(Long topic, String testName) {
+    public Long add(Long topic, String testName, String testDescription) {
         Map<String, Object> data = new HashMap<>();
         data.put(TablesAndColumns.NAME, testName);
+        data.put(TablesAndColumns.DESCRIPTION, testDescription);
         data.put(TablesAndColumns.TOPICID, topic);
 
         final Long id = (Long) new SimpleJdbcInsert(this.getJdbcTemplate())
                 .withTableName(TablesAndColumns.TEST)
-                .usingColumns(TablesAndColumns.NAME, TablesAndColumns.TOPICID)
+                .usingColumns(TablesAndColumns.NAME, TablesAndColumns.DESCRIPTION,TablesAndColumns.TOPICID)
                 .usingGeneratedKeyColumns(TablesAndColumns.TESTID)
                 .executeAndReturnKey(data);
 

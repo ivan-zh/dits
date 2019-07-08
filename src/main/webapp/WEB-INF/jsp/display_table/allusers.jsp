@@ -16,6 +16,7 @@
         <th>login</th>
         <th>password</th>
         <th>roleId</th>
+        <th>Action</th>
     </tr>
     <c:forEach var="u" items="${users}">
         <tr>
@@ -25,6 +26,7 @@
             <td>${u.login}</td>
             <td>${u.password}</td>
             <td>${u.roleId}</td>
+            <td><a href="edit_user/${u.userId}">Редактировать</a>  <a href="delete_user/${u.userId}">Удалить</a></td>
         </tr>
     </c:forEach>
 

@@ -1,0 +1,12 @@
+table {
+    border: white solid 1px;
+}
+
+th {
+    font-family: "Arial Unicode MS", serif;
+    background-color: #4f80bc;
+}
+
+tr {
+    background-color: #ced6e6;
+}

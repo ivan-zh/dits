@@ -69,6 +69,11 @@ public class UserDaoImpl extends MyJdbcDaoSupport implements UserDao {
         this.getJdbcTemplate().update(SQL_INSERT, firstName, lastName, login, pwdHash, roleId);
     }
 
+    @Override
+    public void edit(User user) {
+
+    }
+
     private User mapRow(ResultSet resultSet, int i) {
         User user = new User();
         try {

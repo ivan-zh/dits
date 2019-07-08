@@ -2,9 +2,9 @@ package z.ivan.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import z.ivan.dao.UserDao;
+import z.ivan.model.User;
 
 import java.util.Objects;
 
@@ -31,5 +31,18 @@ public class AddUser {
 
         userDao.add(firstName, lastName, login, pwdHash, roleName);
         return "adminUI/admin_main";
+    }
+
+    @GetMapping(value = "edit_user/{userId}")
+    public String editPage(@PathVariable String userId, ModelMap modelMap) {
+        User user = userDao.getById(Long.valueOf(userId));
+        modelMap.addAttribute("user", user);
+        return "adminUI/edit_user";
+    }
+
+    @PostMapping(value = "/edit_user")
+    public String editUser(@ModelAttribute("user") User user) {
+        userDao.edit(user);
+        return "requests";
     }
 }
