@@ -14,5 +14,5 @@ public interface UserDao {
 
     void add(String firstName, String lastName, String login, int pwdHash, String roleName);
 
-    void edit(User user);
+    void edit(Long id, String firstName, String lastName, String login, int pwdHash, String roleName);
 }

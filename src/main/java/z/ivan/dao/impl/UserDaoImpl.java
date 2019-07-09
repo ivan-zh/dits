@@ -21,6 +21,16 @@ public class UserDaoImpl extends MyJdbcDaoSupport implements UserDao {
     private static final String SQL_INSERT =
             "INSERT INTO ditsdb.user (`firstname`, `lastname`, `login`, `password`, `roleid`) VALUES (?, ?, ?, ?, ?)";
 
+    private static final String SQL_UPDATE =
+            "UPDATE ditsdb.user SET " +
+                    "firstname = ?, " +
+                    "lastname = ?, " +
+                    "login = ?, " +
+                    "password = ?, " +
+                    "roleid = ? " +
+                    " WHERE "
+                    + TablesAndColumns.USERID + " = ?";
+
     public UserDaoImpl() {
     }
 
@@ -70,7 +80,18 @@ public class UserDaoImpl extends MyJdbcDaoSupport implements UserDao {
     }
 
     @Override
-    public void edit(User user) {
+    public void edit(Long id, String firstName, String lastName, String login, int pwdHash, String roleName) {
+
+        int roleId;
+        if ("admin".equalsIgnoreCase(roleName)) {
+            roleId = 1;
+        } else if ("tutor".equalsIgnoreCase(roleName)) {
+            roleId = 2;
+        } else {
+            roleId = 3;
+        }
+
+        this.getJdbcTemplate().update(SQL_UPDATE, firstName, lastName, login, pwdHash, roleId, id);
 
     }
 
