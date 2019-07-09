@@ -45,7 +45,7 @@
     }
 </style>
 <body>
-<form action="topics_and_tests/edit" method="post">
+<form action="topics_and_tests" method="post">
     <div class="select-editable">
         <select name="topic" onchange="updateTopic(this)">
             <option style="display: none" value="0"></option>
@@ -105,6 +105,7 @@
             var x = topics[i];
             selectTopics.options[selectTopics.options.length] = new Option(x.name, x.id);
         }
+        selectTopics.options.selectedIndex = 0;
 
         function updateTopic(topicsSelect) {
             topicsSelect.nextElementSibling.value = topicsSelect.options[topicsSelect.selectedIndex].text;

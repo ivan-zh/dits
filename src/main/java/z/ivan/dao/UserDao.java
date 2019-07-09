@@ -12,5 +12,5 @@ public interface UserDao {
 
     User getByLogin(String loginname);
 
-    void add(String firstName, String lastName, String login, String password, String roleName);
+    void add(String firstName, String lastName, String login, int pwdHash, String roleName);
 }

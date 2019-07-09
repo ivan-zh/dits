@@ -40,7 +40,7 @@ public class TopicsAndTestsService {
             topic = topicDao.add(topicName, topicName);
         }
         if (test == 0) {
-            test = testDao.add(topic, testName, testName);
+            test = testDao.add(topic, testName);
         }
         if (question == 0) {
             question = questionDao.add(test, questionName);

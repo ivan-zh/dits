@@ -8,7 +8,7 @@
 <body>
 <h4>Создать тест (topic)</h4>
 <hr>
-<form action="/add_topic_to_db" method="post">
+<form action="add_topic_to_db" method="post">
     <label for="description">Description</label>
     <input type="text" name="description" id="description">
     <br>

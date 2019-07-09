@@ -26,13 +26,13 @@ public class TopicsAndTestsController {
         return "tutorUI/edit_topics_and_tests";
     }
 
-    @PostMapping("edit")
-    public String edit(
+    @PostMapping("")
+    public String edit(ModelMap modelMap,
             @RequestParam Long topic, @RequestParam Long test, @RequestParam Long question,
             @RequestParam String topicName, @RequestParam String testName, @RequestParam String questionName
     ) {
         topicsAndTestsService.edit(topic, test, question, topicName, testName, questionName);
-        return "tutorUI/edit_topics_and_tests";
+        return main(modelMap);
     }
 
 }

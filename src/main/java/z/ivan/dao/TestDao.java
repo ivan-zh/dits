@@ -11,4 +11,7 @@ public interface TestDao {
     Test getById(Long id);
 
     List<Test> getByTopicName(String topicName);
+
+    Long add(Long topic, String testName);
 }
+

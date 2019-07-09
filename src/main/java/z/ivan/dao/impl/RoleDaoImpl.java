@@ -3,6 +3,7 @@ package z.ivan.dao.impl;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import z.ivan.dao.RoleDao;
+import z.ivan.dao.impl.constants.TablesAndColumns;
 import z.ivan.dao.settings.MyJdbcDaoSupport;
 import z.ivan.model.Role;
 
@@ -14,13 +15,8 @@ import java.util.List;
 @Repository
 public class RoleDaoImpl extends MyJdbcDaoSupport implements RoleDao {
 
-    private static final String ROLEID = "roleid";
-    private static final String USER = "user";
-    private static final String TUTOR = "tutor";
-    private static final String ADMIN = "admin";
-
     private static final String SQL_GET_ALL = "SELECT * FROM ditsdb.role";
-    private static final String SQL_GET_BY_ROLEID = "SELECT * FROM ditsdb.role WHERE " + ROLEID + " = ?";
+    private static final String SQL_GET_BY_ROLEID = "SELECT * FROM ditsdb.role WHERE " + TablesAndColumns.ROLEID + " = ?";
 
     public RoleDaoImpl() {
     }
@@ -50,10 +46,10 @@ public class RoleDaoImpl extends MyJdbcDaoSupport implements RoleDao {
     private Role mapRow(ResultSet resultSet, int i) {
         Role role = new Role();
         try {
-            role.setRoleId(resultSet.getLong(ROLEID));
-            role.setAdmin(resultSet.getInt(ADMIN));
-            role.setTutor(resultSet.getInt(TUTOR));
-            role.setUser(resultSet.getInt(USER));
+            role.setRoleId(resultSet.getLong(TablesAndColumns.ROLEID));
+            role.setAdmin(resultSet.getInt(TablesAndColumns.ADMIN));
+            role.setTutor(resultSet.getInt(TablesAndColumns.TUTOR));
+            role.setUser(resultSet.getInt(TablesAndColumns.USER));
         } catch (SQLException e) {
         }
         return role;
