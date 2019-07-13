@@ -31,7 +31,7 @@ public class WebConfig implements WebMvcConfigurer {
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         ds.setUrl("jdbc:mysql://localhost:3306/ditsdb");
         ds.setUsername("root");
-        ds.setPassword("root1979");
+        ds.setPassword("1234");
         return ds;
     }
 

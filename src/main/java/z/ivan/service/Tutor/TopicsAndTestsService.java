@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import z.ivan.dao.QuestionDao;
 import z.ivan.dao.TestDao;
 import z.ivan.dao.TopicDao;
+import z.ivan.dto.TestEditDto;
 import z.ivan.model.Question;
 import z.ivan.model.Test;
 import z.ivan.model.Topic;
@@ -35,15 +36,19 @@ public class TopicsAndTestsService {
         return questionDao.getAll();
     }
 
-    public void edit(Long topic, Long test, Long question, String topicName, String testName, String questionName) {
-        if (topic == 0) {
-            topic = topicDao.add(topicName, topicName);
-        }
-        if (test == 0) {
-            test = testDao.add(topic, testName);
-        }
-        if (question == 0) {
-            question = questionDao.add(test, questionName);
+    public void edit(Long selectedTopicId, List<TestEditDto> list) {
+        for (TestEditDto e : list) {
+            switch (e.getAction()) {
+                case "delete":
+                    //testDao.delete(e.getId());
+                    break;
+                case "create":
+                    testDao.add(e.getTopicId(), e.getName(), e.getDescription());
+                    break;
+                case "update":
+                    //testDao.update(e.getId(), e.getTopicId(), e.getName(), e.getDescription());
+                    break;
+            }
         }
     }
 }
