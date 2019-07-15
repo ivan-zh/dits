@@ -1,13 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>DITS</title>
-
+    <title>Testing system</title>
+    <link rel="stylesheet" href="/css/common_style.css" type="text/css"/>
 </head>
 <body>
-<%--style="width: 400px" --%>
+
+<h4 align="center">Welcome to Dev Inc Testing system !</h4>
+
 <table align="center" border="0" cellspacing="2">
     <tbody>
+    <tr>
+        <td rowspan="2">
+            <img width="50%" height="50%" src="/resources/images/human1.png">
+        </td>
+    </tr>
     <tr>
         <td>
             <form action="login" method="post">

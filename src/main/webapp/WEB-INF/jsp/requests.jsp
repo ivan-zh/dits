@@ -3,20 +3,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
-    <style type="text/css">
-        TABLE {
-            border: 1px solid black;
-        }
-
-        TD, TH {
-            border: 1px solid black;
-        }
-    </style>
+    <title>DB content editor</title>
+    <link rel="stylesheet" href="/css/requests.css" type="text/css"/>
 </head>
 
 <body>
 <p>Hello, ${greetname}!</p>
+<br>
+<p>View and edit tables</p>
 <hr>
 <table>
     <tr>
