@@ -1,7 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>DITS</title>
+    <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
 <body>
 <%--style="width: 400px" --%>
@@ -20,7 +22,7 @@
                         <td><input name="password" value="" type="password"></td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align: center;"><input type="submit" value="login"/></td>
+                        <td colspan="2" style="text-align: center;"><input type="submit" value="Log In"/></td>
                     </tr>
                 </table>
             </form>

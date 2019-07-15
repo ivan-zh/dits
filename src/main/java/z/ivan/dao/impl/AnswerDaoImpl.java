@@ -13,10 +13,11 @@ import java.util.Map;
 public class AnswerDaoImpl extends CrudDaoImpl<Answer> implements AnswerDao {
 
 
-    private static final String TABLE_NAME = "dits.answer";
+    private static final String TABLE_NAME = "ditsdb.answer";
     private static final String COLUMN_ANSWER_ID = "answerid";
     private static final String COLUMN_DESCRIPTION = "description";
     private static final String COLUMN_QUESTION_ID = "questionid";
+    private static final String COLUMN_CORRECT = "correct";
 
     public AnswerDaoImpl() {
         super(TABLE_NAME, COLUMN_ANSWER_ID, AnswerDaoImpl::mapper);
@@ -37,6 +38,7 @@ public class AnswerDaoImpl extends CrudDaoImpl<Answer> implements AnswerDao {
         data.put(COLUMN_ANSWER_ID, answer.getAnswerId());
         data.put(COLUMN_DESCRIPTION, answer.getDescription());
         data.put(COLUMN_QUESTION_ID, answer.getQuestionId());
+        data.put(COLUMN_CORRECT, answer.getCorrect());
         return data;
     }
 
@@ -45,6 +47,7 @@ public class AnswerDaoImpl extends CrudDaoImpl<Answer> implements AnswerDao {
         answer.setAnswerId(resultSet.getLong(COLUMN_ANSWER_ID));
         answer.setDescription(resultSet.getString(COLUMN_DESCRIPTION));
         answer.setQuestionId(resultSet.getLong(COLUMN_QUESTION_ID));
+        answer.setCorrect(resultSet.getBoolean(COLUMN_CORRECT));
         return answer;
     }
 }

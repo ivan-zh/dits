@@ -1,10 +1,20 @@
 a:link, a:visited {
-    color: blue;
-    font-size: large;
+    color: #4287f5;
+    font-size: 1.25em;
+    text-decoration: none;
+    border: 0.0625em solid transparent;
+    border-radius: 0.3125em;
+    display: inline-block;
+}
+
+
+a:hover {
+    text-shadow: 0 0 10px #8fbaff;
+    border-color: #8fbaff;
 }
 
 h4 {
-    color: blue;
+    color: #4287f5;
     font-size: large;
 }
 
@@ -19,10 +29,22 @@ input[type=button], input[type=submit], input[type=reset] {
     margin: 0.125em 0.0625em;
 }
 
-input[type=button]:hover:enabled, input[type=submit]:hover:enabled, input[type=reset]:hover:enabled {
+input[type=button]:hover:enabled,
+input[type=submit]:hover:enabled,
+input[type=reset]:hover:enabled {
     /*background-color: #8fbaff;*/
     /*border-color: #8fbaff;*/
     box-shadow: 0 0 3pt 2pt #8fbaff;
+
+}
+
+input[type=button]:active,
+input[type=submit]:active,
+input[type=reset]:active,
+a:active {
+    /*background-color: #8fbaff;*/
+    /*border-color: #8fbaff;*/
+    transform: scale(.95);
 }
 
 input[type=button]:disabled, input[type=submit]:disabled, input[type=reset]:disabled {
@@ -35,7 +57,7 @@ input[type=button]:enabled, input[type=submit]:enabled, input[type=reset]:enable
 }
 
 
-input[type=text], select, option {
+input[type=text], input[type=password], select, option {
     border-style: solid;
     border-color: #8fbaff;
     border-radius: 0.3125em;

@@ -22,7 +22,7 @@ public class QuestionsAndAnswersController {
         modelMap.addAttribute("topics", topicsAndTestsService.getTopicList());
         modelMap.addAttribute("tests", topicsAndTestsService.getTestList());
         modelMap.addAttribute("questions", topicsAndTestsService.getQuestionList());
-        modelMap.addAttribute("questions", topicsAndTestsService.getAnswerList());
+        modelMap.addAttribute("answers", topicsAndTestsService.getAnswerList());
         return "tutorUI/edit_questions_and_answers";
     }
 

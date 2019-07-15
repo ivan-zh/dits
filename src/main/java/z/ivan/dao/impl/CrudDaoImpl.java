@@ -38,20 +38,19 @@ public abstract class CrudDaoImpl<T> extends MyJdbcDaoSupport {
             sets.append(key).append("=").append(data.get(key)).append(",");
         }
         sets.deleteCharAt(sets.length() - 1);
-        getJdbcTemplate().update("update ? set " + sets.toString() + " where ? = ?",
-                tableName, idColumn, id);
+        getJdbcTemplate().update("update " + tableName + " set " + sets.toString() + " where " + idColumn + " = ?", id);
     }
 
     public T getById(Long id) {
-        return getJdbcTemplate().queryForObject("select * from ? where ? = ?",
-                new Object[]{tableName, idColumn, id}, mapper);
+        return getJdbcTemplate().queryForObject("select * from " + tableName + " where " + idColumn + " = ?",
+                new Object[]{id}, mapper);
     }
 
     public List<T> getAll() {
-        return getJdbcTemplate().query("select * from ?", new Object[]{tableName}, mapper);
+        return getJdbcTemplate().query("select * from " + tableName, mapper);
     }
 
     public void delete(Long id) {
-        getJdbcTemplate().update("delete from ? where ? = ?", tableName, idColumn, id);
+        getJdbcTemplate().update("delete from " + tableName + " where " + idColumn + " = ?", id);
     }
 }

@@ -40,7 +40,7 @@
         var testsList = [
             <c:forEach items="${tests}" var="x">
             {
-                id: ${x.questionId},
+                id: ${x.testId},
                 topicId: ${x.topicId},
                 name: "${x.name}",
                 description: "${x.description}",
