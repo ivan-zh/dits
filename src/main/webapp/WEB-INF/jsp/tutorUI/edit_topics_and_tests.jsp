@@ -10,15 +10,17 @@
 <html>
 <head>
     <title>Редактировать тему/тест</title>
+    <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
 <body>
-<form id="form" action="topics_and_tests" method="post">
+<form class="aligned-left" id="form" action="topics_and_tests" method="post">
     <select id="topics" name="selectedTopicId" onchange="updateTopic()">
-        <option selected disabled value="0" style="display: none">Выберите тему</option>
+        <option hidden selected value="0">Выберите тему</option>
         <c:forEach items="${topics}" var="x">
             <option value="${x.topicId}">${x.name}</option>
         </c:forEach>
     </select>
+    <br>
     <div id="tests"></div>
     <br>
     <input disabled id="addButton" type="button" value="+" title="Добавить тест" onclick="addTest()"/>
@@ -38,7 +40,7 @@
         var testsList = [
             <c:forEach items="${tests}" var="x">
             {
-                id: ${x.testId},
+                id: ${x.questionId},
                 topicId: ${x.topicId},
                 name: "${x.name}",
                 description: "${x.description}",
@@ -52,6 +54,9 @@
             var topics = document.getElementById("topics");
             var tests = document.getElementById("tests");
             var topicId = topics[topics.selectedIndex].value;
+            while (tests.firstChild) {
+                tests.removeChild(tests.firstChild);
+            }
             for (var i in testsList) {
                 if (testsList[i].topicId == topicId) {
                     createTest(i);
@@ -81,6 +86,7 @@
             newTest.setAttribute("testIndex", testIndex);
 
             var nameInput = document.createElement("input");
+            nameInput.type = "text";
             nameInput.value = testsList[testIndex].name;
             nameInput.placeholder = "Название теста";
             nameInput.setAttribute("oninput", "renameTest(this)");

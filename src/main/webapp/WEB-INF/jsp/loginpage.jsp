@@ -4,8 +4,8 @@
     <title>DITS</title>
 </head>
 <body>
-
-<table align="center" border="0" style="width: 400px" cellspacing="2">
+<%--style="width: 400px" --%>
+<table align="center" border="0" cellspacing="2">
     <tbody>
     <tr>
         <td>

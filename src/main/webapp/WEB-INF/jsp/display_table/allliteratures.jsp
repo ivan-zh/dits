@@ -12,13 +12,13 @@
     <tr>
         <th>literatureId</th>
         <th>description</th>
-        <th>questionId</th>
+        <th>answerId</th>
     </tr>
     <c:forEach var="t" items="${literature}">
         <tr>
             <td>${t.literatureId}</td>
             <td>${t.description}</td>
-            <td>${t.questionId}</td>
+            <td>${t.answerId}</td>
         </tr>
     </c:forEach>
 </table>

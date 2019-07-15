@@ -1,6 +1,5 @@
 package z.ivan.dao.impl;
 
-import jdk.javadoc.internal.doclets.formats.html.markup.Table;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -61,15 +60,15 @@ public class TestDaoImpl extends MyJdbcDaoSupport implements TestDao {
     }
 
     @Override
-    public Long add(Long topicId, String testName, String testDescription) {
+    public Long add(Long topic, String testName, String testDescription) {
         Map<String, Object> data = new HashMap<>();
         data.put(TablesAndColumns.NAME, testName);
-        data.put(TablesAndColumns.TOPICID, topicId);
         data.put(TablesAndColumns.DESCRIPTION, testDescription);
+        data.put(TablesAndColumns.TOPICID, topic);
 
         final Long id = (Long) new SimpleJdbcInsert(this.getJdbcTemplate())
                 .withTableName(TablesAndColumns.TEST)
-                .usingColumns(TablesAndColumns.NAME, TablesAndColumns.TOPICID, TablesAndColumns.DESCRIPTION)
+                .usingColumns(TablesAndColumns.NAME, TablesAndColumns.DESCRIPTION, TablesAndColumns.TOPICID)
                 .usingGeneratedKeyColumns(TablesAndColumns.TESTID)
                 .executeAndReturnKey(data);
 

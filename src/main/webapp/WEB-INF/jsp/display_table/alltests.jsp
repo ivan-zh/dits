@@ -10,14 +10,14 @@
 <table border="1">
     <caption>Tests</caption>
     <tr>
-        <th>testId</th>
+        <th>questionId</th>
         <th>name</th>
         <th>description</th>
         <th>topicId</th>
     </tr>
     <c:forEach var="t" items="${tests}">
         <tr>
-            <td>${t.testId}</td>
+            <td>${t.questionId}</td>
             <td>${t.name}</td>
             <td>${t.description}</td>
             <td>${t.topicId}</td>

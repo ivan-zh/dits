@@ -10,22 +10,25 @@
 <html>
 <head>
     <title>Статистика по тестам</title>
+    <link rel="stylesheet" href="/css/stat_table.css" type="text/css"/>
 </head>
 <body>
-    <table>
+<table>
+    <tr>
+        <th>Название теста</th>
+        <th>Пройдено всего</th>
+        <th>Процент правильных ответов</th>
+    </tr>
+    <c:forEach items="${stats}" var="s">
         <tr>
-            <th>Название теста</th>
-            <th>Пройдено всего</th>
-            <th>Процент правильных ответов</th>
+            <td>${s.name}</td>
+            <td>${s.count}</td>
+            <td>${s.avg}</td>
         </tr>
-        <c:forEach items="${stats}" var="s">
-            <tr>
-                <td>${s.name}</td>
-                <td>${s.count}</td>
-                <td>${s.avg}</td>
-            </tr>
-        </c:forEach>
-    </table>
+    </c:forEach>
+</table>
+
+<button onclick="history.back();">Назад</button>
 
 </body>
 </html>

@@ -9,15 +9,8 @@ import z.ivan.model.Role;
 @Controller
 public class AdminController {
 
-    /*
-        @GetMapping(value = "create_test")
-        public String createTest(Model model) {
-            return "tutorUI/create_test";
-        }
-    */
-
     @GetMapping(value = "create_topic")
-    public String createTest(Model model) {
+    public String createTopic(Model model) {
         return "adminUI/create_topic";
     }
 

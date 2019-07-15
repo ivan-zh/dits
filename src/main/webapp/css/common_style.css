@@ -1,0 +1,64 @@
+a:link, a:visited {
+    color: blue;
+    font-size: large;
+}
+
+h4 {
+    color: blue;
+    font-size: large;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+    background-color: #4287f5;
+    border-style: solid;
+    border-color: #4287f5;
+    border-radius: 0.3125em;
+    color: white;
+    padding: 0.125em 0.25em;
+    text-decoration: none;
+    margin: 0.125em 0.0625em;
+}
+
+input[type=button]:hover:enabled, input[type=submit]:hover:enabled, input[type=reset]:hover:enabled {
+    /*background-color: #8fbaff;*/
+    /*border-color: #8fbaff;*/
+    box-shadow: 0 0 3pt 2pt #8fbaff;
+}
+
+input[type=button]:disabled, input[type=submit]:disabled, input[type=reset]:disabled {
+    background-color: #8fbaff;
+    border-color: #8fbaff;
+}
+
+input[type=button]:enabled, input[type=submit]:enabled, input[type=reset]:enabled {
+    cursor: pointer;
+}
+
+
+input[type=text], select, option {
+    border-style: solid;
+    border-color: #8fbaff;
+    border-radius: 0.3125em;
+    border-width: 0.125em;
+    padding: 0.125em 0.125em;
+    margin: 0.125em 0.0625em;
+}
+
+body {
+    background-image: url("../resources/images/human1.png");
+    background-repeat: no-repeat;
+    background-position: center left;
+    text-align: center;
+}
+
+body, body * {
+    font-size: 24px;
+    font-family: "Verdana", serif;
+}
+
+.aligned-left {
+    display: inline-block;
+    width: fit-content;
+    margin: auto;
+    text-align: left;
+}

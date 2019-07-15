@@ -10,15 +10,15 @@
 <table border="1">
     <caption>Questions</caption>
     <tr>
-        <th>questionId</th>
+        <th>answerId</th>
         <th>description</th>
-        <th>testId</th>
+        <th>questionId</th>
     </tr>
     <c:forEach var="t" items="${questions}">
         <tr>
-            <td>${t.questionId}</td>
+            <td>${t.answerId}</td>
             <td>${t.description}</td>
-            <td>${t.testId}</td>
+            <td>${t.questionId}</td>
         </tr>
     </c:forEach>
 </table>

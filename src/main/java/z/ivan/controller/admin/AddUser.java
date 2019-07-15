@@ -1,7 +1,6 @@
 package z.ivan.controller.admin;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import z.ivan.dao.UserDao;
@@ -23,8 +22,7 @@ public class AddUser {
             @RequestParam("lastName") String lastName,
             @RequestParam("login") String login,
             @RequestParam("password") String password,
-            @RequestParam("roleName") String roleName,
-            ModelMap modelMap
+            @RequestParam("roleName") String roleName
     ) {
         int pwdHash = Objects.hashCode(password);
         password = new String();
@@ -32,4 +30,5 @@ public class AddUser {
         userDao.add(firstName, lastName, login, pwdHash, roleName);
         return "adminUI/admin_main";
     }
+
 }

@@ -36,7 +36,7 @@ public class AppController {
         if (user.getRoleId() == 1) {
             String greetName = user.getFirstName().concat(" ").concat(user.getLastName());
             modelMap.addAttribute("greetname", greetName);
-                return "adminUI/admin_main";
+            return "adminUI/admin_main";
         } else if (user.getRoleId() == 2) {
             return "tutorUI/tutor_main";
         } else {
