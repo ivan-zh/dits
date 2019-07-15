@@ -7,6 +7,7 @@ public class Answer {
     private Long answerId;
     private String description;
     private Long questionId;
+    private Boolean correct;
 
     public Answer() {
     }
@@ -35,27 +36,37 @@ public class Answer {
         this.questionId = questionId;
     }
 
+    public Boolean getCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(Boolean correct) {
+        this.correct = correct;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Answer question = (Answer) o;
-        return Objects.equals(answerId, question.answerId) &&
-                Objects.equals(description, question.description) &&
-                Objects.equals(questionId, question.questionId);
+        Answer answer = (Answer) o;
+        return Objects.equals(answerId, answer.answerId) &&
+                Objects.equals(description, answer.description) &&
+                Objects.equals(questionId, answer.questionId) &&
+                Objects.equals(correct, answer.correct);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(answerId, description, questionId);
+        return Objects.hash(answerId, description, questionId, correct);
     }
 
     @Override
     public String toString() {
-        return "Question{" +
+        return "Answer{" +
                 "answerId=" + answerId +
                 ", description='" + description + '\'' +
                 ", questionId=" + questionId +
+                ", correct=" + correct +
                 '}';
     }
 }

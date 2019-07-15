@@ -1,8 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Admin UI main page</title>
-    <link rel="stylesheet" href="/css/common_style.css" type="text/css"/>
+    <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
 <body>
 <h4 align="center">Admin UI main page</h4>

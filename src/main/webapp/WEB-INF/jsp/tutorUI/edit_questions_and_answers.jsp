@@ -27,13 +27,14 @@
     <select hidden id="tests" name="selectedTopicId" onchange="updateTest()">
         <option hidden selected value="0">Выберите тест</option>
         <c:forEach items="${tests}" var="x">
-            <option hidden value="${x.questionId}">${x.name}</option>
+            <option hidden value="${x.testId}">${x.name}</option>
         </c:forEach>
     </select>
     <br>
     <div id="questions"></div>
     <br>
-    <input hidden disabled id="addButton" type="button" value="+" title="Добавить вопрос" onclick="addQuestion()"/>
+    <input hidden disabled class="char-button" id="addButton" type="button" value="+" title="Добавить вопрос"
+           onclick="addQuestion()"/>
     <input id="editData" name="editData" type="hidden" value="[]"/>
     <input type="submit" value="Сохранить" onclick="setData()"/>
     <script>
@@ -50,7 +51,7 @@
         var testsList = [
             <c:forEach items="${tests}" var="x">
             {
-                id: ${x.questionId},
+                id: ${x.testId},
                 topicId: ${x.topicId},
                 name: "${x.name}",
                 description: "${x.description}"
@@ -61,8 +62,8 @@
         var questionsList = [
             <c:forEach items="${questions}" var="x">
             {
-                id: ${x.answerId},
-                questionId: ${x.questionId},
+                id: ${x.questionId},
+                testId: ${x.testId},
                 description: "${x.description}",
                 action: "none"
             },
@@ -74,7 +75,8 @@
             {
                 id: ${x.answerId},
                 questionId: ${x.questionId},
-                description: "${x.answers}",
+                description: "${x.description}",
+                correct: ${x.correct},
                 action: "none"
             },
             </c:forEach>
@@ -107,12 +109,12 @@
             document.getElementById("addButton").disabled = false;
             var tests = document.getElementById("tests");
             var questions = document.getElementById("questions");
-            var questionId = tests[tests.selectedIndex].value;
+            var testId = tests[tests.selectedIndex].value;
             while (questions.firstChild) {
                 questions.removeChild(questions.firstChild);
             }
             for (var i in questionsList) {
-                if (questionsList[i].questionId == questionId) {
+                if (questionsList[i].testId == testId) {
                     createQuestion(i);
                 }
             }
@@ -152,22 +154,63 @@
 
             var editAnswersButton = document.createElement("input");
             editAnswersButton.type = "button";
-            editAnswersButton.value = "↓";
+            editAnswersButton.value = "⯆";
             editAnswersButton.title = "Редактировать ответы";
+            editAnswersButton.className = "char-button";
             editAnswersButton.setAttribute("onclick", "updateQuestion(this)");
-
-            var answers = document.createElement("ol");
 
 
             var deleteButton = document.createElement("input");
             deleteButton.type = "button";
             deleteButton.value = "-";
             deleteButton.title = "Удалить вопрос";
+            deleteButton.className = "char-button";
             deleteButton.setAttribute("onclick", "deleteQuestion(this)");
+
+            var answers = document.createElement("ol");
+            for (var i in answersList) {
+                if (answersList[i].questionId === questionsList[questionIndex].id) {
+                    var item = document.createElement("li");
+                    item.className = "list-item-answer";
+
+                    var description = document.createElement("input");
+                    description.type = "text";
+                    description.value = answersList[i].description;
+                    description.placeholder = "Описание ответа";
+                    description.className = "description";
+
+                    var correct = document.createElement("input");
+                    correct.type = "checkbox";
+                    correct.checked = answersList[i].correct;
+                    correct.title = "Правильный ответ";
+
+                    var removeButton = document.createElement("input");
+                    removeButton.type = "button";
+                    removeButton.value = "-";
+                    removeButton.title = "Удалить ответ";
+                    removeButton.className = "char-button";
+                    removeButton.setAttribute("onclick", "deleteAnswer(this)");
+
+                    item.appendChild(description);
+                    item.appendChild(correct);
+                    item.appendChild(removeButton);
+
+                    answers.appendChild(item);
+                }
+            }
+            var addAnswerButton = document.createElement("input");
+            addAnswerButton.type = "button";
+            addAnswerButton.value = "+";
+            addAnswerButton.title = "Добавить ответ";
+            addAnswerButton.className = "char-button";
+            addAnswerButton.setAttribute("onclick", "addAnswer(this)");
+
+            answers.appendChild(addAnswerButton);
 
             newQuestion.appendChild(nameInput);
             newQuestion.appendChild(editAnswersButton);
             newQuestion.appendChild(deleteButton);
+            newQuestion.appendChild(answers);
 
             questions.appendChild(newQuestion);
         }
