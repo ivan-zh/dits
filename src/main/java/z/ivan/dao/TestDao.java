@@ -4,14 +4,7 @@ import z.ivan.model.Test;
 
 import java.util.List;
 
-public interface TestDao {
-
-    List<Test> getAll();
-
-    Test getById(Long id);
-
+public interface TestDao extends CrudDao<Test> {
     List<Test> getByTopicName(String topicName);
-
-    Long add(Long topic, String testName, String testDescription);
 }
 

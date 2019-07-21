@@ -14,9 +14,9 @@
     <link rel="stylesheet" href="<c:url value="/css/tutor.css"/>" type="text/css"/>
 </head>
 <body>
-<form class="aligned-left" id="form" action="questions_and_answers" method="post">
+<form class="aligned-left" id="form" action="questions_and_answers" style="width: 40%" method="post">
     <label for="topics"></label>
-    <select id="topics" name="selectedTopicId" onchange="updateTopic()">
+    <select id="topics" onchange="updateTopic()">
         <option hidden selected value="0">Выберите тему</option>
         <c:forEach items="${topics}" var="x">
             <option value="${x.topicId}">${x.name}</option>
@@ -24,7 +24,7 @@
     </select>
     <br>
     <label for="tests"></label>
-    <select hidden id="tests" name="selectedTopicId" onchange="updateTest()">
+    <select hidden id="tests" onchange="updateTest()">
         <option hidden selected value="0">Выберите тест</option>
         <c:forEach items="${tests}" var="x">
             <option hidden value="${x.testId}">${x.name}</option>
@@ -35,7 +35,8 @@
     <br>
     <input hidden disabled class="char-button" id="addButton" type="button" value="+" title="Добавить вопрос"
            onclick="addQuestion()"/>
-    <input id="editData" name="editData" type="hidden" value="[]"/>
+    <input id="questionData" name="questionData" type="hidden" value="[]"/>
+    <input id="answerData" name="answerData" type="hidden" value="[]"/>
     <input type="submit" value="Сохранить" onclick="setData()"/>
     <script>
         var topicsList = [
@@ -65,7 +66,8 @@
                 id: ${x.questionId},
                 testId: ${x.testId},
                 description: "${x.description}",
-                action: "none"
+                action: "none",
+                answers: []
             },
             </c:forEach>
         ];
@@ -81,6 +83,14 @@
             },
             </c:forEach>
         ];
+
+        for (var i in answersList) {
+            for (var j in questionsList) {
+                if (answersList[i].questionId === questionsList[j].id) {
+                    questionsList[j].answers.push(answersList[i]);
+                }
+            }
+        }
 
         function updateTopic() {
             var addButton = document.getElementById("addButton");
@@ -122,28 +132,85 @@
 
         function updateQuestion(button) {
             var question = button.parentElement;
+            var list = question.getElementsByTagName("OL")[0];
+            list.hidden = !list.hidden;
         }
 
         function deleteQuestion(button) {
-            var test = button.parentElement;
-            var testIndex = test.getAttribute("testIndex");
-            test.parentElement.removeChild(test);
-            testsList[testIndex].action = "delete";
+            var question = button.parentElement;
+            var questionIndex = question.getAttribute("questionIndex");
+            question.parentElement.removeChild(question);
+            if (questionsList[questionIndex].action === "none") {
+                questionsList[questionIndex].action = "delete";
+            } else {
+                questionsList.splice(questionIndex, 1);
+            }
+        }
+
+        function deleteAnswer(button) {
+            var answer = button.parentElement;
+            var answerIndex = answer.getAttribute("answerIndex");
+            answer.parentElement.removeChild(answer);
+            if (answersList[answerIndex].action === "none") {
+                answersList[answerIndex].action = "delete";
+            } else {
+                answersList.splice(answerIndex, 1);
+            }
         }
 
         function renameQuestion(input) {
             var question = input.parentElement;
-            var questionIndex = question.getAttribute("testIndex");
+            var questionIndex = question.getAttribute("questionIndex");
             questionsList[questionIndex].description = input.value;
-            if (questionsList[questionIndex].action == "none") {
+            if (questionsList[questionIndex].action === "none") {
                 questionsList[questionIndex].action = "update";
             }
+        }
+
+        function renameAnswer(input) {
+            var answer = input.parentElement;
+            var answerIndex = answer.getAttribute("answerIndex");
+            answersList[answerIndex].description = input.value;
+            if (answersList[answerIndex].action === "none") {
+                answersList[answerIndex].action = "update";
+            }
+        }
+
+        function createAnswer(answerIndex) {
+            var item = document.createElement("li");
+            item.className = "list-item-answer";
+            item.setAttribute("answerIndex", answerIndex);
+
+            var description = document.createElement("input");
+            description.type = "text";
+            description.value = answersList[answerIndex].description;
+            description.placeholder = "Описание ответа";
+            description.className = "description";
+            description.setAttribute("oninput", "renameAnswer(this)");
+
+            var correct = document.createElement("input");
+            correct.type = "checkbox";
+            correct.checked = answersList[answerIndex].correct;
+            correct.title = "Правильный ответ";
+
+            var removeButton = document.createElement("input");
+            removeButton.type = "button";
+            removeButton.value = "-";
+            removeButton.title = "Удалить ответ";
+            removeButton.className = "char-button";
+            removeButton.setAttribute("onclick", "deleteAnswer(this)");
+
+            item.appendChild(description);
+            item.appendChild(correct);
+            item.appendChild(removeButton);
+
+            return item;
         }
 
         function createQuestion(questionIndex) {
             var questions = document.getElementById("questions");
             var newQuestion = document.createElement("div");
-            newQuestion.setAttribute("testIndex", questionIndex);
+            newQuestion.setAttribute("questionIndex", questionIndex);
 
             var nameInput = document.createElement("input");
             nameInput.type = "text";
@@ -168,34 +235,10 @@
             deleteButton.setAttribute("onclick", "deleteQuestion(this)");
 
             var answers = document.createElement("ol");
+            answers.hidden = true;
             for (var i in answersList) {
                 if (answersList[i].questionId === questionsList[questionIndex].id) {
-                    var item = document.createElement("li");
-                    item.className = "list-item-answer";
-
-                    var description = document.createElement("input");
-                    description.type = "text";
-                    description.value = answersList[i].description;
-                    description.placeholder = "Описание ответа";
-                    description.className = "description";
-
-                    var correct = document.createElement("input");
-                    correct.type = "checkbox";
-                    correct.checked = answersList[i].correct;
-                    correct.title = "Правильный ответ";
-
-                    var removeButton = document.createElement("input");
-                    removeButton.type = "button";
-                    removeButton.value = "-";
-                    removeButton.title = "Удалить ответ";
-                    removeButton.className = "char-button";
-                    removeButton.setAttribute("onclick", "deleteAnswer(this)");
-
-                    item.appendChild(description);
-                    item.appendChild(correct);
-                    item.appendChild(removeButton);
-
-                    answers.appendChild(item);
+                    answers.appendChild(createAnswer(i));
                 }
             }
             var addAnswerButton = document.createElement("input");
@@ -219,16 +262,29 @@
             var tests = document.getElementById("tests");
             questionsList[questionsList.length] = {
                 id: 0,
-                questionId: tests[tests.selectedIndex].value,
+                testId: tests[tests.selectedIndex].value,
                 description: "",
                 action: "create"
             };
             createQuestion(questionsList.length - 1);
         }
 
+        function addAnswer(button) {
+            var question = button.parentElement.parentElement;
+            var questionId = questionsList[question.getAttribute("questionIndex")];
+            answersList[answersList.length] = {
+                id: 0,
+                questionId: questionId,
+                description: "",
+                action: "create"
+            };
+            var list = question.getElementsByTagName("OL")[0];
+            list.insertBefore(createAnswer(answersList.length - 1), list.lastChild);
+        }
+
         function setData() {
-            var editData = document.getElementById("editData");
-            editData.value = JSON.stringify(questionsList);
+            document.getElementById("questionData").value = JSON.stringify(questionsList);
+            document.getElementById("answerData").value = JSON.stringify(answersList);
         }
 
     </script>

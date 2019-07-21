@@ -1,65 +1,45 @@
 package z.ivan.dao.impl;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import z.ivan.dao.LinkDao;
-import z.ivan.dao.impl.constants.TablesAndColumns;
-import z.ivan.dao.settings.MyJdbcDaoSupport;
 import z.ivan.model.Link;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
-public class LinkDaoImpl extends MyJdbcDaoSupport implements LinkDao {
+public class LinkDaoImpl extends CrudDaoImpl<Link> implements LinkDao {
 
-    private static final String SQL_GET_ALL = "SELECT * FROM ditsdb.link";
-    private static final String SQL_GET_BY_LINKID = "SELECT * FROM ditsdb.link WHERE " + TablesAndColumns.LINKID + " = ?";
-    private static final String SQL_GET_BY_LITERATUREID = "SELECT * FROM ditsdb.link WHERE " + TablesAndColumns.LITERATUREID + " = ?";
+    private static final String TABLE_NAME = "ditsdb.link";
+    private static final String COLUMN_LINK_ID = "linkid";
+    private static final String COLUMN_LINK = "link";
+    private static final String COLUMN_LITERATURE_ID = "literatureid";
 
-    @Override
-    public List<Link> getAll() {
-        List<Link> entities;
-        try {
-            entities = this.getJdbcTemplate().query(SQL_GET_ALL, this::mapRow);
-        } catch (NullPointerException | DataAccessException e) {
-            entities = new ArrayList<>();
-        }
-        return entities;
-    }
-
-    @Override
-    public Link getById(Long id) {
-        Link link;
-        try {
-            link = this.getJdbcTemplate().queryForObject(SQL_GET_BY_LINKID, new Object[]{id}, this::mapRow);
-        } catch (NullPointerException | DataAccessException e) {
-            link = new Link();
-        }
-        return link;
+    public LinkDaoImpl() {
+        super(TABLE_NAME, COLUMN_LINK_ID, LinkDaoImpl::mapRow, LinkDaoImpl::mapData);
     }
 
     @Override
     public List<Link> getByLiteratureId(Long literatureId) {
-        List<Link> links;
-        try {
-            links = this.getJdbcTemplate().query(SQL_GET_BY_LITERATUREID, new Object[]{literatureId}, this::mapRow);
-        } catch (NullPointerException | DataAccessException e) {
-            links = new ArrayList<>();
-        }
-        return links;
+        return getByColumn(COLUMN_LITERATURE_ID, literatureId);
     }
 
-    private Link mapRow(ResultSet resultSet, int rowNum) {
+    private static Map<String, Object> mapData(Link link) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(COLUMN_LINK_ID, link.getLinkId());
+        map.put(COLUMN_LINK, link.getLink());
+        map.put(COLUMN_LITERATURE_ID, link.getLiteratureId());
+        return map;
+    }
+
+    private static Link mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         Link link = new Link();
-        try {
-            link.setLinkId(resultSet.getLong(TablesAndColumns.LINKID));
-            link.setLink(resultSet.getString(TablesAndColumns.LINK));
-            link.setLiteratureId(resultSet.getLong(TablesAndColumns.LITERATUREID));
-        } catch (SQLException e) {
-        }
+        link.setLinkId(resultSet.getLong(COLUMN_LINK_ID));
+        link.setLink(resultSet.getString(COLUMN_LINK));
+        link.setLiteratureId(resultSet.getLong(COLUMN_LITERATURE_ID));
         return link;
     }
 }

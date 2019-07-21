@@ -4,11 +4,6 @@ import z.ivan.model.Link;
 
 import java.util.List;
 
-public interface LinkDao {
-
-    List<Link> getAll();
-
-    Link getById(Long id);
-
+public interface LinkDao extends CrudDao<Link> {
     List<Link> getByLiteratureId(Long literatureId);
 }

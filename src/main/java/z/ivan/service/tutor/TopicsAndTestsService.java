@@ -1,4 +1,4 @@
-package z.ivan.service.Tutor;
+package z.ivan.service.tutor;
 
 import org.springframework.stereotype.Service;
 import z.ivan.dao.AnswerDao;
@@ -48,13 +48,13 @@ public class TopicsAndTestsService {
         for (TestEditDto e : list) {
             switch (e.getAction()) {
                 case "delete":
-                    //testDao.delete(e.getId());
+                    testDao.delete(e.getId());
                     break;
                 case "add":
-                    testDao.add(e.getTopicId(), e.getName(), e.getDescription());
+                    testDao.add(e.toEntity());
                     break;
                 case "update":
-                    //testDao.update(e.getId(), e.getTopicId(), e.getName(), e.getDescription());
+                    testDao.update(e.toEntity());
                     break;
             }
         }

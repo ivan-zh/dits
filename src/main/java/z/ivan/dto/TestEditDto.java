@@ -1,5 +1,7 @@
 package z.ivan.dto;
 
+import z.ivan.model.Test;
+
 public class TestEditDto {
 
     private Long id;
@@ -46,5 +48,14 @@ public class TestEditDto {
 
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public Test toEntity() {
+        Test t = new Test();
+        t.setTestId(id);
+        t.setName(name);
+        t.setDescription(description);
+        t.setTopicId(topicId);
+        return t;
     }
 }

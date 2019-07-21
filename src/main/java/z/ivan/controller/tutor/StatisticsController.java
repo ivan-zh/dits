@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import z.ivan.service.Tutor.StatisticsService;
+import z.ivan.service.tutor.StatisticsService;
 
 @Controller
 @RequestMapping("tutor/statistics")

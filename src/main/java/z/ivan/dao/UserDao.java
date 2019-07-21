@@ -2,17 +2,6 @@ package z.ivan.dao;
 
 import z.ivan.model.User;
 
-import java.util.List;
-
-public interface UserDao {
-
-    List<User> getAll();
-
-    User getById(Long id);
-
+public interface UserDao extends CrudDao<User> {
     User getByLogin(String loginname);
-
-    void add(String firstName, String lastName, String login, int pwdHash, String roleName);
-
-    void edit(Long id, String firstName, String lastName, String login, int pwdHash, String roleName);
 }

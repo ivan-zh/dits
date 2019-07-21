@@ -12,7 +12,6 @@ import java.util.Map;
 @Repository
 public class AnswerDaoImpl extends CrudDaoImpl<Answer> implements AnswerDao {
 
-
     private static final String TABLE_NAME = "ditsdb.answer";
     private static final String COLUMN_ANSWER_ID = "answerid";
     private static final String COLUMN_DESCRIPTION = "description";
@@ -20,20 +19,10 @@ public class AnswerDaoImpl extends CrudDaoImpl<Answer> implements AnswerDao {
     private static final String COLUMN_CORRECT = "correct";
 
     public AnswerDaoImpl() {
-        super(TABLE_NAME, COLUMN_ANSWER_ID, AnswerDaoImpl::mapper);
+        super(TABLE_NAME, COLUMN_ANSWER_ID, AnswerDaoImpl::mapRow, AnswerDaoImpl::mapData);
     }
 
-    @Override
-    public Long add(Answer model) {
-        return super.add(createData(model));
-    }
-
-    @Override
-    public void update(Answer model) {
-        super.update(createData(model));
-    }
-
-    private static Map<String, Object> createData(Answer answer) {
+    private static Map<String, Object> mapData(Answer answer) {
         Map<String, Object> data = new HashMap<>();
         data.put(COLUMN_ANSWER_ID, answer.getAnswerId());
         data.put(COLUMN_DESCRIPTION, answer.getDescription());
@@ -42,7 +31,7 @@ public class AnswerDaoImpl extends CrudDaoImpl<Answer> implements AnswerDao {
         return data;
     }
 
-    private static Answer mapper(ResultSet resultSet, int i) throws SQLException {
+    private static Answer mapRow(ResultSet resultSet, int i) throws SQLException {
         Answer answer = new Answer();
         answer.setAnswerId(resultSet.getLong(COLUMN_ANSWER_ID));
         answer.setDescription(resultSet.getString(COLUMN_DESCRIPTION));

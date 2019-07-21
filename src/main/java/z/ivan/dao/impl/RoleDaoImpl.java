@@ -1,57 +1,42 @@
 package z.ivan.dao.impl;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import z.ivan.dao.RoleDao;
-import z.ivan.dao.impl.constants.TablesAndColumns;
-import z.ivan.dao.settings.MyJdbcDaoSupport;
 import z.ivan.model.Role;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Repository
-public class RoleDaoImpl extends MyJdbcDaoSupport implements RoleDao {
+public class RoleDaoImpl extends CrudDaoImpl<Role> implements RoleDao {
 
-    private static final String SQL_GET_ALL = "SELECT * FROM ditsdb.role";
-    private static final String SQL_GET_BY_ROLEID = "SELECT * FROM ditsdb.role WHERE " + TablesAndColumns.ROLEID + " = ?";
+    private static final String TABLE_NAME = "ditsdb.role";
+    private static final String COLUMN_ROLE_ID = "roleid";
+    private static final String COLUMN_ADMIN = "admin";
+    private static final String COLUMN_TUTOR = "tutor";
+    private static final String COLUMN_USER = "user";
 
     public RoleDaoImpl() {
+        super(TABLE_NAME, COLUMN_ROLE_ID, RoleDaoImpl::mapRow, RoleDaoImpl::mapData);
     }
 
-    @Override
-    public List<Role> getAll() {
-        List<Role> roles;
-        try {
-            roles = this.getJdbcTemplate().query(SQL_GET_ALL, this::mapRow);
-        } catch (NullPointerException | DataAccessException e) {
-            roles = new ArrayList<>();
-        }
-        return roles;
+    private static Map<String, Object> mapData(Role role) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(COLUMN_ROLE_ID, role.getRoleId());
+        map.put(COLUMN_ADMIN, role.getAdmin());
+        map.put(COLUMN_TUTOR, role.getTutor());
+        map.put(COLUMN_USER, role.getUser());
+        return map;
     }
 
-    @Override
-    public Role getById(Long id) {
-        Role role;
-        try {
-            role = this.getJdbcTemplate().queryForObject(SQL_GET_BY_ROLEID, new Object[]{id}, this::mapRow);
-        } catch (NullPointerException | DataAccessException e) {
-            role = new Role();
-        }
-        return role;
-    }
-
-    private Role mapRow(ResultSet resultSet, int i) {
+    private static Role mapRow(ResultSet resultSet, int i) throws SQLException {
         Role role = new Role();
-        try {
-            role.setRoleId(resultSet.getLong(TablesAndColumns.ROLEID));
-            role.setAdmin(resultSet.getInt(TablesAndColumns.ADMIN));
-            role.setTutor(resultSet.getInt(TablesAndColumns.TUTOR));
-            role.setUser(resultSet.getInt(TablesAndColumns.USER));
-        } catch (SQLException e) {
-        }
+        role.setRoleId(resultSet.getLong(COLUMN_ROLE_ID));
+        role.setAdmin(resultSet.getInt(COLUMN_ADMIN));
+        role.setTutor(resultSet.getInt(COLUMN_TUTOR));
+        role.setUser(resultSet.getInt(COLUMN_USER));
         return role;
     }
 }

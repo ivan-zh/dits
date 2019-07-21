@@ -1,65 +1,46 @@
 package z.ivan.dao.impl;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import z.ivan.dao.LiteratureDao;
-import z.ivan.dao.impl.constants.TablesAndColumns;
-import z.ivan.dao.settings.MyJdbcDaoSupport;
 import z.ivan.model.Literature;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
-public class LiteratureDaoImpl extends MyJdbcDaoSupport implements LiteratureDao {
+public class LiteratureDaoImpl extends CrudDaoImpl<Literature> implements LiteratureDao {
 
-    private static final String SQL_GET_ALL = "SELECT * FROM ditsdb.literature";
-    private static final String SQL_GET_BY_LITERATUREID = "SELECT * FROM ditsdb.literature WHERE " + TablesAndColumns.LITERATUREID + " = ?";
-    private static final String SQL_GET_BY_QUESTIONID = "SELECT * FROM ditsdb.literature WHERE " + TablesAndColumns.QUESTIONID + " = ?";
+    private static final String COLUMN_ID = "literatureid";
+    private static final String COLUMN_DESCRIPTION = "description";
+    private static final String COLUMN_QUESTION_ID = "questionid";
+    private static final String TABLE_NAME = "ditsdb.literature";
 
-    @Override
-    public List<Literature> getAll() {
-        List<Literature> entities;
-        try {
-            entities = this.getJdbcTemplate().query(SQL_GET_ALL, this::mapRow);
-        } catch (NullPointerException | DataAccessException e) {
-            entities = new ArrayList<>();
-        }
-        return entities;
-    }
-
-    @Override
-    public Literature getById(Long id) {
-        Literature literature;
-        try {
-            literature = this.getJdbcTemplate().queryForObject(SQL_GET_BY_LITERATUREID, new Object[]{id}, this::mapRow);
-        } catch (NullPointerException | DataAccessException e) {
-            literature = new Literature();
-        }
-        return literature;
+    public LiteratureDaoImpl() {
+        super(TABLE_NAME, COLUMN_ID, LiteratureDaoImpl::mapRow, LiteratureDaoImpl::mapData);
     }
 
     @Override
     public List<Literature> getByQuestionId(Long questionId) {
-        List<Literature> literature;
-        try {
-            literature = this.getJdbcTemplate().query(SQL_GET_BY_QUESTIONID, new Object[]{questionId}, this::mapRow);
-        } catch (NullPointerException | DataAccessException e) {
-            literature = new ArrayList<>();
-        }
-        return literature;
+        return super.getByColumn(COLUMN_QUESTION_ID, questionId);
     }
 
-    private Literature mapRow(ResultSet resultSet, int rowNum) {
+    private static Map<String, Object> mapData(Literature model) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(COLUMN_ID, model.getLiteratureId());
+        map.put(COLUMN_DESCRIPTION, model.getDescription());
+        map.put(COLUMN_QUESTION_ID, model.getQuestionId());
+
+        return map;
+    }
+
+    private static Literature mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         Literature literature = new Literature();
-        try {
-            literature.setLiteratureId(resultSet.getLong(TablesAndColumns.LITERATUREID));
-            literature.setDescription(resultSet.getString(TablesAndColumns.DESCRIPTION));
-            literature.setQuestionId(resultSet.getLong(TablesAndColumns.QUESTIONID));
-        } catch (SQLException e) {
-        }
+        literature.setLiteratureId(resultSet.getLong(COLUMN_ID));
+        literature.setDescription(resultSet.getString(COLUMN_DESCRIPTION));
+        literature.setQuestionId(resultSet.getLong(COLUMN_QUESTION_ID));
         return literature;
     }
 }

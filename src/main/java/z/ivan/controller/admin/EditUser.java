@@ -40,7 +40,24 @@ public class EditUser {
         int pwdHash = Objects.hashCode(password);
         password = new String();
 
-        userDao.edit(Long.valueOf(userId), firstName, lastName, login, pwdHash, roleName);
+        int roleId;
+        if ("admin".equalsIgnoreCase(roleName)) {
+            roleId = 1;
+        } else if ("tutor".equalsIgnoreCase(roleName)) {
+            roleId = 2;
+        } else {
+            roleId = 3;
+        }
+
+        User user = new User();
+        user.setUserId(Long.valueOf(userId));
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setLogin(login);
+        user.setPassword(pwdHash);
+        user.setRoleId(roleId);
+
+        userDao.update(user);
         return "requests";
     }
 }

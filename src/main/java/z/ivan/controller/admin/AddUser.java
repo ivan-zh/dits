@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import z.ivan.dao.UserDao;
+import z.ivan.model.User;
 
 import java.util.Objects;
 
@@ -27,7 +28,22 @@ public class AddUser {
         int pwdHash = Objects.hashCode(password);
         password = new String();
 
-        userDao.add(firstName, lastName, login, pwdHash, roleName);
+        int roleId;
+        if ("admin".equalsIgnoreCase(roleName)) {
+            roleId = 1;
+        } else if ("tutor".equalsIgnoreCase(roleName)) {
+            roleId = 2;
+        } else {
+            roleId = 3;
+        }
+
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setLogin(login);
+        user.setPassword(pwdHash);
+        user.setRoleId(roleId);
+        userDao.add(user);
         return "adminUI/admin_main";
     }
 

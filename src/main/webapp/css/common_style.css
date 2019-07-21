@@ -76,6 +76,7 @@ body {
 body, body * {
     font-size: 24px;
     font-family: "Verdana", serif;
+    vertical-align: middle;
 }
 
 .aligned-left {
