@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Users</title>
+    <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
 <body>
 
@@ -26,7 +27,7 @@
             <td>${u.login}</td>
             <td>${u.password}</td>
             <td>${u.roleId}</td>
-            <td><a href="edit_user/${u.userId}">Редактировать</a>  <a href="delete_user/${u.userId}">Удалить</a></td>
+            <td><a href="/edit_user/${u.userId}">Редактировать</a> <a href="/delete_user/${u.userId}">Удалить</a></td>
         </tr>
     </c:forEach>
 

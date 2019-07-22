@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>Создать тест (topic)</title>
-    <link rel="stylesheet" href="/css/common_style.css" type="text/css"/>
+    <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
 <body>
 <h4>Создать тест (topic)</h4>

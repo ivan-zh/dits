@@ -1,10 +1,11 @@
 package z.ivan.dao.impl;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import z.ivan.config.AppConfig;
 import z.ivan.dao.UserDao;
 import z.ivan.dao.impl.constants.TablesAndColumns;
-import z.ivan.dao.settings.MyJdbcDaoSupport;
 import z.ivan.model.User;
 
 import java.sql.ResultSet;
@@ -13,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class UserDaoImpl extends MyJdbcDaoSupport implements UserDao {
+public class UserDaoImpl implements UserDao {
+
+    private JdbcTemplate jdbcTemplate;
 
     private static final String SQL_GET_ALL = "SELECT * FROM ditsdb.user";
     private static final String SQL_GET_BY_USERID = "SELECT * FROM ditsdb.user WHERE " + TablesAndColumns.USERID + " = ?";
@@ -31,13 +34,15 @@ public class UserDaoImpl extends MyJdbcDaoSupport implements UserDao {
                     " WHERE "
                     + TablesAndColumns.USERID + " = ?";
 
-    public UserDaoImpl() {
+
+    public UserDaoImpl(AppConfig appConfig) {
+        jdbcTemplate = new JdbcTemplate(appConfig.dataSource());
     }
 
     public List<User> getAll() {
         List<User> users;
         try {
-            users = this.getJdbcTemplate().query(SQL_GET_ALL, this::mapRow);
+            users = jdbcTemplate.query(SQL_GET_ALL, this::mapRow);
         } catch (NullPointerException | DataAccessException e) {
             users = new ArrayList<>();
         }
@@ -47,7 +52,7 @@ public class UserDaoImpl extends MyJdbcDaoSupport implements UserDao {
     public User getById(Long id) {
         User user;
         try {
-            user = this.getJdbcTemplate().queryForObject(SQL_GET_BY_USERID, new Object[]{id}, this::mapRow);
+            user = jdbcTemplate.queryForObject(SQL_GET_BY_USERID, new Object[]{id}, this::mapRow);
         } catch (NullPointerException | DataAccessException e) {
             user = new User();
         }
@@ -57,7 +62,7 @@ public class UserDaoImpl extends MyJdbcDaoSupport implements UserDao {
     public User getByLogin(String loginname) {
         User user;
         try {
-            user = this.getJdbcTemplate().queryForObject(SQL_GET_BY_LOGIN, new Object[]{loginname}, this::mapRow);
+            user = jdbcTemplate.queryForObject(SQL_GET_BY_LOGIN, new Object[]{loginname}, this::mapRow);
         } catch (NullPointerException | DataAccessException e) {
             user = new User();
         }
@@ -76,7 +81,7 @@ public class UserDaoImpl extends MyJdbcDaoSupport implements UserDao {
             roleId = 3;
         }
 
-        this.getJdbcTemplate().update(SQL_INSERT, firstName, lastName, login, pwdHash, roleId);
+        jdbcTemplate.update(SQL_INSERT, firstName, lastName, login, pwdHash, roleId);
     }
 
     @Override
@@ -91,7 +96,7 @@ public class UserDaoImpl extends MyJdbcDaoSupport implements UserDao {
             roleId = 3;
         }
 
-        this.getJdbcTemplate().update(SQL_UPDATE, firstName, lastName, login, pwdHash, roleId, id);
+        jdbcTemplate.update(SQL_UPDATE, firstName, lastName, login, pwdHash, roleId, id);
 
     }
 

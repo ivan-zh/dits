@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Ссылки</title>
+    <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
 <body>
 

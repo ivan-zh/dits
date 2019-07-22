@@ -20,14 +20,14 @@ public class DisplayUser {
         this.userDao = userDao;
     }
 
-    @GetMapping(value = "/finduserbyid")
+    @GetMapping("/display_table/finduserbyid")
     public String findUserById(@RequestParam("id") Long id, ModelMap modelMap) {
         User user = userDao.getById(id);
         modelMap.addAttribute("users", Arrays.asList(user));
         return "display_table/allusers";
     }
 
-    @GetMapping(value = "/allusers")
+    @GetMapping("/display_table/allusers")
     public String allUsers(Model model) {
         List<User> users = userDao.getAll();
         model.addAttribute("users", users);

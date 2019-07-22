@@ -1,11 +1,12 @@
 package z.ivan.dao.impl;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import z.ivan.config.AppConfig;
 import z.ivan.dao.QuestionDao;
 import z.ivan.dao.impl.constants.TablesAndColumns;
-import z.ivan.dao.settings.MyJdbcDaoSupport;
 import z.ivan.model.Question;
 
 import java.sql.ResultSet;
@@ -16,18 +17,24 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class QuestionDaoImpl extends MyJdbcDaoSupport implements QuestionDao {
+public class QuestionDaoImpl implements QuestionDao {
+
+    private JdbcTemplate jdbcTemplate;
 
     private static final String SQL_GET_ALL = "SELECT * FROM ditsdb.question";
     private static final String SQL_GET_BY_QUESTIONID = "SELECT * FROM ditsdb.question WHERE " + TablesAndColumns.QUESTIONID + " = ?";
     private static final String SQL_GET_BY_TESTID =
             "SELECT * FROM ditsdb.question WHERE " + TablesAndColumns.TESTID + " = ?";
 
+    public QuestionDaoImpl(AppConfig appConfig) {
+        jdbcTemplate = new JdbcTemplate(appConfig.dataSource());
+    }
+
     @Override
     public List<Question> getAll() {
         List<Question> entities;
         try {
-            entities = this.getJdbcTemplate().query(SQL_GET_ALL, this::mapRow);
+            entities = jdbcTemplate.query(SQL_GET_ALL, this::mapRow);
         } catch (NullPointerException | DataAccessException e) {
             entities = new ArrayList<>();
         }
@@ -38,7 +45,7 @@ public class QuestionDaoImpl extends MyJdbcDaoSupport implements QuestionDao {
     public Question getById(Long id) {
         Question question;
         try {
-            question = this.getJdbcTemplate().queryForObject(SQL_GET_BY_QUESTIONID, new Object[]{id}, this::mapRow);
+            question = jdbcTemplate.queryForObject(SQL_GET_BY_QUESTIONID, new Object[]{id}, this::mapRow);
         } catch (NullPointerException | DataAccessException e) {
             question = new Question();
         }
@@ -49,7 +56,7 @@ public class QuestionDaoImpl extends MyJdbcDaoSupport implements QuestionDao {
     public List<Question> getByTestId(Long testId) {
         List<Question> entities;
         try {
-            entities = this.getJdbcTemplate().query(SQL_GET_BY_TESTID, new Object[]{testId}, this::mapRow);
+            entities = jdbcTemplate.query(SQL_GET_BY_TESTID, new Object[]{testId}, this::mapRow);
         } catch (NullPointerException | DataAccessException e) {
             entities = new ArrayList<>();
         }
@@ -62,7 +69,7 @@ public class QuestionDaoImpl extends MyJdbcDaoSupport implements QuestionDao {
         data.put(TablesAndColumns.DESCRIPTION, description);
         data.put(TablesAndColumns.TESTID, test);
 
-        final Long id = (Long) new SimpleJdbcInsert(this.getJdbcTemplate())
+        final Long id = (Long) new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName(TablesAndColumns.QUESTION)
                 .usingColumns(TablesAndColumns.DESCRIPTION, TablesAndColumns.TESTID)
                 .usingGeneratedKeyColumns(TablesAndColumns.QUESTIONID)

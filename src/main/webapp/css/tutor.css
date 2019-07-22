@@ -1,0 +1,35 @@
+.description {
+    width: fit-content;
+}
+
+.header {
+    color: #8fbaff;
+}
+
+ol {
+    list-style: none;
+    counter-reset: answer-counter;
+}
+
+li {
+    counter-increment: answer-counter;
+    margin: 0.25rem;
+}
+
+li::before {
+    content: counter(answer-counter);
+    background: #4287f5;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: inline-block;
+    line-height: 2rem;
+    color: white;
+    text-align: center;
+    margin-right: 0.5rem;
+}
+
+.char-button {
+    width: 1.75em;
+    height: 1.75em;
+}

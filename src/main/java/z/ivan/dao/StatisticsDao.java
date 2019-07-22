@@ -1,9 +1,10 @@
 package z.ivan.dao;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import z.ivan.config.AppConfig;
 import z.ivan.dao.impl.constants.TablesAndColumns;
-import z.ivan.dao.settings.MyJdbcDaoSupport;
 import z.ivan.model.QuestionStatistics;
 import z.ivan.model.TestStatistics;
 import z.ivan.model.UserStatistics;
@@ -14,19 +15,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class StatisticsDao extends MyJdbcDaoSupport {
+public class StatisticsDao {
+
+    private JdbcTemplate jdbcTemplate;
 
     private static final String SQL_GET_TEST_STATISTICS = "call ditsdb.test_statistics";
     private static final String SQL_GET_QUESTION_STATISTICS = "call ditsdb.question_statistics";
     private static final String SQL_GET_USER_STATISTICS = "call ditsdb.user_statistics";
 
-    public StatisticsDao() {
+    public StatisticsDao(AppConfig appConfig) {
+        jdbcTemplate = new JdbcTemplate(appConfig.dataSource());
     }
 
     public List<TestStatistics> getTestStatistics() {
         List<TestStatistics> testStatistics;
         try {
-            testStatistics = this.getJdbcTemplate().query(SQL_GET_TEST_STATISTICS, this::mapRow);
+            testStatistics = jdbcTemplate.query(SQL_GET_TEST_STATISTICS, this::mapRow);
         } catch (NullPointerException | DataAccessException e) {
             testStatistics = new ArrayList<>();
         }
@@ -36,7 +40,7 @@ public class StatisticsDao extends MyJdbcDaoSupport {
     public List<QuestionStatistics> getQuestionStatistics() {
         List<QuestionStatistics> questionStatistics;
         try {
-            questionStatistics = this.getJdbcTemplate().query(SQL_GET_QUESTION_STATISTICS, this::questionStatisticsMapRow);
+            questionStatistics = jdbcTemplate.query(SQL_GET_QUESTION_STATISTICS, this::questionStatisticsMapRow);
         } catch (NullPointerException | DataAccessException e) {
             questionStatistics = new ArrayList<>();
         }
@@ -47,7 +51,7 @@ public class StatisticsDao extends MyJdbcDaoSupport {
     public List<UserStatistics> getUserStatistics() {
         List<UserStatistics> userStatistics;
         try {
-            userStatistics = this.getJdbcTemplate().query(SQL_GET_USER_STATISTICS, this::userStatisticsMapRow);
+            userStatistics = jdbcTemplate.query(SQL_GET_USER_STATISTICS, this::userStatisticsMapRow);
         } catch (NullPointerException | DataAccessException e) {
             userStatistics = new ArrayList<>();
         }

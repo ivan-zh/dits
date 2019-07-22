@@ -27,8 +27,10 @@
         </tr>
     </c:forEach>
 </table>
+<br>
+<input type="button" value="Назад" onclick="history.back()"/>
 
-<button onclick="history.back();">Назад</button>
+<%--<button onclick="history.back();">Назад</button>--%>
 
 </body>
 </html>

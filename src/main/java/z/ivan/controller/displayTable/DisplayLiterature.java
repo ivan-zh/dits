@@ -21,14 +21,14 @@ public class DisplayLiterature {
         this.literatureDao = literatureDao;
     }
 
-    @GetMapping(value = "/findliteraturebyid")
+    @GetMapping("/display_table/findliteraturebyid")
     public String findLiteratureById(@RequestParam("id") Long id, ModelMap modelMap) {
         Literature literature = literatureDao.getById(id);
         modelMap.addAttribute("literature", Arrays.asList(literature));
         return "display_table/allliteratures";
     }
 
-    @GetMapping(value = "/allliteratures")
+    @GetMapping("/display_table/allliteratures")
     public String allLiteratures(Model model) {
         List<Literature> literature = literatureDao.getAll();
         model.addAttribute("literature", literature);
