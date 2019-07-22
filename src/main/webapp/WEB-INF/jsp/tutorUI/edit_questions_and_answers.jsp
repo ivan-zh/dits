@@ -35,8 +35,7 @@
     <br>
     <input hidden disabled class="char-button" id="addButton" type="button" value="+" title="Добавить вопрос"
            onclick="addQuestion()"/>
-    <input id="questionData" name="questionData" type="hidden" value="[]"/>
-    <input id="answerData" name="answerData" type="hidden" value="[]"/>
+    <input id="questionData" name="questionEdit" type="hidden" value="[]"/>
     <input type="submit" value="Сохранить" onclick="setData()"/>
     <script>
         var topicsList = [
@@ -147,17 +146,6 @@
             }
         }
 
-        function deleteAnswer(button) {
-            var answer = button.parentElement;
-            var answerIndex = answer.getAttribute("answerIndex");
-            answer.parentElement.removeChild(answer);
-            if (answersList[answerIndex].action === "none") {
-                answersList[answerIndex].action = "delete";
-            } else {
-                answersList.splice(answerIndex, 1);
-            }
-        }
-
         function renameQuestion(input) {
             var question = input.parentElement;
             var questionIndex = question.getAttribute("questionIndex");
@@ -167,16 +155,44 @@
             }
         }
 
+        function checkAnswer(checkbox) {
+            var answer = checkbox.parentElement;
+            var answerIndex = answer.getAttribute("answerIndex");
+            var question = answer.parentElement.parentElement;
+            var questionIndex = question.getAttribute("questionIndex");
+            var answersList = questionsList[questionIndex].answers;
+            answersList[answerIndex].correct = checkbox.checked;
+        }
+
         function renameAnswer(input) {
             var answer = input.parentElement;
             var answerIndex = answer.getAttribute("answerIndex");
+            var question = answer.parentElement.parentElement;
+            var questionIndex = question.getAttribute("questionIndex");
+            var answersList = questionsList[questionIndex].answers;
             answersList[answerIndex].description = input.value;
             if (answersList[answerIndex].action === "none") {
                 answersList[answerIndex].action = "update";
             }
         }
 
-        function createAnswer(answerIndex) {
+        function deleteAnswer(button) {
+            var answer = button.parentElement;
+            var answerIndex = answer.getAttribute("answerIndex");
+            var question = answer.parentElement.parentElement;
+            var questionIndex = question.getAttribute("questionIndex");
+            var answersList = questionsList[questionIndex].answers;
+            answer.parentElement.removeChild(answer);
+            if (answersList[answerIndex].action === "none") {
+                answersList[answerIndex].action = "delete";
+            } else {
+                answersList.splice(answerIndex, 1);
+            }
+        }
+
+        function createAnswer(questionIndex, answerIndex) {
+            var answersList = questionsList[questionIndex].answers;
+
             var item = document.createElement("li");
             item.className = "list-item-answer";
             item.setAttribute("answerIndex", answerIndex);
@@ -192,6 +208,7 @@
             correct.type = "checkbox";
             correct.checked = answersList[answerIndex].correct;
             correct.title = "Правильный ответ";
+            correct.setAttribute("onchange", "checkAnswer(this)");
 
             var removeButton = document.createElement("input");
             removeButton.type = "button";
@@ -236,10 +253,8 @@
 
             var answers = document.createElement("ol");
             answers.hidden = true;
-            for (var i in answersList) {
-                if (answersList[i].questionId === questionsList[questionIndex].id) {
-                    answers.appendChild(createAnswer(i));
-                }
+            for (var i in questionsList[questionIndex].answers) {
+                answers.appendChild(createAnswer(questionIndex, i));
             }
             var addAnswerButton = document.createElement("input");
             addAnswerButton.type = "button";
@@ -264,27 +279,28 @@
                 id: 0,
                 testId: tests[tests.selectedIndex].value,
                 description: "",
-                action: "create"
+                action: "create",
+                answers: []
             };
             createQuestion(questionsList.length - 1);
         }
 
         function addAnswer(button) {
             var question = button.parentElement.parentElement;
-            var questionId = questionsList[question.getAttribute("questionIndex")];
+            var questionIndex = question.getAttribute("questionIndex");
+            var answersList = questionsList[questionIndex].answers;
             answersList[answersList.length] = {
                 id: 0,
-                questionId: questionId,
+                questionId: 0,
                 description: "",
                 action: "create"
             };
             var list = question.getElementsByTagName("OL")[0];
-            list.insertBefore(createAnswer(answersList.length - 1), list.lastChild);
+            list.insertBefore(createAnswer(questionIndex, answersList.length - 1), list.lastChild);
         }
 
         function setData() {
             document.getElementById("questionData").value = JSON.stringify(questionsList);
-            document.getElementById("answerData").value = JSON.stringify(answersList);
         }
 
     </script>

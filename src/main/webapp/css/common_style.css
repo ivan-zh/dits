@@ -47,17 +47,25 @@ a:active {
     transform: scale(.95);
 }
 
-input[type=button]:disabled, input[type=submit]:disabled, input[type=reset]:disabled {
+input[type=button]:disabled,
+input[type=submit]:disabled,
+input[type=reset]:disabled {
     background-color: #8fbaff;
     border-color: #8fbaff;
 }
 
-input[type=button]:enabled, input[type=submit]:enabled, input[type=reset]:enabled {
+input[type=button]:enabled,
+input[type=submit]:enabled,
+input[type=reset]:enabled,
+input[type=checkbox]:enabled {
     cursor: pointer;
 }
 
 
-input[type=text], input[type=password], select, option {
+input[type=text],
+input[type=password],
+select,
+option {
     border-style: solid;
     border-color: #8fbaff;
     border-radius: 0.3125em;
@@ -77,6 +85,7 @@ body, body * {
     font-size: 24px;
     font-family: "Verdana", serif;
     vertical-align: middle;
+    white-space: nowrap;
 }
 
 .aligned-left {

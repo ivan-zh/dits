@@ -14,9 +14,9 @@
 </head>
 <body>
 <div class="aligned-left">
-    <a href="tutor/statistics/test">Статистика по тестам</a><br>
-    <a href="tutor/statistics/question">Статистика по вопросам</a><br>
-    <a href="tutor/statistics/user">Статистика по пользователям</a><br>
+    <a href="statistics/test">Статистика по тестам</a><br>
+    <a href="statistics/question">Статистика по вопросам</a><br>
+    <a href="statistics/user">Статистика по пользователям</a><br>
     <input type="button" value="Назад" onclick="history.back()"/>
 </div>
 </body>

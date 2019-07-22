@@ -50,7 +50,7 @@ public class TopicsAndTestsService {
                 case "delete":
                     testDao.delete(e.getId());
                     break;
-                case "add":
+                case "create":
                     testDao.add(e.toEntity());
                     break;
                 case "update":

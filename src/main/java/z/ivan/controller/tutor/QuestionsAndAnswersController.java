@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import z.ivan.dto.AnswerEditDto;
 import z.ivan.dto.QuestionEditDto;
-import z.ivan.dto.TestEditDto;
 import z.ivan.service.tutor.QuestionsAndAnswersService;
 import z.ivan.service.tutor.TopicsAndTestsService;
 
@@ -41,14 +39,11 @@ public class QuestionsAndAnswersController {
 
     @PostMapping("")
     public String edit(ModelMap modelMap,
-                       @RequestParam String questionEdit,
-                       @RequestParam String answersEdit) throws IOException {
+                       @RequestParam String questionEdit) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        List<QuestionEditDto> questionList = mapper.readValue(questionEdit, new TypeReference<List<TestEditDto>>() {
+        List<QuestionEditDto> questionList = mapper.readValue(questionEdit, new TypeReference<List<QuestionEditDto>>() {
         });
-        List<AnswerEditDto> answerList = mapper.readValue(answersEdit, new TypeReference<List<TestEditDto>>() {
-        });
-        questionsAndAnswersService.edit(questionList, answerList);
+        questionsAndAnswersService.edit(questionList, null);
         modelMap.addAttribute("topics", topicsAndTestsService.getTopicList());
         modelMap.addAttribute("tests", topicsAndTestsService.getTestList());
         modelMap.addAttribute("questions", topicsAndTestsService.getQuestionList());
