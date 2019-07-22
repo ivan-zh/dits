@@ -45,7 +45,12 @@ public abstract class CrudDaoImpl<T> extends MyJdbcDaoSupport implements CrudDao
             if (key.equals(idColumn)) {
                 id = data.get(key);
             }
-            sets.append(key).append("=").append(data.get(key)).append(",");
+            Object value = data.get(key);
+            if (value.getClass().equals(String.class)) {
+                sets.append(key).append("=\"").append(value).append("\",");
+            } else {
+                sets.append(key).append("=").append(value).append(",");
+            }
         }
         sets.deleteCharAt(sets.length() - 1);
         getJdbcTemplate()

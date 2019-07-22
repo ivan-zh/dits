@@ -9,7 +9,6 @@ import z.ivan.model.UserStatistics;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -46,7 +45,6 @@ public class StatisticsDaoImpl extends MyJdbcDaoSupport implements StatisticsDao
     public List<UserStatistics> getUserStatistics() {
         List<UserStatistics> userStatistics;
         userStatistics = this.getJdbcTemplate().query(SQL_GET_USER_STATISTICS, this::userStatisticsMapRow);
-        userStatistics = new ArrayList<>();
         return userStatistics;
     }
 
