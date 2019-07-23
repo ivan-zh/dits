@@ -12,13 +12,13 @@
     <tr>
         <th>linkId</th>
         <th>link</th>
-        <th>literatureId</th>
+        <th>id</th>
     </tr>
     <c:forEach var="t" items="${links}">
         <tr>
             <td>${t.linkId}</td>
             <td>${t.link}</td>
-            <td>${t.literatureId}</td>
+            <td>${t.id}</td>
         </tr>
     </c:forEach>
 </table>

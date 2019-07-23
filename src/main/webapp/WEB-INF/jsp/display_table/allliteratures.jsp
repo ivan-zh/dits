@@ -10,13 +10,13 @@
 <table border="1">
     <caption>Литература</caption>
     <tr>
-        <th>literatureId</th>
+        <th>id</th>
         <th>description</th>
         <th>answerId</th>
     </tr>
     <c:forEach var="t" items="${literature}">
         <tr>
-            <td>${t.literatureId}</td>
+            <td>${t.id}</td>
             <td>${t.description}</td>
             <td>${t.answerId}</td>
         </tr>
