@@ -16,19 +16,11 @@ public class AppController {
 
     @GetMapping({"/", "/welcome"})
     public ModelAndView root(HttpServletRequest request) {
-        System.out.println("----- in @GetMapping({\"/\", \"/welcome\"})");
 
         HttpSession session = request.getSession();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         String role = authorities.toString();
-
-        System.out.print("authorities: ");
-        authorities.forEach(System.out::println);
-
-        System.out.print("role: ");
-        System.out.println(role);
-        System.out.println("----- out @GetMapping({\"/\", \"/welcome\"})");
 
         if ("[ROLE_ADMIN]".equalsIgnoreCase(role)) {
             session.setAttribute("role", "Admin");
@@ -38,10 +30,9 @@ public class AppController {
             return new ModelAndView("redirect: /tutor/tutor_main");
         } else if ("[ROLE_USER]".equalsIgnoreCase(role)) {
             session.setAttribute("role", "User");
-            return new ModelAndView("redirect: /");
+            return new ModelAndView("redirect: /user/user_main");
         } else {
             return new ModelAndView("redirect: /welcome");
         }
-
     }
 }

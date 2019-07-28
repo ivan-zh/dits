@@ -8,8 +8,6 @@
 <body>
 <h4 align="center">Admin UI main page</h4>
 
-<p>Hello, ${greetname}!</p>
-
 <table border="0" cellspacing="2">
     <tbody>
     <tr>

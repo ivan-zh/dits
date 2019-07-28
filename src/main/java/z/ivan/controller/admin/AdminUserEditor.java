@@ -1,7 +1,6 @@
 package z.ivan.controller.admin;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,15 +11,19 @@ import z.ivan.dao.UserDao;
 import z.ivan.model.Role;
 import z.ivan.model.User;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
-public class UserController {
+public class AdminUserEditor {
 
-    private final UserDao userDao;
+    private UserDao userDao;
 
-    public UserController(UserDao userDao) {
+    private PasswordEncoder encoder;
+
+    public AdminUserEditor(UserDao userDao, PasswordEncoder encoder) {
         this.userDao = userDao;
+        this.encoder = encoder;
     }
 
     @PostMapping("add_user_to_db")
@@ -31,26 +34,16 @@ public class UserController {
             @RequestParam("password") String password,
             @RequestParam("roleName") String roleName
     ) {
-        int pwdHash = Objects.hashCode(password);
-        password = new String();
+        List<String> mapData = new ArrayList<>();
 
-        int roleId;
-        if ("admin".equalsIgnoreCase(roleName)) {
-            roleId = 1;
-        } else if ("tutor".equalsIgnoreCase(roleName)) {
-            roleId = 2;
-        } else {
-            roleId = 3;
-        }
+        mapData.add("");
+        mapData.add(firstName);
+        mapData.add(lastName);
+        mapData.add(login);
+        mapData.add(password);
+        mapData.add(roleName);
 
-        User user = new User();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setLogin(login);
-        user.setPassword(pwdHash);
-        user.setRoleId(roleId);
-        userDao.add(user);
-
+        userDao.add(mapDataToUser(mapData));
         return "adminUI/admin_main";
     }
 
@@ -71,27 +64,43 @@ public class UserController {
             @RequestParam("password") String password,
             @RequestParam("roleName") String roleName
     ) {
-        int pwdHash = Objects.hashCode(password);
-        password = new String();
+        List<String> mapData = new ArrayList<>();
 
+        mapData.add(userId);
+        mapData.add(firstName);
+        mapData.add(lastName);
+        mapData.add(login);
+        mapData.add(password);
+        mapData.add(roleName);
+        userDao.update(mapDataToUser(mapData));
+        return "adminUI/requests";
+    }
+
+    private User mapDataToUser(List<String> mapData) {
+        User user = new User();
+
+        if (!mapData.get(0).equals("")) {
+            user.setUserId(Long.valueOf(mapData.get(0)));
+        }
+
+        user.setFirstName(mapData.get(1));
+        user.setLastName(mapData.get(2));
+        user.setLogin(mapData.get(3));
+
+        int pwdHash = Integer.parseInt(encoder.encode(mapData.get(4)));
+        user.setPassword(pwdHash);
+
+        String roleName = mapData.get(5);
         int roleId;
-        if ("admin".equalsIgnoreCase(roleName)) {
+        if ("Admin".equalsIgnoreCase(roleName)) {
             roleId = 1;
-        } else if ("tutor".equalsIgnoreCase(roleName)) {
+        } else if ("Tutor".equalsIgnoreCase(roleName)) {
             roleId = 2;
         } else {
             roleId = 3;
         }
-
-        User user = new User();
-        user.setUserId(Long.valueOf(userId));
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setLogin(login);
-        user.setPassword(pwdHash);
         user.setRoleId(roleId);
 
-        userDao.update(user);
-        return "adminUI/requests";
+        return user;
     }
 }
