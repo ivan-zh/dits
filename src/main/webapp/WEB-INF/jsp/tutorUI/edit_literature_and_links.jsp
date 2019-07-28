@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="<c:url value="/css/tutor.css"/>" type="text/css"/>
 </head>
 <body>
-<form class="aligned-left" id="form" action="literature_and_links" style="width: 40%" method="post">
+<form class="aligned-left" id="form" action="<c:url value="/tutor/literature_and_links/"/>" style="width: 40%"
+      method="post">
     <label for="topics"></label>
     <select id="topics" onchange="updateTopic()">
         <option hidden selected value="0">Выберите тему</option>
@@ -39,11 +40,12 @@
         </c:forEach>
     </select>
     <br>
+    <br>
     <div id="literature"></div>
     <br>
     <input hidden disabled class="char-button" id="addButton" type="button" value="+" title="Добавить вопрос"
-           onclick="addQuestion()"/>
-    <input id="questionData" name="questionEdit" type="hidden" value="[]"/>
+           onclick="addLiterature()"/>
+    <input id="data" name="editData" type="hidden" value="[]"/>
     <input type="submit" value="Сохранить" onclick="setData()"/>
     <script>
         var topicsList = [
@@ -73,8 +75,7 @@
                 id: ${x.questionId},
                 testId: ${x.testId},
                 description: "${x.description}",
-                action: "none",
-                answers: []
+                action: "none"
             },
             </c:forEach>
         ];
@@ -97,7 +98,9 @@
                 id: ${x.literatureId},
                 questionId: ${x.questionId},
                 description: "${x.description}",
-                action: "none"
+                action: "none",
+                links: []
+
             },
             </c:forEach>
         ];
@@ -106,17 +109,17 @@
             <c:forEach items="${links}" var="x">
             {
                 id: ${x.linkId},
-                questionId: ${x.literatureId},
-                link: "${x.link}",
+                literatureId: ${x.literatureId},
+                linkValue: "${x.link}",
                 action: "none"
             },
             </c:forEach>
         ];
 
-        for (var i in answersList) {
-            for (var j in questionsList) {
-                if (answersList[i].questionId === questionsList[j].id) {
-                    questionsList[j].answers.push(answersList[i]);
+        for (var i in linkList) {
+            for (var j in literatureList) {
+                if (linkList[i].literatureId === linkList[j].id) {
+                    literatureList[j].links.push(linkList[i]);
                 }
             }
         }
@@ -188,91 +191,90 @@
             list.hidden = !list.hidden;
         }
 
-        function deleteQuestion(button) {
+        function deleteLiterature(button) {
             var question = button.parentElement;
-            var questionIndex = question.getAttribute("questionIndex");
+            var index = question.getAttribute("index");
             question.parentElement.removeChild(question);
-            if (questionsList[questionIndex].action === "none") {
-                questionsList[questionIndex].action = "delete";
+            if (questionsList[index].action === "none") {
+                questionsList[index].action = "delete";
             } else {
-                questionsList.splice(questionIndex, 1);
+                questionsList.splice(index, 1);
             }
         }
 
-        function renameQuestion(input) {
+        function renameLiterature(input) {
             var question = input.parentElement;
-            var questionIndex = question.getAttribute("questionIndex");
-            questionsList[questionIndex].description = input.value;
-            if (questionsList[questionIndex].action === "none") {
-                questionsList[questionIndex].action = "update";
+            var index = question.getAttribute("index");
+            questionsList[index].description = input.value;
+            if (questionsList[index].action === "none") {
+                questionsList[index].action = "update";
             }
         }
 
-        function renameAnswer(input) {
+        function renameLink(input) {
             var answer = input.parentElement;
-            var answerIndex = answer.getAttribute("answerIndex");
+            var linkIndex = answer.getAttribute("index");
             var question = answer.parentElement.parentElement;
-            var questionIndex = question.getAttribute("questionIndex");
-            var answersList = questionsList[questionIndex].answers;
-            answersList[answerIndex].description = input.value;
-            if (answersList[answerIndex].action === "none") {
-                answersList[answerIndex].action = "update";
+            var index = question.getAttribute("index");
+            var links = literatureList[index].links;
+            links[linkIndex].linkValue = input.value;
+            if (links[linkIndex].action === "none") {
+                links[linkIndex].action = "update";
             }
         }
 
-        function deleteAnswer(button) {
+        function deleteLink(button) {
             var answer = button.parentElement;
-            var answerIndex = answer.getAttribute("answerIndex");
+            var linkIndex = answer.getAttribute("index");
             var question = answer.parentElement.parentElement;
-            var questionIndex = question.getAttribute("questionIndex");
-            var answersList = questionsList[questionIndex].answers;
+            var index = question.getAttribute("index");
+            var links = literatureList[index].links;
             answer.parentElement.removeChild(answer);
-            if (answersList[answerIndex].action === "none") {
-                answersList[answerIndex].action = "delete";
+            if (links[linkIndex].action === "none") {
+                links[linkIndex].action = "delete";
             } else {
-                answersList.splice(answerIndex, 1);
+                links.splice(linkIndex, 1);
             }
         }
 
-        function createAnswer(questionIndex, answerIndex) {
-            var answersList = questionsList[questionIndex].answers;
+        function createLink(index, linkIndex) {
+            var links = literatureList[index].links;
 
             var item = document.createElement("li");
             item.className = "list-item-answer";
-            item.setAttribute("answerIndex", answerIndex);
+            item.setAttribute("index", linkIndex);
 
             var description = document.createElement("input");
             description.type = "text";
-            description.value = answersList[answerIndex].description;
-            description.placeholder = "Описание ответа";
+            description.value = links[linkIndex].linkValue;
+            description.placeholder = "Ссылка на ресурс";
             description.className = "description";
-            description.setAttribute("oninput", "renameAnswer(this)");
+            description.setAttribute("oninput", "renameLink(this)");
 
             var removeButton = document.createElement("input");
             removeButton.type = "button";
             removeButton.value = "-";
             removeButton.title = "Удалить ответ";
             removeButton.className = "char-button";
-            removeButton.setAttribute("onclick", "deleteAnswer(this)");
+            removeButton.setAttribute("onclick", "deleteLink(this)");
 
             item.appendChild(description);
-            item.appendChild(correct);
             item.appendChild(removeButton);
 
             return item;
         }
 
-        function createLiterature(questionIndex) {
-            var questions = document.getElementById("questions");
-            var newQuestion = document.createElement("div");
-            newQuestion.setAttribute("questionIndex", questionIndex);
+        function createLiterature(literatureIndex) {
+            var literature = document.getElementById("literature");
+            var newLiterature = document.createElement("div");
+            newLiterature.setAttribute("index", literatureIndex);
 
             var nameInput = document.createElement("input");
             nameInput.type = "text";
-            nameInput.value = questionsList[questionIndex].description;
+            nameInput.value = literatureList[literatureIndex].description;
             nameInput.placeholder = "Описание вопроса";
             nameInput.className = "description";
-            nameInput.setAttribute("oninput", "renameQuestion(this)");
+            nameInput.setAttribute("oninput", "renameLiterature(this)");
 
             var editAnswersButton = document.createElement("input");
             editAnswersButton.type = "button";
@@ -287,58 +289,58 @@
             deleteButton.value = "-";
             deleteButton.title = "Удалить вопрос";
             deleteButton.className = "char-button";
-            deleteButton.setAttribute("onclick", "deleteQuestion(this)");
+            deleteButton.setAttribute("onclick", "deleteLiterature(this)");
 
             var answers = document.createElement("ol");
             answers.hidden = true;
-            for (var i in questionsList[questionIndex].answers) {
-                answers.appendChild(createAnswer(questionIndex, i));
+            for (var i in literatureList[literatureIndex].links) {
+                answers.appendChild(createLink(literatureIndex, i));
             }
             var addAnswerButton = document.createElement("input");
             addAnswerButton.type = "button";
             addAnswerButton.value = "+";
             addAnswerButton.title = "Добавить ответ";
             addAnswerButton.className = "char-button";
-            addAnswerButton.setAttribute("onclick", "addAnswer(this)");
+            addAnswerButton.setAttribute("onclick", "addLink(this)");
 
             answers.appendChild(addAnswerButton);
 
-            newQuestion.appendChild(nameInput);
-            newQuestion.appendChild(editAnswersButton);
-            newQuestion.appendChild(deleteButton);
-            newQuestion.appendChild(answers);
+            newLiterature.appendChild(nameInput);
+            newLiterature.appendChild(editAnswersButton);
+            newLiterature.appendChild(deleteButton);
+            newLiterature.appendChild(answers);
 
-            questions.appendChild(newQuestion);
+            literature.appendChild(newLiterature);
         }
 
-        function addQuestion() {
-            var tests = document.getElementById("tests");
-            questionsList[questionsList.length] = {
+        function addLiterature() {
+            var questions = document.getElementById("questions");
+            literatureList[literatureList.length] = {
                 id: 0,
-                testId: tests[tests.selectedIndex].value,
+                questionId: questions[questions.selectedIndex].value,
                 description: "",
                 action: "create",
-                answers: []
+                links: []
             };
-            createLiterature(questionsList.length - 1);
+            createLiterature(literatureList.length - 1);
         }
 
-        function addAnswer(button) {
-            var question = button.parentElement.parentElement;
-            var questionIndex = question.getAttribute("questionIndex");
-            var answersList = questionsList[questionIndex].answers;
-            answersList[answersList.length] = {
+        function addLink(button) {
+            var literature = button.parentElement.parentElement;
+            var literatureIndex = literature.getAttribute("index");
+            var linkList = literatureList[literatureIndex].links;
+            linkList[linkList.length] = {
                 id: 0,
                 literatureId: 0,
-                description: "",
+                linkValue: "",
                 action: "create"
             };
-            var list = question.getElementsByTagName("OL")[0];
-            list.insertBefore(createAnswer(questionIndex, answersList.length - 1), list.lastChild);
+            var list = literature.getElementsByTagName("OL")[0];
+            list.insertBefore(createLink(literatureIndex, linkList.length - 1), list.lastChild);
         }
 
         function setData() {
-            document.getElementById("questionData").value = JSON.stringify(questionsList);
+            document.getElementById("data").value = JSON.stringify(literatureList);
         }
 
     </script>

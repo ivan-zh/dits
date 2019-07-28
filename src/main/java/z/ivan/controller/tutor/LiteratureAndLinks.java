@@ -43,9 +43,9 @@ public class LiteratureAndLinks {
 
     @PostMapping("")
     public String edit(ModelMap modelMap,
-                       @RequestParam String questionEdit) throws IOException {
+                       @RequestParam String editData) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        List<LiteratureEditDto> questionList = mapper.readValue(questionEdit, new TypeReference<List<LiteratureEditDto>>() {
+        List<LiteratureEditDto> questionList = mapper.readValue(editData, new TypeReference<List<LiteratureEditDto>>() {
         });
         literatueAndLinksService.edit(questionList);
         modelMap.addAttribute("topics", topicsAndTestsService.getTopicList());
