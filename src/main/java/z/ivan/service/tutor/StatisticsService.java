@@ -1,4 +1,4 @@
-package z.ivan.service.Tutor;
+package z.ivan.service.tutor;
 
 import org.springframework.stereotype.Service;
 import z.ivan.dao.StatisticsDao;

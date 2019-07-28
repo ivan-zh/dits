@@ -35,6 +35,16 @@ input[type=reset]:hover:enabled {
     /*background-color: #8fbaff;*/
     /*border-color: #8fbaff;*/
     box-shadow: 0 0 3pt 2pt #8fbaff;
+
+}
+
+input[type=button]:active,
+input[type=submit]:active,
+input[type=reset]:active,
+a:active {
+    /*background-color: #8fbaff;*/
+    /*border-color: #8fbaff;*/
+    transform: scale(.95);
 }
 
 input[type=button]:active,
@@ -77,6 +87,7 @@ body {
 body, body * {
     font-size: 24px;
     font-family: "Verdana", serif;
+    vertical-align: middle;
 }
 
 .aligned-left {

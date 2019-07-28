@@ -9,11 +9,14 @@
 ol {
     list-style: none;
     counter-reset: answer-counter;
+    margin: 0;
 }
 
 li {
     counter-increment: answer-counter;
-    margin: 0.25rem;
+    margin: 0;
+    position: relative;
+    height: 2em;
 }
 
 li::before {
@@ -32,4 +35,27 @@ li::before {
 .char-button {
     width: 1.75em;
     height: 1.75em;
+}
+
+input[type=checkbox] {
+    -webkit-appearance: none;
+    background-color: #eee;
+    padding: 0.875em;
+    border-radius: 0.3125em;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
+input[type=checkbox]:checked {
+    background-color: #29dc37;
+    color: white;
+}
+
+input[type=checkbox]:checked:after {
+    content: '\2714';
+    position: absolute;
+    top: 4px;
+    left: 11px;
+    color: white;
 }

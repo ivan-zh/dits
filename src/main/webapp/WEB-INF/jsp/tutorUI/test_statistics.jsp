@@ -9,14 +9,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Статистика по вопросам</title>
-    <link rel="stylesheet" href="/css/stat_table.css" type="text/css"/>
+    <title>Статистика по тестам</title>
+    <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
-
 <body>
 <table>
     <tr>
-        <th>Название вопроса</th>
+        <th>Название теста</th>
         <th>Пройдено всего</th>
         <th>Процент правильных ответов</th>
     </tr>
@@ -28,8 +27,10 @@
         </tr>
     </c:forEach>
 </table>
+<br>
+<input type="button" value="Назад" onclick="history.back()"/>
 
-<button onclick="history.back();">Назад</button>
+<%--<button onclick="history.back();">Назад</button>--%>
 
 </body>
 </html>

@@ -1,5 +1,7 @@
 package z.ivan.controller.admin;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,7 @@ import java.util.Objects;
 @Controller
 public class UserController {
 
-    private UserDao userDao;
+    private final UserDao userDao;
 
     public UserController(UserDao userDao) {
         this.userDao = userDao;
@@ -32,8 +34,24 @@ public class UserController {
         int pwdHash = Objects.hashCode(password);
         password = new String();
 
-        userDao.add(firstName, lastName, login, pwdHash, roleName);
-        return "admin/admin_main";
+        int roleId;
+        if ("admin".equalsIgnoreCase(roleName)) {
+            roleId = 1;
+        } else if ("tutor".equalsIgnoreCase(roleName)) {
+            roleId = 2;
+        } else {
+            roleId = 3;
+        }
+
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setLogin(login);
+        user.setPassword(pwdHash);
+        user.setRoleId(roleId);
+        userDao.add(user);
+
+        return "adminUI/admin_main";
     }
 
     @GetMapping("edit_user/{userId}")
@@ -41,7 +59,7 @@ public class UserController {
         User user = userDao.getById(Long.valueOf(userId));
         model.addAttribute("rolesNames", Role.getRolesNames());
         model.addAttribute("user", user);
-        return "admin/edit_user";
+        return "adminUI/edit_user";
     }
 
     @PostMapping("edit_user")
@@ -56,7 +74,24 @@ public class UserController {
         int pwdHash = Objects.hashCode(password);
         password = new String();
 
-        userDao.edit(Long.valueOf(userId), firstName, lastName, login, pwdHash, roleName);
-        return "admin/requests";
+        int roleId;
+        if ("admin".equalsIgnoreCase(roleName)) {
+            roleId = 1;
+        } else if ("tutor".equalsIgnoreCase(roleName)) {
+            roleId = 2;
+        } else {
+            roleId = 3;
+        }
+
+        User user = new User();
+        user.setUserId(Long.valueOf(userId));
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setLogin(login);
+        user.setPassword(pwdHash);
+        user.setRoleId(roleId);
+
+        userDao.update(user);
+        return "adminUI/requests";
     }
 }

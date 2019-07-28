@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,8 +20,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    public WebSecurityConfig(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
+    public WebSecurityConfig(UserDetailsService service) {
+        this.userDetailsService = service;
     }
 
     @Bean
@@ -33,8 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
         auth.inMemoryAuthentication()
                 .withUser("admin")
-                .password(passwordEncoder().encode("1"))
-                .roles("admin");
+                .password(passwordEncoder().encode("admin"))
+                .roles("Admin");
     }
 
     @Override
@@ -43,11 +44,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/login", "/logout", "/").permitAll();
 
         http.authorizeRequests()
-                .antMatchers("/", "/login", "/resources/**", "/resources/images/**", "/css/**").permitAll()
-                .antMatchers("/admin/**").hasAnyRole("Admin")
-                .antMatchers("/display_table/**").hasAnyRole("Admin")
-                .antMatchers("/requests").hasAnyRole("Admin", "Tutor")
-                .anyRequest().authenticated()
+                .antMatchers("/", "/login", "/resources/**", "/resources/images/**", "/css/**").permitAll()//
+
+                .antMatchers("/admin/**").hasAnyRole("Admin")//
+                .antMatchers("/tutor/statistics/**").hasAnyRole("Admin", "Tutor")//
+                .antMatchers("/display_table/**").hasAnyRole("Admin")//
+
+                .antMatchers("/tutor/**").hasAnyRole("Tutor")//
+
+                .antMatchers("/requests").hasAnyRole("Admin", "Tutor")//
+
+                .anyRequest().authenticated()//
                 .and()
                 .formLogin()
                 .loginPage("/login")

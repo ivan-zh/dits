@@ -9,7 +9,7 @@
 <body>
 <h4 align="center">Редактировать пользователя</h4>
 <hr>
-<form action="/edit_user" method="post">
+<form action="<c:url value="/edit_user"/>" method="post">
     <select name="roleName">
         <c:forEach var="roleName" items="${rolesNames}">
             <option>${roleName}</option>

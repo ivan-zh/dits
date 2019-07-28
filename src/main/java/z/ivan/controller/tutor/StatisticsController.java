@@ -3,7 +3,7 @@ package z.ivan.controller.tutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import z.ivan.service.Tutor.StatisticsService;
+import z.ivan.service.tutor.StatisticsService;
 
 @Controller
 public class StatisticsController {
@@ -16,24 +16,24 @@ public class StatisticsController {
 
     @GetMapping("/tutor/statistics")
     public String tutorStatistics() {
-        return "tutor/statistics";
+        return "tutorUI/statistics";
     }
 
     @GetMapping("/tutor/statistics/test")
     public String testStatistics(ModelMap modelMap) {
         modelMap.addAttribute("stats", statisticsService.getTestStatistics());
-        return "tutor/test_statistics";
+        return "tutorUI/test_statistics";
     }
 
     @GetMapping("/tutor/statistics/question")
     public String questionStatistics(ModelMap modelMap) {
         modelMap.addAttribute("stats", statisticsService.getQuestionStatistics());
-        return "tutor/question_statistics";
+        return "tutorUI/question_statistics";
     }
 
     @GetMapping("/tutor/statistics/user")
     public String userStatistics(ModelMap modelMap) {
         modelMap.addAttribute("stats", statisticsService.getUserStatistics());
-        return "tutor/user_statistics";
+        return "tutorUI/user_statistics";
     }
 }

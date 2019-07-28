@@ -11,23 +11,23 @@ public class AdminController {
 
     @GetMapping("/admin/create_topic")
     public String createTopic(Model model) {
-        return "admin/create_topic";
+        return "adminUI/create_topic";
     }
 
     @GetMapping("/admin/create_user")
     public String createUser(Model model) {
         model.addAttribute("rolesNames", Role.getRolesNames());
-        return "admin/create_user";
+        return "adminUI/create_user";
     }
 
     @GetMapping("/admin/admin_main")
     public String admin() {
-        return "admin/admin_main";
+        return "adminUI/admin_main";
     }
 
     @GetMapping("/admin/requests")
     public String requests() {
-        return "admin/requests";
+        return "adminUI/requests";
     }
 
 }

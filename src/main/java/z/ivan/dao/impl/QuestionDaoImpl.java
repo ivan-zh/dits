@@ -1,92 +1,46 @@
 package z.ivan.dao.impl;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
-import z.ivan.config.AppConfig;
 import z.ivan.dao.QuestionDao;
-import z.ivan.dao.impl.constants.TablesAndColumns;
 import z.ivan.model.Question;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Repository
-public class QuestionDaoImpl implements QuestionDao {
+public class QuestionDaoImpl extends CrudDaoImpl<Question> implements QuestionDao {
 
-    private JdbcTemplate jdbcTemplate;
+    private static final String TABLE_NAME = "ditsdb.question";
+    private static final String COLUMN_QUESTION_ID = "questionid";
+    private static final String COLUMN_DESCRIPTION = "description";
+    private static final String COLUMN_TEST_ID = "testid";
+    private static final String SQL_GET_BY_TEST_ID = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_QUESTION_ID + " = ?";
 
-    private static final String SQL_GET_ALL = "SELECT * FROM ditsdb.question";
-    private static final String SQL_GET_BY_QUESTIONID = "SELECT * FROM ditsdb.question WHERE " + TablesAndColumns.QUESTIONID + " = ?";
-    private static final String SQL_GET_BY_TESTID =
-            "SELECT * FROM ditsdb.question WHERE " + TablesAndColumns.TESTID + " = ?";
-
-    public QuestionDaoImpl(AppConfig appConfig) {
-        jdbcTemplate = new JdbcTemplate(appConfig.dataSource());
-    }
-
-    @Override
-    public List<Question> getAll() {
-        List<Question> entities;
-        try {
-            entities = jdbcTemplate.query(SQL_GET_ALL, this::mapRow);
-        } catch (NullPointerException | DataAccessException e) {
-            entities = new ArrayList<>();
-        }
-        return entities;
-    }
-
-    @Override
-    public Question getById(Long id) {
-        Question question;
-        try {
-            question = jdbcTemplate.queryForObject(SQL_GET_BY_QUESTIONID, new Object[]{id}, this::mapRow);
-        } catch (NullPointerException | DataAccessException e) {
-            question = new Question();
-        }
-        return question;
+    public QuestionDaoImpl() {
+        super(TABLE_NAME, COLUMN_QUESTION_ID, QuestionDaoImpl::mapRow, QuestionDaoImpl::mapData);
     }
 
     @Override
     public List<Question> getByTestId(Long testId) {
-        List<Question> entities;
-        try {
-            entities = jdbcTemplate.query(SQL_GET_BY_TESTID, new Object[]{testId}, this::mapRow);
-        } catch (NullPointerException | DataAccessException e) {
-            entities = new ArrayList<>();
-        }
-        return entities;
+        return this.getJdbcTemplate().query(SQL_GET_BY_TEST_ID, new Object[]{testId}, QuestionDaoImpl::mapRow);
     }
 
-    @Override
-    public Long add(Long test, String description) {
-        Map<String, Object> data = new HashMap<>();
-        data.put(TablesAndColumns.DESCRIPTION, description);
-        data.put(TablesAndColumns.TESTID, test);
-
-        final Long id = (Long) new SimpleJdbcInsert(jdbcTemplate)
-                .withTableName(TablesAndColumns.QUESTION)
-                .usingColumns(TablesAndColumns.DESCRIPTION, TablesAndColumns.TESTID)
-                .usingGeneratedKeyColumns(TablesAndColumns.QUESTIONID)
-                .executeAndReturnKey(data);
-
-        return id;
+    private static Map<String, Object> mapData(Question model) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(COLUMN_QUESTION_ID, model.getTestId());
+        map.put(COLUMN_DESCRIPTION, model.getDescription());
+        map.put(COLUMN_TEST_ID, model.getTestId());
+        return map;
     }
 
-
-    private Question mapRow(ResultSet resultSet, int rowNum) {
+    private static Question mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         Question question = new Question();
-        try {
-            question.setQuestionId(resultSet.getLong(TablesAndColumns.QUESTIONID));
-            question.setDescription(resultSet.getString(TablesAndColumns.DESCRIPTION));
-            question.setTestId(resultSet.getLong(TablesAndColumns.TESTID));
-        } catch (SQLException e) {
-        }
+        question.setQuestionId(resultSet.getLong(COLUMN_QUESTION_ID));
+        question.setDescription(resultSet.getString(COLUMN_DESCRIPTION));
+        question.setTestId(resultSet.getLong(COLUMN_TEST_ID));
         return question;
     }
 

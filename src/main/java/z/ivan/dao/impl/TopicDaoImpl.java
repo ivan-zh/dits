@@ -1,89 +1,44 @@
 package z.ivan.dao.impl;
 
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
-import z.ivan.config.AppConfig;
 import z.ivan.dao.TopicDao;
-import z.ivan.dao.impl.constants.TablesAndColumns;
 import z.ivan.model.Topic;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Repository
-public class TopicDaoImpl implements TopicDao {
+public class TopicDaoImpl extends CrudDaoImpl<Topic> implements TopicDao {
 
-    private JdbcTemplate jdbcTemplate;
+    private static final String TABLE_NAME = "ditsdb.topic";
+    private static final String COLUMN_TOPIC_ID = "topicid";
+    private static final String COLUMN_NAME = "name";
+    private static final String COLUMN_DESCRIPTION = "description";
 
-    private static final String SQL_GET_ALL = "SELECT * FROM ditsdb.topic";
-    private static final String SQL_GET_BY_TOPICID = "SELECT * FROM ditsdb.topic WHERE " + TablesAndColumns.TOPICID + " = ?";
-    private static final String SQL_GET_BY_NAME = "SELECT * FROM ditsdb.topic WHERE " + TablesAndColumns.NAME + " = ?";
-
-    public TopicDaoImpl(AppConfig appConfig) {
-        jdbcTemplate = new JdbcTemplate(appConfig.dataSource());
-    }
-
-    @Override
-    public List<Topic> getAll() {
-        List<Topic> topics;
-        try {
-            topics = jdbcTemplate.query(SQL_GET_ALL, this::mapRow);
-        } catch (NullPointerException | DataAccessException e) {
-            topics = new ArrayList<>();
-        }
-        return topics;
-    }
-
-    @Override
-    public Topic getById(Long id) {
-        Topic topic;
-        try {
-            topic = jdbcTemplate.queryForObject(SQL_GET_BY_TOPICID, new Object[]{id}, this::mapRow);
-        } catch (NullPointerException | DataAccessException e) {
-            topic = new Topic();
-        }
-        return topic;
+    public TopicDaoImpl() {
+        super(TABLE_NAME, COLUMN_TOPIC_ID, TopicDaoImpl::mapRow, TopicDaoImpl::mapData);
     }
 
     @Override
     public Topic getByName(String name) {
-        Topic topic;
-        try {
-            topic = jdbcTemplate.queryForObject(SQL_GET_BY_NAME, new Object[]{name}, this::mapRow);
-        } catch (NullPointerException | DataAccessException e) {
-            topic = new Topic();
-        }
-        return topic;
+        return getByColumn(COLUMN_NAME, name).get(0);
     }
 
-    @Override
-    public Long add(String description, String name) {
-        Map<String, String> data = new HashMap<>();
-        data.put(TablesAndColumns.DESCRIPTION, description);
-        data.put(TablesAndColumns.NAME, name);
-
-        final Long id = (Long) new SimpleJdbcInsert(jdbcTemplate)
-                .withTableName(TablesAndColumns.TOPIC)
-                .usingColumns(TablesAndColumns.DESCRIPTION, TablesAndColumns.NAME)
-                .usingGeneratedKeyColumns(TablesAndColumns.TOPICID)
-                .executeAndReturnKey(data);
-        return id;
+    private static Map<String, Object> mapData(Topic topic) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(COLUMN_TOPIC_ID, topic.getTopicId());
+        map.put(COLUMN_NAME, topic.getName());
+        map.put(COLUMN_DESCRIPTION, topic.getDescription());
+        return map;
     }
 
-    private Topic mapRow(ResultSet resultSet, int i) {
+    private static Topic mapRow(ResultSet resultSet, int i) throws SQLException {
         Topic topic = new Topic();
-        try {
-            topic.setTopicId(resultSet.getLong(TablesAndColumns.TOPICID));
-            topic.setDescription(resultSet.getString(TablesAndColumns.DESCRIPTION));
-            topic.setName(resultSet.getString(TablesAndColumns.NAME));
-        } catch (SQLException e) {
-        }
+        topic.setTopicId(resultSet.getLong(COLUMN_TOPIC_ID));
+        topic.setName(resultSet.getString(COLUMN_NAME));
+        topic.setDescription(resultSet.getString(COLUMN_DESCRIPTION));
         return topic;
     }
 }
