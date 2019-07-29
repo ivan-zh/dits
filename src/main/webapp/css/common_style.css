@@ -75,14 +75,12 @@ input[type=text], input[type=password], select, option {
     margin: 0.125em 0.0625em;
 }
 
-/*
 body {
-    background-image: url("../resources/images/human1.png");
+    /*background-image: url("../resources/images/human1.png");*/
     background-repeat: no-repeat;
     background-position: center left;
     text-align: center;
 }
-*/
 
 body, body * {
     font-size: 24px;
