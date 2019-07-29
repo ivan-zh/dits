@@ -38,4 +38,9 @@ public class StatisticsController {
         modelMap.addAttribute("stats", statisticsService.getUserStatistics());
         return "tutorUI/user_statistics";
     }
+
+    @GetMapping("userExtended")
+    public String userExtendedStatistics(ModelMap modelMap) {
+        return "tutorUI/user_extended_statistics";
+    }
 }
