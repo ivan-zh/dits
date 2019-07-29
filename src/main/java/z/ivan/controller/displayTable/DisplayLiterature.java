@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import z.ivan.dao.LiteratureDao;
 import z.ivan.model.Literature;
-import z.ivan.model.Question;
 
 import java.util.Arrays;
 import java.util.List;

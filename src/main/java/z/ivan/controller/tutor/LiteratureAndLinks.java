@@ -7,7 +7,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import z.ivan.dto.QuestionEditDto;
+import z.ivan.dto.LiteratureEditDto;
+import z.ivan.service.tutor.LiteratureAndLinksService;
 import z.ivan.service.tutor.QuestionsAndAnswersService;
 import z.ivan.service.tutor.TopicsAndTestsService;
 
@@ -15,38 +16,42 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-//@RequestMapping("/tutor/questions_and_answers")
-public class QuestionsAndAnswersController {
+//@RequestMapping("tutor/literature_and_links")
+public class LiteratureAndLinks {
 
     private TopicsAndTestsService topicsAndTestsService;
     private QuestionsAndAnswersService questionsAndAnswersService;
+    private LiteratureAndLinksService literatueAndLinksService;
 
-    public QuestionsAndAnswersController(TopicsAndTestsService topicsAndTestsService,
-                                         QuestionsAndAnswersService questionsAndAnswersService) {
+    public LiteratureAndLinks(TopicsAndTestsService topicsAndTestsService,
+                              QuestionsAndAnswersService questionsAndAnswersService, LiteratureAndLinksService literatueAndLinksService) {
         this.topicsAndTestsService = topicsAndTestsService;
         this.questionsAndAnswersService = questionsAndAnswersService;
+        this.literatueAndLinksService = literatueAndLinksService;
     }
 
-    @GetMapping("/tutor/questions_and_answers")
+    @GetMapping("tutor/literature_and_links")
     public String main(ModelMap modelMap) {
         modelMap.addAttribute("topics", topicsAndTestsService.getTopicList());
         modelMap.addAttribute("tests", topicsAndTestsService.getTestList());
         modelMap.addAttribute("questions", topicsAndTestsService.getQuestionList());
-        modelMap.addAttribute("answers", topicsAndTestsService.getAnswerList());
-        return "tutorUI/edit_questions_and_answers";
+        modelMap.addAttribute("literature", literatueAndLinksService.getLiteratureList());
+        modelMap.addAttribute("links", literatueAndLinksService.getLinkList());
+        return "tutorUI/edit_literature_and_links";
     }
 
-    @PostMapping("/tutor/questions_and_answers")
+    @PostMapping("tutor/literature_and_links")
     public String edit(ModelMap modelMap,
-                       @RequestParam String questionEdit) throws IOException {
+                       @RequestParam String editData) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        List<QuestionEditDto> questionList = mapper.readValue(questionEdit, new TypeReference<List<QuestionEditDto>>() {
+        List<LiteratureEditDto> questionList = mapper.readValue(editData, new TypeReference<List<LiteratureEditDto>>() {
         });
-        questionsAndAnswersService.edit(questionList, null);
+        literatueAndLinksService.edit(questionList);
         modelMap.addAttribute("topics", topicsAndTestsService.getTopicList());
         modelMap.addAttribute("tests", topicsAndTestsService.getTestList());
         modelMap.addAttribute("questions", topicsAndTestsService.getQuestionList());
-        modelMap.addAttribute("answers", topicsAndTestsService.getAnswerList());
-        return "tutorUI/edit_questions_and_answers";
+        modelMap.addAttribute("literature", literatueAndLinksService.getLiteratureList());
+        modelMap.addAttribute("links", literatueAndLinksService.getLinkList());
+        return "tutorUI/edit_literature_and_links";
     }
 }

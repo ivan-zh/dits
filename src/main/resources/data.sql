@@ -8,7 +8,7 @@ INSERT INTO ditsdb.user (userid, firstname, lastname, login, password, roleid)
 VALUES (1, 'Ivan', 'Zhukouski', 'ivan', 105, 1);
 
 INSERT INTO ditsdb.user (userid, firstname, lastname, login, password, roleid)
- VALUES (2, 'Alexey', 'Katomakhin', 'alex', 49, 2);
+VALUES (2, 'Alexey', 'Katomakhin', 'alex', 49, 2);
 
 INSERT INTO ditsdb.user (userid, firstname, lastname, login, password, roleid)
 VALUES (3, 'Artiom', 'Gavrilkov', 'artiom-g', 97, 2);
