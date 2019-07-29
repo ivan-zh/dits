@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import z.ivan.dto.TestEditDto;
 import z.ivan.service.tutor.TopicsAndTestsService;
@@ -15,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-@RequestMapping("tutor/topics_and_tests")
+//@RequestMapping("/tutor/topics_and_tests")
 public class TopicsAndTestsController {
 
     private TopicsAndTestsService topicsAndTestsService;
@@ -24,7 +23,7 @@ public class TopicsAndTestsController {
         this.topicsAndTestsService = topicsAndTestsService;
     }
 
-    @GetMapping("")
+    @GetMapping("/tutor/topics_and_tests")
     public String main(ModelMap modelMap) {
         modelMap.addAttribute("topics", topicsAndTestsService.getTopicList());
         modelMap.addAttribute("tests", topicsAndTestsService.getTestList());
@@ -32,7 +31,7 @@ public class TopicsAndTestsController {
         return "tutorUI/edit_topics_and_tests";
     }
 
-    @PostMapping("")
+    @PostMapping("/tutor/topics_and_tests")
     public String edit(
             ModelMap modelMap,
             @RequestParam Long selectedTopicId,

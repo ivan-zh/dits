@@ -5,8 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import z.ivan.dao.*;
-import z.ivan.model.*;
+import z.ivan.dao.QuestionDao;
+import z.ivan.model.Question;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,14 +20,14 @@ public class DisplayQuestion {
         this.questionDao = questionDao;
     }
 
-    @GetMapping(value = "/findquestionbyid")
+    @GetMapping("/display_table/findquestionbyid")
     public String findRoleById(@RequestParam("id") Long id, ModelMap modelMap) {
         Question question = questionDao.getById(id);
         modelMap.addAttribute("questions", Arrays.asList(question));
         return "display_table/allquestions";
     }
 
-    @GetMapping(value = "/allquestions")
+    @GetMapping("/display_table/allquestions")
     public String allQuestions(Model model) {
         List<Question> questions = questionDao.getAll();
         model.addAttribute("questions", questions);

@@ -20,14 +20,14 @@ public class DisplayRole {
         this.roleDao = roleDao;
     }
 
-    @GetMapping(value = "/findrolebyid")
+    @GetMapping("/display_table/findrolebyid")
     public String findRoleById(@RequestParam("id") Long id, ModelMap modelMap) {
         Role role = roleDao.getById(id);
         modelMap.addAttribute("roles", Arrays.asList(role));
         return "display_table/allroles";
     }
 
-    @GetMapping(value = "/allroles")
+    @GetMapping("/display_table/allroles")
     public String allRoles(Model model) {
         List<Role> roles = roleDao.getAll();
         model.addAttribute("roles", roles);

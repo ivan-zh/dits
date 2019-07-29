@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import z.ivan.dto.QuestionEditDto;
 import z.ivan.service.tutor.QuestionsAndAnswersService;
@@ -16,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-@RequestMapping("tutor/questions_and_answers")
+//@RequestMapping("/tutor/questions_and_answers")
 public class QuestionsAndAnswersController {
 
     private TopicsAndTestsService topicsAndTestsService;
@@ -28,7 +27,7 @@ public class QuestionsAndAnswersController {
         this.questionsAndAnswersService = questionsAndAnswersService;
     }
 
-    @GetMapping("")
+    @GetMapping("/tutor/questions_and_answers")
     public String main(ModelMap modelMap) {
         modelMap.addAttribute("topics", topicsAndTestsService.getTopicList());
         modelMap.addAttribute("tests", topicsAndTestsService.getTestList());
@@ -37,7 +36,7 @@ public class QuestionsAndAnswersController {
         return "tutorUI/edit_questions_and_answers";
     }
 
-    @PostMapping("")
+    @PostMapping("/tutor/questions_and_answers")
     public String edit(ModelMap modelMap,
                        @RequestParam String questionEdit) throws IOException {
         ObjectMapper mapper = new ObjectMapper();

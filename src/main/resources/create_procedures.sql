@@ -24,3 +24,13 @@ begin
              join ditsdb.user on statistic.userid = user.userid
     group by firstname, lastname;
 end;
+
+create procedure `user_test_statistics`(in id int)
+begin
+    select test.name, count(statisticid) as count, avg(correct) as avg
+    from ditsdb.statistic
+             join ditsdb.question on statistic.questionid = question.questionid
+             join ditsdb.test on question.testid = test.testid
+    where userid = id
+    group by test.name;
+end;

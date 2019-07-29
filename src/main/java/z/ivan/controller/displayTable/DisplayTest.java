@@ -20,21 +20,21 @@ public class DisplayTest {
         this.testDao = testDao;
     }
 
-    @GetMapping(value = "/findtestbyid")
+    @GetMapping("/display_table/findtestbyid")
     public String findTestById(@RequestParam("id") Long id, ModelMap modelMap) {
         Test test = testDao.getById(id);
         modelMap.addAttribute("tests", Arrays.asList(test));
         return "display_table/alltests";
     }
 
-    @GetMapping(value = "/findtestbytopicname")
+    @GetMapping("/display_table/findtestbytopicname")
     public String findTestByTopicName(@RequestParam("topicname") String topicName, ModelMap modelMap) {
         List<Test> tests = testDao.getByTopicName(topicName);
         modelMap.addAttribute("tests", tests);
         return "display_table/alltests";
     }
 
-    @GetMapping(value = "/alltests")
+    @GetMapping("/display_table/alltests")
     public String allTests(Model model) {
         List<Test> tests = testDao.getAll();
         model.addAttribute("tests", tests);

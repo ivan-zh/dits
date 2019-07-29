@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import z.ivan.dto.LiteratureEditDto;
 import z.ivan.service.tutor.LiteratureAndLinksService;
@@ -17,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-@RequestMapping("tutor/literature_and_links")
+//@RequestMapping("tutor/literature_and_links")
 public class LiteratureAndLinks {
 
     private TopicsAndTestsService topicsAndTestsService;
@@ -31,7 +30,7 @@ public class LiteratureAndLinks {
         this.literatueAndLinksService = literatueAndLinksService;
     }
 
-    @GetMapping("")
+    @GetMapping("tutor/literature_and_links")
     public String main(ModelMap modelMap) {
         modelMap.addAttribute("topics", topicsAndTestsService.getTopicList());
         modelMap.addAttribute("tests", topicsAndTestsService.getTestList());
@@ -41,7 +40,7 @@ public class LiteratureAndLinks {
         return "tutorUI/edit_literature_and_links";
     }
 
-    @PostMapping("")
+    @PostMapping("tutor/literature_and_links")
     public String edit(ModelMap modelMap,
                        @RequestParam String editData) throws IOException {
         ObjectMapper mapper = new ObjectMapper();

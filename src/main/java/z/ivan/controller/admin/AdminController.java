@@ -9,20 +9,25 @@ import z.ivan.model.Role;
 @Controller
 public class AdminController {
 
-    @GetMapping(value = "create_topic")
+    @GetMapping("/admin/create_topic")
     public String createTopic(Model model) {
         return "adminUI/create_topic";
     }
 
-    @GetMapping(value = "create_user")
+    @GetMapping("/admin/create_user")
     public String createUser(Model model) {
         model.addAttribute("rolesNames", Role.getRolesNames());
         return "adminUI/create_user";
     }
 
-    @GetMapping(value = "statistics")
-    public String statistics(Model model) {
-        return "tutorUI/statistics";
+    @GetMapping("/admin/admin_main")
+    public String admin() {
+        return "adminUI/admin_main";
+    }
+
+    @GetMapping("/admin/requests")
+    public String requests() {
+        return "adminUI/requests";
     }
 
 }

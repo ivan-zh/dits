@@ -1,53 +1,38 @@
 package z.ivan.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import z.ivan.dao.UserDao;
-import z.ivan.model.User;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Collection;
 
 @Controller
 public class AppController {
 
-    private final UserDao userDao;
+    @GetMapping({"/", "/welcome"})
+    public ModelAndView root(HttpServletRequest request) {
 
-    public AppController(UserDao userDao) {
-        this.userDao = userDao;
-    }
+        HttpSession session = request.getSession();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        String role = authorities.toString();
 
-    @GetMapping(value = "/")
-    public String root(Model model) {
-        model.addAttribute("loginname", "admin");
-        return "loginpage";
-    }
-
-    @PostMapping(value = "/login")
-    public String loginController
-            (
-                    @RequestParam("loginname") String loginName,
-                    @RequestParam("password") String password,
-                    ModelMap modelMap
-            ) {
-        User user = userDao.getByLogin(loginName);
-
-        if (user.getRoleId() == 1) {
-            String greetName = user.getFirstName().concat(" ").concat(user.getLastName());
-            modelMap.addAttribute("greetname", greetName);
-            return "adminUI/admin_main";
-        } else if (user.getRoleId() == 2) {
-            return "tutorUI/tutor_main";
+        if ("[ROLE_ADMIN]".equalsIgnoreCase(role)) {
+            session.setAttribute("role", "Admin");
+            return new ModelAndView("redirect: /admin/admin_main");
+        } else if ("[ROLE_TUTOR]".equalsIgnoreCase(role)) {
+            session.setAttribute("role", "Tutor");
+            return new ModelAndView("redirect: /tutor/tutor_main");
+        } else if ("[ROLE_USER]".equalsIgnoreCase(role)) {
+            session.setAttribute("role", "User");
+            return new ModelAndView("redirect: /user/user_main");
         } else {
-            return "requests";
+            return new ModelAndView("redirect: /welcome");
         }
     }
-
-    @GetMapping(value = "/requests")
-    public String readId() {
-        return "requests";
-    }
-
-
 }

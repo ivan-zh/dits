@@ -4,21 +4,22 @@
 <html>
 <head>
     <title>Questions</title>
+    <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
 <body>
 
 <table border="1">
     <caption>Questions</caption>
     <tr>
-        <th>answerId</th>
-        <th>description</th>
         <th>questionId</th>
+        <th>description</th>
+        <th>testId</th>
     </tr>
     <c:forEach var="t" items="${questions}">
         <tr>
-            <td>${t.answerId}</td>
-            <td>${t.description}</td>
             <td>${t.questionId}</td>
+            <td>${t.description}</td>
+            <td>${t.testId}</td>
         </tr>
     </c:forEach>
 </table>

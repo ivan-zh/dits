@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Литература</title>
+    <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
 <body>
 
@@ -12,13 +13,13 @@
     <tr>
         <th>id</th>
         <th>description</th>
-        <th>answerId</th>
+        <th>questionId</th>
     </tr>
     <c:forEach var="t" items="${literature}">
         <tr>
             <td>${t.id}</td>
             <td>${t.description}</td>
-            <td>${t.answerId}</td>
+            <td>${t.questionId}</td>
         </tr>
     </c:forEach>
 </table>

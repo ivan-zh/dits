@@ -9,7 +9,7 @@
 <body>
 <h4>Создать тест (topic)</h4>
 <hr>
-<form action="add_topic_to_db" method="post">
+<form action="<c:url value="/add_topic_to_db"/>" method="post">
     <table>
         <tr>
             <td>

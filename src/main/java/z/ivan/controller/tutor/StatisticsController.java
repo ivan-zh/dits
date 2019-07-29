@@ -3,11 +3,9 @@ package z.ivan.controller.tutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import z.ivan.service.tutor.StatisticsService;
 
 @Controller
-@RequestMapping("tutor/statistics")
 public class StatisticsController {
 
     private StatisticsService statisticsService;
@@ -16,31 +14,32 @@ public class StatisticsController {
         this.statisticsService = statisticsService;
     }
 
-    @GetMapping("")
+    @GetMapping("/tutor/statistics")
     public String tutorStatistics() {
         return "tutorUI/statistics";
     }
 
-    @GetMapping("test")
+    @GetMapping("/tutor/statistics/test")
     public String testStatistics(ModelMap modelMap) {
         modelMap.addAttribute("stats", statisticsService.getTestStatistics());
         return "tutorUI/test_statistics";
     }
 
-    @GetMapping("question")
+    @GetMapping("/tutor/statistics/question")
     public String questionStatistics(ModelMap modelMap) {
         modelMap.addAttribute("stats", statisticsService.getQuestionStatistics());
         return "tutorUI/question_statistics";
     }
 
-    @GetMapping("user")
+    @GetMapping("/tutor/statistics/user")
     public String userStatistics(ModelMap modelMap) {
         modelMap.addAttribute("stats", statisticsService.getUserStatistics());
         return "tutorUI/user_statistics";
     }
 
-    @GetMapping("userExtended")
+    @GetMapping("/tutor/statistics/userExtended")
     public String userExtendedStatistics(ModelMap modelMap) {
+        modelMap.addAttribute("stats", statisticsService.getUserStatistics());
         return "tutorUI/user_extended_statistics";
     }
 }

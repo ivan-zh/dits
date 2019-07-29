@@ -4,20 +4,21 @@
 <html>
 <head>
     <title>Tests</title>
+    <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
 <body>
 
 <table border="1">
     <caption>Tests</caption>
     <tr>
-        <th>questionId</th>
+        <th>testId</th>
         <th>name</th>
         <th>description</th>
         <th>topicId</th>
     </tr>
     <c:forEach var="t" items="${tests}">
         <tr>
-            <td>${t.questionId}</td>
+            <td>${t.testId}</td>
             <td>${t.name}</td>
             <td>${t.description}</td>
             <td>${t.topicId}</td>

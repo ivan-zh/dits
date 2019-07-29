@@ -4,14 +4,17 @@ insert into role (`tutor`) values (1);
 insert into role (`user`) values (1);
 
 -- Table `user`
-insert into user (`firstname`, `lastname`, `login`, `password`, `roleid`)
-VALUES ('Ivan', 'Zhukouski', 'admin', 1, 1);
+INSERT INTO ditsdb.user (userid, firstname, lastname, login, password, roleid)
+VALUES (1, 'Ivan', 'Zhukouski', 'ivan', 105, 1);
 
-insert into user (`firstname`, `lastname`, `login`, `password`, `roleid`)
-VALUES ('Alexey', 'Katomakhin', 'alex', 1, 2);
+INSERT INTO ditsdb.user (userid, firstname, lastname, login, password, roleid)
+VALUES (2, 'Alexey', 'Katomakhin', 'alex', 49, 2);
 
-insert into user (`firstname`, `lastname`, `login`, `password`, `roleid`)
-VALUES ('Artiom', 'Gavrilkov', 'artiom-g', 1, 2);
+INSERT INTO ditsdb.user (userid, firstname, lastname, login, password, roleid)
+VALUES (3, 'Artiom', 'Gavrilkov', 'artiom-g', 97, 2);
+
+INSERT INTO ditsdb.user (userid, firstname, lastname, login, password, roleid)
+VALUES (4, 'Katya', 'Paulich', 'katya', 107, 3);
 
 -- Table `topic`
 insert into topic (description, name)

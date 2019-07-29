@@ -157,7 +157,7 @@
             var testId = tests[tests.selectedIndex].value;
             questions.hidden = false;
             //tests.options.selectedIndex = 0;
-            for (var j = 1; j < testsList.length; j++) {
+            for (var j = 1; j < questionsList.length; j++) {
                 questions.options.remove(1);
             }
             for (var i = 0; i < questionsList.length; i++) {

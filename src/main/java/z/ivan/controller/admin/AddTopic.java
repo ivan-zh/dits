@@ -15,7 +15,7 @@ public class AddTopic {
         this.topicDao = topicDao;
     }
 
-    @PostMapping(value = "add_topic_to_db")
+    @PostMapping("add_topic_to_db")
     public String addTopic(
             @RequestParam("description") String description,
             @RequestParam("name") String name

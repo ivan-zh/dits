@@ -20,14 +20,14 @@ public class DisplayTopic {
         this.topicDao = topicDao;
     }
 
-    @GetMapping(value = "/findtopicbyid")
+    @GetMapping("/display_table/findtopicbyid")
     public String findTopicById(@RequestParam("id") Long id, ModelMap modelMap) {
         Topic topic = topicDao.getById(id);
         modelMap.addAttribute("topics", Arrays.asList(topic));
         return "display_table/alltopics";
     }
 
-    @GetMapping(value = "/alltopics")
+    @GetMapping("/display_table/alltopics")
     public String allTopics(Model model) {
         List<Topic> topics = topicDao.getAll();
         model.addAttribute("topics", topics);

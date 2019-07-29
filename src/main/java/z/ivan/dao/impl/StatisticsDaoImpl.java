@@ -48,6 +48,11 @@ public class StatisticsDaoImpl extends MyJdbcDaoSupport implements StatisticsDao
         return userStatistics;
     }
 
+    @Override
+    public List<TestStatistics> getUserTestStatistics() {
+        return null;
+    }
+
     private UserStatistics userStatisticsMapRow(ResultSet resultSet, int i) throws SQLException {
         UserStatistics userStatistics = new UserStatistics();
         userStatistics.setFirstName(resultSet.getString(COLUMN_FIRST_NAME));

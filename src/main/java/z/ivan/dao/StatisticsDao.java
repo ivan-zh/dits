@@ -12,4 +12,6 @@ public interface StatisticsDao {
     List<QuestionStatistics> getQuestionStatistics();
 
     List<UserStatistics> getUserStatistics();
+
+    List<TestStatistics> getUserTestStatistics();
 }

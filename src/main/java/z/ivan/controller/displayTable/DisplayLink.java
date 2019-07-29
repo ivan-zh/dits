@@ -20,14 +20,14 @@ public class DisplayLink {
         this.linkDao = linkDao;
     }
 
-    @GetMapping(value = "/findlinkbyid")
+    @GetMapping("/display_table/findlinkbyid")
     public String findLinkById(@RequestParam("id") Long id, ModelMap modelMap) {
         Link links = linkDao.getById(id);
         modelMap.addAttribute("links", Arrays.asList(links));
         return "display_table/alllinks";
     }
 
-    @GetMapping(value = "/alllinks")
+    @GetMapping("/display_table/alllinks")
     public String allLiteratures(Model model) {
         List<Link> links = linkDao.getAll();
         model.addAttribute("links", links);

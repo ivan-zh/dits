@@ -4,11 +4,12 @@
 <html>
 <head>
     <title>Создать пользователя</title>
+    <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
 <body>
 <h4 align="center">Создать пользователя</h4>
 <hr>
-<form action="add_user_to_db" method="post">
+<form action="<c:url value="/add_user_to_db"/>" method="post">
     <select name="roleName">
         <c:forEach var="roleName" items="${rolesNames}">
             <option>${roleName}</option>
