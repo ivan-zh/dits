@@ -1,12 +1,31 @@
 table {
-    border: white solid 1px;
+    /*color: #4287f5;*/
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    color: #4a4333;
+    font-size: 0.8em;
 }
 
 th {
-    font-family: "Arial Unicode MS", serif;
-    background-color: #4f80bc;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4f81bd;
+    color: white;
 }
 
-tr {
-    background-color: #ced6e6;
+tr:nth-child(odd) {
+    background-color: #e8ecf4;
+}
+
+tr:nth-child(even) {
+    background-color: #cfd7e7;
+}
+
+tr:hover {
+    background-color: #b5bccc;
 }

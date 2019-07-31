@@ -59,3 +59,7 @@ input[type=checkbox]:checked:after {
     left: 11px;
     color: white;
 }
+
+select {
+    max-width: 100%;
+}

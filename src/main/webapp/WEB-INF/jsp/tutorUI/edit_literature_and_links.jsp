@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="<c:url value="/css/tutor.css"/>" type="text/css"/>
 </head>
 <body>
+<h4>Редактирование литературы</h4>
 <form class="aligned-left" id="form" action="<c:url value="/tutor/literature_and_links/"/>" style="width: 40%"
       method="post">
     <label for="topics"></label>
@@ -47,6 +48,7 @@
            onclick="addLiterature()"/>
     <input id="data" name="editData" type="hidden" value="[]"/>
     <input type="submit" value="Сохранить" onclick="setData()"/>
+    <input type="button" value="Назад" onclick="history.back();"/>
     <script>
         var topicsList = [
             <c:forEach items="${topics}" var="x">
@@ -272,7 +274,7 @@
             var nameInput = document.createElement("input");
             nameInput.type = "text";
             nameInput.value = literatureList[literatureIndex].description;
-            nameInput.placeholder = "Описание вопроса";
+            nameInput.placeholder = "Название литературы";
             nameInput.className = "description";
             nameInput.setAttribute("oninput", "renameLiterature(this)");
 

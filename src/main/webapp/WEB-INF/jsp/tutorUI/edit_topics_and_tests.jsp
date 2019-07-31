@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
 <body>
+<h4>Редактирование тестов</h4>
 <form class="aligned-left" id="form" action="topics_and_tests" method="post">
     <select id="topics" name="selectedTopicId" onchange="updateTopic()">
         <option hidden selected value="0">Выберите тему</option>
@@ -26,6 +27,7 @@
     <input disabled id="addButton" type="button" value="+" title="Добавить тест" onclick="addTest()"/>
     <input id="editData" name="editData" type="hidden" value="[]"/>
     <input type="submit" value="Сохранить" onclick="setData()"/>
+    <input type="button" value="Назад" onclick="history.back();"/>
     <script>
         var topicsList = [
             <c:forEach items="${topics}" var="x">
