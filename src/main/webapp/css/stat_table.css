@@ -1,18 +1,16 @@
 table {
-    /*color: #4287f5;*/
     border-collapse: collapse;
 }
 
 th, td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 0.3em;
     color: #4a4333;
-    font-size: 0.8em;
 }
 
 th {
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
     text-align: left;
     background-color: #4f81bd;
     color: white;
