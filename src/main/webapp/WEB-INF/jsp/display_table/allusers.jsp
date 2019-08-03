@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
 <body>
-
-<table border="1">
+<table class="centered smaller_font">
     <caption>Users</caption>
     <tr>
         <th>userId</th>
@@ -30,8 +29,6 @@
             <td><a href="/edit_user/${u.userId}">Редактировать</a> <a href="/delete_user/${u.userId}">Удалить</a></td>
         </tr>
     </c:forEach>
-
 </table>
-
 </body>
 </html>

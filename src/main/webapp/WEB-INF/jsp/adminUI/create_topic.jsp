@@ -8,9 +8,8 @@
 </head>
 <body>
 <h4>Создать тест (topic)</h4>
-<hr>
 <form action="<c:url value="/add_topic_to_db"/>" method="post">
-    <table>
+    <table class="centered">
         <tr>
             <td>
                 Описание
@@ -27,8 +26,12 @@
                 <input type="text" name="name" id="name">
             </td>
         </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input type="submit" value="Add new topic">
+            </td>
+        </tr>
     </table>
-    <input type="submit" value="Add new topic">
 </form>
 
 </body>

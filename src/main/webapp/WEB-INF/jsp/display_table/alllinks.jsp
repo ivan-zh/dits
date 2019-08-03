@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
 <body>
-
-<table border="1">
+<table class="centered smaller_font">
     <caption>Ссылки</caption>
     <tr>
         <th>linkId</th>
@@ -23,6 +22,5 @@
         </tr>
     </c:forEach>
 </table>
-
 </body>
 </html>

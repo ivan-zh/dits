@@ -8,10 +8,9 @@
 <body>
 <h4 align="center">Admin UI main page</h4>
 
-<table border="0" cellspacing="2">
+<table class="centered">
     <tbody>
     <tr>
-        <td rowspan="4"><img width="50%" src="<c:url value="/resources/images/human1.png"/>"></td>
         <td><a href="<c:url value="/admin/create_topic"/>">Создать тест (topic)</a></td>
     </tr>
     <tr>

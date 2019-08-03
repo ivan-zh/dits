@@ -1,10 +1,22 @@
+body {
+    background-image: url("../resources/images/human1.png");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center left;
+    text-align: center;
+}
+
 table {
-    border: white solid 1px;
+    width: 300px;
+    margin: 2px auto;
+    border: black solid 1px;
+    align-content: center;
+
 }
 
 th {
     font-family: "Arial Unicode MS", serif;
-    background-color: #4f80bc;
+    background-color: #6393bc;
 }
 
 tr {
