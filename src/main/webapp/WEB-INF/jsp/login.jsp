@@ -24,7 +24,7 @@
                         <td><input name="password" value="" type="password"></td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align: center;"><input type="submit" value="Log In"/></td>
+                        <td colspan="2" style="text-align: center;"><input type="submit" value="Войти"/></td>
                     </tr>
                 </table>
             </form>

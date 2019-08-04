@@ -55,7 +55,11 @@ input[type=checkbox]:checked {
 input[type=checkbox]:checked:after {
     content: '\2714';
     position: absolute;
-    top: 4px;
-    left: 11px;
+    top: 0.16em;
+    left: 0.458em;
     color: white;
+}
+
+select {
+    max-width: 100%;
 }

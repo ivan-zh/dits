@@ -60,6 +60,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("loginname")
                 .passwordParameter("password")
                 .and()
+                .logout()
+                .logoutSuccessUrl("/login")
+                .and()
                 .csrf().disable();
 
     }

@@ -9,7 +9,8 @@
 </head>
 
 <body>
-<p>View and edit tables</p>
+<h4 align="center">View and edit tables</h4>
+
 <hr class="small_centered">
 <table class="centered">
     <tr>

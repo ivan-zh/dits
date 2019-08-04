@@ -10,27 +10,36 @@
 <html>
 <head>
     <title>Статистика по пользователям</title>
+    <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
     <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
 <body>
-<table>
-    <tr>
-        <th>Имя</th>
-        <th>Название теста</th>
-        <th>Пройдено всего</th>
-        <th>Процент правильных ответов</th>
-    </tr>
-    <c:forEach items="${stats}" var="s">
+<div class="aligned-left">
+    <table>
         <tr>
-            <td>${s.firstName} ${s.lastName}</td>
-            <td>${s.name}</td>
-            <td>${s.count}</td>
-            <td>${s.avg}</td>
+            <th>Имя</th>
+            <th>Название теста</th>
+            <th>Пройдено всего</th>
+            <th>Процент правильных ответов</th>
         </tr>
-    </c:forEach>
-</table>
-
-<button onclick="history.back();">Назад</button>
-
+        <c:forEach items="${stats}" var="s">
+            <tr>
+                <td>${s.firstName} ${s.lastName}</td>
+                <td>${s.name}</td>
+                <td>${s.count}</td>
+                <td class="percentage">${s.avg}</td>
+            </tr>
+        </c:forEach>
+    </table>
+    <br>
+    <input type="button" value="Назад" onclick="history.back();"/>
+</div>
+<script>
+    var vals = document.getElementsByClassName("percentage")
+    for (var x in vals) {
+        var value = vals[x].innerText;
+        vals[x].innerText = (Number(value) * 100).toFixed(1) + "%";
+    }
+</script>
 </body>
 </html>

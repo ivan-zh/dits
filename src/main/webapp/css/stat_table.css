@@ -1,24 +1,29 @@
-body {
-    background-image: url("../resources/images/human1.png");
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: center left;
-    text-align: center;
+table {
+    border-collapse: collapse;
 }
 
-table {
-    width: 300px;
-    margin: 2px auto;
-    border: black solid 1px;
-    align-content: center;
-
+th, td {
+    border: 1px solid #ddd;
+    padding: 0.3em;
+    color: #4a4333;
 }
 
 th {
-    font-family: "Arial Unicode MS", serif;
-    background-color: #6393bc;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    text-align: left;
+    background-color: #4f81bd;
+    color: white;
 }
 
-tr {
-    background-color: #ced6e6;
+tr:nth-child(odd) {
+    background-color: #e8ecf4;
+}
+
+tr:nth-child(even) {
+    background-color: #cfd7e7;
+}
+
+tr:hover {
+    background-color: #b5bccc;
 }
