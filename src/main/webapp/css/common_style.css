@@ -9,7 +9,7 @@ a:link, a:visited {
 
 
 a:hover {
-    text-shadow: 0 0 10px #8fbaff;
+    text-shadow: 0 0 0.4em #8fbaff;
     border-color: #8fbaff;
 }
 
@@ -75,14 +75,16 @@ option {
 }
 
 body {
-    /*background-image: url("../resources/images/human1.png");*/
+    background-image: url("../resources/images/human1.png");
+    background-attachment: fixed;
     background-repeat: no-repeat;
-    background-position: center left;
+    background-position: top 5em left 2em;
+    background-size: 15em;
     text-align: center;
 }
 
 body, body * {
-    font-size: 24px;
+    font-size: 16px;
     font-family: "Verdana", serif;
     vertical-align: middle;
     white-space: nowrap;
@@ -91,6 +93,30 @@ body, body * {
 .aligned-left {
     display: inline-block;
     width: fit-content;
-    margin: 100px auto auto auto;
+    margin: 3em auto auto auto;
     text-align: left;
+}
+
+table.centered {
+    width: 300px;
+    margin: 2px auto;
+    align-content: center;
+    text-align: right;
+    border: 0;
+    border-spacing: 0.5em;
+
+}
+
+table.smaller_font {
+    font-size: 16px !important;
+    font-family: "Verdana", serif;
+}
+
+tr.align_to_right {
+    text-align: right;
+}
+
+hr.small_centered {
+    width: 30%;
+    margin: auto;
 }

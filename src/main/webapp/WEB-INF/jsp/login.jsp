@@ -9,13 +9,8 @@
 
 <h4 align="center">Welcome to Dev Inc Testing system !</h4>
 
-<table align="center" border="0" cellspacing="2">
+<table class="centered">
     <tbody>
-    <tr>
-        <td rowspan="2">
-            <img width="50%" height="50%" src="<c:url value="/resources/images/human1.png"/>">
-        </td>
-    </tr>
     <tr>
         <td>
             <form name="login" action="login" method="post">
@@ -29,7 +24,7 @@
                         <td><input name="password" value="" type="password"></td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align: center;"><input type="submit" value="Log In"/></td>
+                        <td colspan="2" style="text-align: center;"><input type="submit" value="Войти"/></td>
                     </tr>
                 </table>
             </form>

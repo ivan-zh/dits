@@ -18,6 +18,7 @@
     <a href="<c:url value="/tutor/questions_and_answers"/>">Редактировать вопросы/ответы</a><br>
     <a href="<c:url value="/tutor/literature_and_links"/>">Редактировать литературу</a><br>
     <a href="<c:url value="/tutor/statistics"/>">Статистика</a><br>
+    <%@ include file = "../logout_form.jsp"%>
 </div>
 </body>
 </html>

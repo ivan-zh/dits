@@ -4,11 +4,12 @@
 <html>
 <head>
     <title>Users</title>
+    <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
     <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
 <body>
-
-<table border="1">
+<div class="aligned-left">
+<table>
     <caption>Users</caption>
     <tr>
         <th>userId</th>
@@ -30,8 +31,8 @@
             <td><a href="/edit_user/${u.userId}">Редактировать</a> <a href="/delete_user/${u.userId}">Удалить</a></td>
         </tr>
     </c:forEach>
-
 </table>
+</div>
 
 </body>
 </html>

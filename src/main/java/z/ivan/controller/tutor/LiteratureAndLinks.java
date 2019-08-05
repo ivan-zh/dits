@@ -30,7 +30,7 @@ public class LiteratureAndLinks {
         this.literatueAndLinksService = literatueAndLinksService;
     }
 
-    @GetMapping("tutor/literature_and_links")
+    @GetMapping("/tutor/literature_and_links")
     public String main(ModelMap modelMap) {
         modelMap.addAttribute("topics", topicsAndTestsService.getTopicList());
         modelMap.addAttribute("tests", topicsAndTestsService.getTestList());
@@ -40,7 +40,7 @@ public class LiteratureAndLinks {
         return "tutorUI/edit_literature_and_links";
     }
 
-    @PostMapping("tutor/literature_and_links")
+    @PostMapping("/tutor/literature_and_links")
     public String edit(ModelMap modelMap,
                        @RequestParam String editData) throws IOException {
         ObjectMapper mapper = new ObjectMapper();

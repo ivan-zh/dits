@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="<c:url value="/css/tutor.css"/>" type="text/css"/>
 </head>
 <body>
-<form class="aligned-left" id="form" action="questions_and_answers" style="width: 40%" method="post">
+<h4>Редактирование вопросов</h4>
+<form class="aligned-left" id="form" action="<c:url value="/tutor/questions_and_answers"/>" style="width: 40%" method="post">
     <label for="topics"></label>
     <select id="topics" onchange="updateTopic()">
         <option hidden selected value="0">Выберите тему</option>
@@ -37,6 +38,7 @@
            onclick="addQuestion()"/>
     <input id="questionData" name="questionEdit" type="hidden" value="[]"/>
     <input type="submit" value="Сохранить" onclick="setData()"/>
+    <input type="button" value="Назад" onclick="history.back();"/>
     <script>
         var topicsList = [
             <c:forEach items="${topics}" var="x">

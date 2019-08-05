@@ -4,11 +4,12 @@
 <html>
 <head>
     <title>Tests</title>
+    <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
     <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
 <body>
-
-<table border="1">
+<div class="aligned-left">
+<table>
     <caption>Tests</caption>
     <tr>
         <th>testId</th>
@@ -25,6 +26,6 @@
         </tr>
     </c:forEach>
 </table>
-
+</div>
 </body>
 </html>

@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
 <body>
-<form class="aligned-left" id="form" action="topics_and_tests" method="post">
+<h4>Редактирование тестов</h4>
+<form class="aligned-left" id="form" action="<c:url value="/tutor/topics_and_tests"/>" method="post">
     <select id="topics" name="selectedTopicId" onchange="updateTopic()">
         <option hidden selected value="0">Выберите тему</option>
         <c:forEach items="${topics}" var="x">
@@ -26,6 +27,7 @@
     <input disabled id="addButton" type="button" value="+" title="Добавить тест" onclick="addTest()"/>
     <input id="editData" name="editData" type="hidden" value="[]"/>
     <input type="submit" value="Сохранить" onclick="setData()"/>
+    <input type="button" value="Назад" onclick="history.back();"/>
     <script>
         var topicsList = [
             <c:forEach items="${topics}" var="x">
@@ -80,6 +82,16 @@
             }
         }
 
+        function setDescription(input) {
+            var test = input.parentElement;
+            var testIndex = test.getAttribute("testIndex");
+            testsList[testIndex].description = input.value;
+            if (testsList[testIndex].action == "none") {
+                testsList[testIndex].action = "update";
+            }
+        }
+
+
         function createTest(testIndex) {
             var tests = document.getElementById("tests");
             var newTest = document.createElement("div");
@@ -91,6 +103,12 @@
             nameInput.placeholder = "Название теста";
             nameInput.setAttribute("oninput", "renameTest(this)");
 
+            var descriptionInput = document.createElement("input");
+            descriptionInput.type = "text";
+            descriptionInput.value = testsList[testIndex].description;
+            descriptionInput.placeholder = "Описание теста";
+            descriptionInput.setAttribute("oninput", "setDescription(this)");
+
             var deleteButton = document.createElement("input");
             deleteButton.type = "button";
             deleteButton.value = "-";
@@ -98,6 +116,7 @@
             deleteButton.setAttribute("onclick", "deleteTest(this)");
 
             newTest.appendChild(nameInput);
+            newTest.appendChild(descriptionInput)
             newTest.appendChild(deleteButton);
 
             tests.appendChild(newTest);
