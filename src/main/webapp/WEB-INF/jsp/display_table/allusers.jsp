@@ -4,10 +4,12 @@
 <html>
 <head>
     <title>Users</title>
+    <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
     <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
 <body>
-<table class="centered smaller_font">
+<div class="aligned-left">
+<table>
     <caption>Users</caption>
     <tr>
         <th>userId</th>
@@ -30,5 +32,7 @@
         </tr>
     </c:forEach>
 </table>
+</div>
+
 </body>
 </html>
