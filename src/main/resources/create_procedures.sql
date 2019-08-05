@@ -34,3 +34,12 @@ begin
     where userid = id
     group by test.name;
 end;
+
+CREATE PROCEDURE `personal_user_statistic`()
+BEGIN
+select test.name,  ditsdb.question.description,  count(statisticid) as count, avg(correct) as avg
+    from ditsdb.statistic
+           join ditsdb.question on statistic.questionid = question.questionid
+           join ditsdb.test on question.testid = test.testid
+    group by test.name;
+END
