@@ -5,8 +5,8 @@
     <title>Личная статистика</title>
     <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
-<body>
-<table>
+<body class="human">
+<table class="centered">
     <tr>
         <th>ФИО</th>
         <th>Название теста</th>

@@ -75,12 +75,15 @@ option {
 }
 
 body {
-    background-image: url("../resources/images/human1.png");
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: top 5em left 2em;
     background-size: 15em;
     text-align: center;
+}
+
+body.human {
+    background-image: url("../resources/images/human1.png");
 }
 
 body, body * {

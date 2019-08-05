@@ -1,19 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>User main page</title>
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
-<body>
+<body class="human">
 <h4 align="center">User UI main page</h4>
-<table align="center" border="0" cellspacing="2">
+
+<table class="centered">
     <tbody>
-    <tr >
-        <td rowspan="2">
-            <img width="50%" height="50%" src="<c:url value="/resources/images/human1.png"/>">
-        </td>
-    </tr>
     <tr>
         <td>
             <table>

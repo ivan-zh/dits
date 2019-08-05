@@ -6,7 +6,7 @@
     <title>Admin UI main page</title>
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
-<body>
+<body class="human">
 <h4 align="center">Admin UI main page</h4>
 
 <table class="centered">
