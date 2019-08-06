@@ -7,31 +7,33 @@
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
     <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
-<body>
+<body class="human">
+
 <div class="aligned-left">
-<table>
-    <caption>Users</caption>
-    <tr>
-        <th>userId</th>
-        <th>firstName</th>
-        <th>lastName</th>
-        <th>login</th>
-        <th>password</th>
-        <th>roleId</th>
-        <th>Action</th>
-    </tr>
-    <c:forEach var="u" items="${users}">
+    <h4 align="center">Users</h4>
+    <table class="centered">
         <tr>
-            <td>${u.userId}</td>
-            <td>${u.firstName}</td>
-            <td>${u.lastName}</td>
-            <td>${u.login}</td>
-            <td>${u.password}</td>
-            <td>${u.roleId}</td>
-            <td><a href="/edit_user/${u.userId}">Редактировать</a> <a href="/delete_user/${u.userId}">Удалить</a></td>
+            <th>userId</th>
+            <th>firstName</th>
+            <th>lastName</th>
+            <th>login</th>
+            <th>password</th>
+            <th>roleId</th>
+            <th>Action</th>
         </tr>
-    </c:forEach>
-</table>
+        <c:forEach var="u" items="${users}">
+            <tr>
+                <td>${u.userId}</td>
+                <td>${u.firstName}</td>
+                <td>${u.lastName}</td>
+                <td>${u.login}</td>
+                <td>${u.password}</td>
+                <td>${u.roleId}</td>
+                <td><a href="/edit_user/${u.userId}">Редактировать</a> <a href="/delete_user/${u.userId}">Удалить</a>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
 </div>
 
 </body>

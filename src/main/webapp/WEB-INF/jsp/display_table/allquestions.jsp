@@ -7,23 +7,24 @@
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
     <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
-<body>
+<body class="human">
+
 <div class="aligned-left">
-<table>
-    <caption>Questions</caption>
-    <tr>
-        <th>questionId</th>
-        <th>description</th>
-        <th>testId</th>
-    </tr>
-    <c:forEach var="t" items="${questions}">
+    <h4 align="center">Questions</h4>
+    <table>
         <tr>
-            <td>${t.questionId}</td>
-            <td>${t.description}</td>
-            <td>${t.testId}</td>
+            <th>questionId</th>
+            <th>description</th>
+            <th>testId</th>
         </tr>
-    </c:forEach>
-</table>
+        <c:forEach var="t" items="${questions}">
+            <tr>
+                <td>${t.questionId}</td>
+                <td>${t.description}</td>
+                <td>${t.testId}</td>
+            </tr>
+        </c:forEach>
+    </table>
 </div>
 </body>
 </html>

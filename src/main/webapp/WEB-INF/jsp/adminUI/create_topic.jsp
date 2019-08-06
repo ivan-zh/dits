@@ -6,8 +6,9 @@
     <title>Создать тест (topic)</title>
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
-<body>
+<body class="human">
 <h4>Создать тест (topic)</h4>
+
 <form action="<c:url value="/add_topic_to_db"/>" method="post">
     <table class="centered">
         <tr>

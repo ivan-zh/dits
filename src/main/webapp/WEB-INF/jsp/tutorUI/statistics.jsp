@@ -12,7 +12,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
-<body>
+<body class="human">
 <div class="aligned-left">
     <a href="<c:url value="/tutor/statistics/test"/>">Статистика по тестам</a><br>
     <a href="<c:url value="/tutor/statistics/question"/>">Статистика по вопросам</a><br>

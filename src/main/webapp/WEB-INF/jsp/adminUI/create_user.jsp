@@ -6,7 +6,7 @@
     <title>Создать пользователя</title>
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
-<body>
+<body class="human">
 <h4 align="center">Создать пользователя</h4>
 
 <form action="<c:url value="/add_user_to_db"/>" method="post">

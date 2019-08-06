@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <html>
 <head>
     <title>Admin UI main page</title>
@@ -25,14 +24,10 @@
     </tr>
     <tr>
         <td>
-            <%@ include file = "../logout_form.jsp"%>
-            <%--<form action="<c:url value="/logout"/>" method="post">
-                <input type="submit" value="Выйти"/>
-            </form>--%>
+            <%@ include file="../logout_form.jsp" %>
         </td>
     </tr>
     </tbody>
 </table>
-
 </body>
 </html>

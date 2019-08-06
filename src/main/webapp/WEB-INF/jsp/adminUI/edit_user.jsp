@@ -6,7 +6,7 @@
     <title>Редактировать пользователя</title>
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
-<body>
+<body class="human">
 <h4 align="center">Редактировать пользователя</h4>
 
 <form action="<c:url value="/edit_user"/>" method="post">

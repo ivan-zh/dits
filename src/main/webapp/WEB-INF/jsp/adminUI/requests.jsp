@@ -8,7 +8,7 @@
 
 </head>
 
-<body>
+<body class="human">
 <h4 align="center">View and edit tables</h4>
 
 <hr class="small_centered">
