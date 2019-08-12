@@ -123,3 +123,43 @@ hr.small_centered {
     width: 30%;
     margin: auto;
 }
+
+table.centered {
+    width: 300px;
+    margin: 2px auto;
+    align-content: center;
+    text-align: right;
+    border: 0;
+    border-spacing: 0.5em;
+
+}
+
+table.center {
+    width: 100%;
+    margin: 150px 50px 50px 50px;
+    align-content: center;
+    text-align: center;
+    border: 0;
+    border-spacing: 0.7em;
+}
+
+.align-form {
+    display: inline-block;
+    margin: 120px 100px 50px 50px;
+    width: fit-content;
+    text-align: center;
+}
+
+table.smaller_font {
+    font-size: 16px !important;
+    font-family: "Verdana", serif;
+}
+
+tr.align_to_right {
+    text-align: right;
+}
+
+hr.small_centered {
+    width: 30%;
+    margin: auto;
+}
