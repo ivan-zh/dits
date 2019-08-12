@@ -17,6 +17,9 @@
         <td><a href="<c:url value="/admin/create_user"/>">Создать пользователя</a></td>
     </tr>
     <tr>
+        <td><a href="<c:url value="/display_table/allusers"/>">Просмотр/редактирование пользователей</a></td>
+    </tr>
+    <tr>
         <td><a href="<c:url value="/tutor/statistics"/>">Статистика</a></td>
     </tr>
     <tr>
