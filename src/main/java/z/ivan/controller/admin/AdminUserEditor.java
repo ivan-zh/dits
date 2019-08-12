@@ -76,6 +76,14 @@ public class AdminUserEditor {
         return "adminUI/requests";
     }
 
+    @GetMapping("delete_user/{userId}")
+    public String deleteUser(
+            @PathVariable String userId
+    ) {
+        userDao.delete(Long.valueOf(userId));
+        return "redirect: /display_table/allusers";
+    }
+
     private User mapDataToUser(List<String> mapData) {
         User user = new User();
 
