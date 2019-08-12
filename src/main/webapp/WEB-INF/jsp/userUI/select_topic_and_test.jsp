@@ -6,27 +6,25 @@
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
 <body>
-<h4 align="center">Выбор темы и теста </h4>
-<table align="center" border="0" cellspacing="2">
-    <tbody>
-    <tr >
-        <td rowspan="2">
-            <img width="50%" height="50%" src="<c:url value="/resources/images/human1.png"/>">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <table>
-                <tr>
-                    <td> Название темы </td>
-                </tr>
-                <tr>
-                    <td> Название теста </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<form class="align-form" id="form" action="<c:url value="user/question_and_answer"/>" method="post">
+    <select id="topics" name="selectedTopicId">
+    <option hidden selected value="0">Название темы</option>
+    <c:forEach items="${topics}" var="x">
+        <option value="${x.topicId}">${x.name}</option>
+    </c:forEach>
+</select>
+<br>
+    <select id="tests" name="selectedTestId">
+        <option hidden selected value="0">Название теста</option>
+        <c:forEach items="${tests}" var="x">
+            <option value="${x.testId}">${x.name}</option>
+        </c:forEach>
+    </select>
+<br>
+    <br>
+    <br>
+    <br>
+    <input type="submit" value="Пройти тестирование" >
+</form>
 </body>
 </html>
