@@ -15,7 +15,7 @@
 </head>
 <body>
 <h4>Редактирование литературы</h4>
-<form class="aligned-left" id="form" action="<c:url value="/tutor/literature_and_links/"/>" style="width: 40%"
+<form class="aligned-left" id="form" action="<c:url value="/tutor/literature_and_links"/>" style="width: 40%"
       method="post">
     <label for="topics"></label>
     <select id="topics" onchange="updateTopic()">

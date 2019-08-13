@@ -75,7 +75,7 @@ option {
 }
 
 body {
-    background-image: url("../resources/images/human1.png");
+    /*background-image: url("../resources/images/human1.png");*/
     background-repeat: no-repeat;
     background-position: top 5em left 2em;
     background-size: 15em;
