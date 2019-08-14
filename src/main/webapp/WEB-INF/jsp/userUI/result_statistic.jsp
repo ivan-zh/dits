@@ -5,7 +5,7 @@
     <title>Личная статистика</title>
     <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
-<body>
+<body class="human">
 <table>
     <tr>
         <th>Название вопроса</th>

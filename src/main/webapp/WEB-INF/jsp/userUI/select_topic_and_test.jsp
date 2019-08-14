@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
 <body class="human">
-<form class="align-form" id="form" action="<c:url value="user/question_and_answer"/>" method="post">
+<form class="align-form" id="form" action="<c:url value="/user/question_and_answer"/>" method="post">
     <select id="topics" name="selectedTopicId">
     <option hidden selected value="0">Название темы</option>
     <c:forEach items="${topics}" var="x">

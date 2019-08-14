@@ -11,7 +11,7 @@
 <head>
     <title>Question and answers</title>
 </head>
-<body>
+<body class="human">
 <form class="align-form" id="form">
     <%--<c:forEach items="${questions}" var="x">--%>
     <%--<div id="questions" ${x.questionId} >${x.name}</div>--%>
@@ -25,7 +25,7 @@
     <%--<br>--%>
     <%--<br>--%>
     <%--</c:forEach>--%>
-        <input type="button" value="Следующий" action="<c:url value="user/question_and_answer"/>" method="post">
+        <input type="button" value="Следующий" action="<c:url value="/user/question_and_answer"/>" method="post">
 </form>
 
 </body>
