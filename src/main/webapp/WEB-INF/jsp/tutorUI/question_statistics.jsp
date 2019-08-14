@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
     <link rel="stylesheet" href="<c:url value="/css/stat_table.css"/>" type="text/css"/>
 </head>
-<body>
+<body class="human">
 <div class="aligned-left">
     <table>
         <tr>

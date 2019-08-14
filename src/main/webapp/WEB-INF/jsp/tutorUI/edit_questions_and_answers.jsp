@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
     <link rel="stylesheet" href="<c:url value="/css/tutor.css"/>" type="text/css"/>
 </head>
-<body>
+<body class="human">
 <h4>Редактирование вопросов</h4>
 <form class="aligned-left" id="form" action="<c:url value="/tutor/questions_and_answers"/>" style="width: 40%" method="post">
     <label for="topics"></label>

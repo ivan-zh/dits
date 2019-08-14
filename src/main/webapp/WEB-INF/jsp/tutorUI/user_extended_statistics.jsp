@@ -11,7 +11,7 @@
 <head>
     <title>Title</title>
 </head>
-<body>
+<body class="human">
 <select onselect="selectUser(this)">
     <c:forEach var="x" items="${users}">
         <option value="${x.userid}">${x.firstName} ${x.lastName}</option>

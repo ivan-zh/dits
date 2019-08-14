@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
     <link rel="stylesheet" href="<c:url value="/css/tutor.css"/>" type="text/css"/>
 </head>
-<body>
+<body class="human">
 <h4>Редактирование литературы</h4>
 <form class="aligned-left" id="form" action="<c:url value="/tutor/literature_and_links"/>" style="width: 40%"
       method="post">

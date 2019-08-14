@@ -12,7 +12,7 @@
     <title>Редактировать тему/тест</title>
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
-<body>
+<body class="human">
 <h4>Редактирование тестов</h4>
 <form class="aligned-left" id="form" action="<c:url value="/tutor/topics_and_tests"/>" method="post">
     <select id="topics" name="selectedTopicId" onchange="updateTopic()">

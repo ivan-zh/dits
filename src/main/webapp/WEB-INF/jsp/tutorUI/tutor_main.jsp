@@ -12,7 +12,7 @@
     <title>Tutor Main</title>
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
-<body>
+<body class="human">
 <div class="aligned-left">
     <a href="<c:url value="/tutor/topics_and_tests"/>">Редактировать тему/тест</a><br>
     <a href="<c:url value="/tutor/questions_and_answers"/>">Редактировать вопросы/ответы</a><br>
