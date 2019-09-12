@@ -274,7 +274,7 @@
             var nameInput = document.createElement("input");
             nameInput.type = "text";
             nameInput.value = literatureList[literatureIndex].description;
-            nameInput.placeholder = "Название литературы";
+            nameInput.placeholder = "Описание вопроса";
             nameInput.className = "description";
             nameInput.setAttribute("oninput", "renameLiterature(this)");
 
