@@ -58,8 +58,8 @@ public abstract class CrudDaoImpl<T> extends MyJdbcDaoSupport implements CrudDao
     }
 
     public List<T> getByColumn(String column, Object value) {
-        return getJdbcTemplate().query("select * from " + tableName + " where " + column + " = ?",
-                new Object[]{value}, rowMapper);
+        return getJdbcTemplate() != null ? getJdbcTemplate().query("select * from " + tableName + " where " + column + " = ?",
+                new Object[]{value}, rowMapper) : null;
     }
 
     public T getById(Long id) {

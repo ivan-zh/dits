@@ -17,7 +17,7 @@ create table `user`
     `roleid`    int not null,
     primary key (`userid`),
     foreign key (`roleid`) REFERENCES `role` (`roleid`)
-
+    on delete cascade
 );
 
 create table `topic`
@@ -36,6 +36,7 @@ create table `test`
     `topicid`     int not null,
     primary key (`testid`),
     foreign key (`topicid`) references `topic` (`topicid`)
+    on delete cascade
 );
 
 create table `question`
@@ -45,7 +46,7 @@ create table `question`
     `testid`      int not null,
     primary key (`questionid`),
     foreign key (`testid`) references test (`testid`)
-
+    on delete cascade
 );
 
 create table `answer`
@@ -56,6 +57,7 @@ create table `answer`
     `questionid`  int,
     primary key (`answerid`),
     foreign key (`questionid`) references `question` (`questionid`)
+    on delete cascade
 );
 
 

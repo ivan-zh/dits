@@ -17,7 +17,7 @@ public class QuestionDaoImpl extends CrudDaoImpl<Question> implements QuestionDa
     private static final String COLUMN_QUESTION_ID = "questionid";
     private static final String COLUMN_DESCRIPTION = "description";
     private static final String COLUMN_TEST_ID = "testid";
-    private static final String SQL_GET_BY_TEST_ID = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_QUESTION_ID + " = ?";
+    private static final String SQL_GET_BY_TEST_ID = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_TEST_ID + " = ?";
 
     public QuestionDaoImpl() {
         super(TABLE_NAME, COLUMN_QUESTION_ID, QuestionDaoImpl::mapRow, QuestionDaoImpl::mapData);
@@ -26,6 +26,12 @@ public class QuestionDaoImpl extends CrudDaoImpl<Question> implements QuestionDa
     @Override
     public List<Question> getByTestId(Long testId) {
         return this.getJdbcTemplate().query(SQL_GET_BY_TEST_ID, new Object[]{testId}, QuestionDaoImpl::mapRow);
+    }
+
+    @Override
+    public List<Question> getQuestionByQuestionId(Long testId, Long questionId) {
+        String SQL_GET_QUESTION_BY_TESTID_AND_QUESTIONID = "SELECT * FROM  " + TABLE_NAME + " WHERE " + COLUMN_TEST_ID + " = ? AND " +COLUMN_QUESTION_ID +" = ?" ;
+        return this.getJdbcTemplate().query(SQL_GET_QUESTION_BY_TESTID_AND_QUESTIONID, new Object[]{testId,questionId}, QuestionDaoImpl::mapRow);
     }
 
     private static Map<String, Object> mapData(Question model) {

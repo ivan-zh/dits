@@ -4,6 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,6 +30,8 @@ public class AppController {
             session.setAttribute("role", "Tutor");
             return new ModelAndView("redirect: /tutor/tutor_main");
         } else if ("[ROLE_USER]".equalsIgnoreCase(role)) {
+            String name = authentication.getName();
+            request.getSession().setAttribute("login", name);
             session.setAttribute("role", "User");
             return new ModelAndView("redirect: /user/user_main");
         } else {

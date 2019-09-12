@@ -6,27 +6,73 @@
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
 <body>
-<h4 align="center">Выбор темы и теста </h4>
-<table align="center" border="0" cellspacing="2">
-    <tbody>
-    <tr >
-        <td rowspan="2">
-            <img width="50%" height="50%" src="<c:url value="/resources/images/human1.png"/>">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <table>
-                <tr>
-                    <td> Название темы </td>
-                </tr>
-                <tr>
-                    <td> Название теста </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<form class="align-form" name="testId"  action ="<c:url value="/user/select_topic_and_test_start"/>" method="get">
+    <label for="topics"></label>
+    <select id="topics" onchange="updateTopic()">
+        <option hidden selected value="0">Выберите тему</option>
+        <c:forEach items="${topics}" var="x">
+            <option value="${x.topicId}">${x.name}</option>
+        </c:forEach>
+    </select>
+    <br>
+    <label for="tests"></label>
+    <select hidden id="tests" name="testId">
+        <option hidden selected value="0">Выберите тест</option>
+        <c:forEach items="${tests}" var="x">
+            <option hidden value="${x.testId}">${x.name}</option>
+        </c:forEach>
+    </select>
+    <br>
+    <br>
+    <br>
+    <input id="data" name="selectData" type="hidden" value="[]"/>
+<%--     <input type="button" name="start" value="Пройти тестирование">--%>
+    <button name="start" onclick="setData()"  >Пройти тестирование</button>
+    <script>
+        var topicsList = [
+            <c:forEach items="${topics}" var="x">
+            {
+                id: ${x.topicId},
+                name: "${x.name}",
+                description: "${x.description}"
+            },
+            </c:forEach>
+        ];
+        var testsList = [
+            <c:forEach items="${tests}" var="x">
+            {
+                id: ${x.testId},
+                topicId: ${x.topicId},
+                name: "${x.name}",
+                description: "${x.description}",
+                action: "none"
+            },
+            </c:forEach>
+        ];
+        function updateTopic() {
+            var topics = document.getElementById("topics");
+            var tests = document.getElementById("tests");
+            var topicId = topics[topics.selectedIndex].value;
+            tests.hidden = false;
+
+            for (var j = 1; j < testsList.length; j++) {
+                tests.options.remove(1);
+            }
+            for (var i = 0; i < testsList.length; i++) {
+                if (testsList[i].topicId == topicId) {
+                    var option = document.createElement("option");
+                    option.value = testsList[i].id;
+                    option.text = testsList[i].name;
+                    tests.options.add(option);
+                }
+            }
+        }
+        function setData() {
+            var selectData = document.getElementById("testId");
+            selectData.value = '<%= request.getAttribute("testId")%>';
+        }
+    </script>
+</form>
+
 </body>
 </html>

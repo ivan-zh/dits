@@ -7,6 +7,7 @@ import z.ivan.model.Answer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -17,9 +18,16 @@ public class AnswerDaoImpl extends CrudDaoImpl<Answer> implements AnswerDao {
     private static final String COLUMN_DESCRIPTION = "description";
     private static final String COLUMN_QUESTION_ID = "questionid";
     private static final String COLUMN_CORRECT = "correct";
+    private static final String SQL_GET_BY_QUESTION_ID = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_QUESTION_ID + " = ?";
+
 
     public AnswerDaoImpl() {
         super(TABLE_NAME, COLUMN_ANSWER_ID, AnswerDaoImpl::mapRow, AnswerDaoImpl::mapData);
+    }
+
+    @Override
+    public List<Answer> getByAnswerId(Long questionId) {
+        return this.getJdbcTemplate().query(SQL_GET_BY_QUESTION_ID, new Object[]{questionId}, AnswerDaoImpl::mapRow);
     }
 
     private static Map<String, Object> mapData(Answer answer) {
@@ -39,4 +47,6 @@ public class AnswerDaoImpl extends CrudDaoImpl<Answer> implements AnswerDao {
         answer.setCorrect(resultSet.getBoolean(COLUMN_CORRECT));
         return answer;
     }
+
+
 }

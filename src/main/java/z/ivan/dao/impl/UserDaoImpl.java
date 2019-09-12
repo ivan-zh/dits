@@ -1,5 +1,6 @@
 package z.ivan.dao.impl;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 import z.ivan.dao.UserDao;
 import z.ivan.model.User;
