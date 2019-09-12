@@ -5,7 +5,6 @@
     <title>Выбор темы и теста</title>
     <link rel="stylesheet" href="<c:url value="/css/common_style.css"/>" type="text/css"/>
 </head>
-<body>
 <form class="align-form" name="testId"  action ="<c:url value="/user/select_topic_and_test_start"/>" method="get">
     <label for="topics"></label>
     <select id="topics" onchange="updateTopic()">

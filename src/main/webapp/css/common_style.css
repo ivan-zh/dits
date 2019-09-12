@@ -107,6 +107,22 @@ table.centered {
 
 }
 
+table.center {
+    width: 100%;
+    margin: 150px 50px 50px 50px;
+    align-content: center;
+    text-align: center;
+    border: 0;
+    border-spacing: 0.7em;
+}
+
+.align-form {
+    display: inline-block;
+    margin: 120px 100px 50px 50px;
+    width: fit-content;
+    text-align: center;
+}
+
 table.smaller_font {
     font-size: 16px !important;
     font-family: "Verdana", serif;

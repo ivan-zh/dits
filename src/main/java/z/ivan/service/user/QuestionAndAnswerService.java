@@ -19,13 +19,10 @@ public class QuestionAndAnswerService {
         this.answerDao = answerDao;
     }
 
-    public List<Question> getByTestId(Long testId) {
-        return questionDao.getByTestId(testId);
-    }
+
     public List<Question> getQuestionList() {
         return questionDao.getAll();
     }
-
 
     public List<Answer> getAnswerList() {
         return answerDao.getAll();
@@ -34,8 +31,11 @@ public class QuestionAndAnswerService {
     public List<Question> getQuestionByQuestionId(Long testId, Long questionId){
         return questionDao.getQuestionByQuestionId(testId, questionId);
     }
-
+    public List<Question> getByTestId(Long testId){
+        return questionDao.getByTestId(testId);
+    }
    public List<Answer> getByAnswerId(Long questionId){
         return answerDao.getByAnswerId(questionId);
    }
+
 }
